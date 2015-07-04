@@ -35,6 +35,11 @@ public interface Constants {
 	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	
 	/**
+	 * 日期格式
+	 */
+	public static final String DATE_FORMAT_For_Entity = "yyyy-MM-dd HH:mm:ss";
+	
+	/**
 	 * 时分秒格式日期
 	 */
 	public static final SimpleDateFormat df3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
