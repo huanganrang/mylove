@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="jb.model.TbshootPraise" %>
+<%@ page import="jb.model.TlvArea" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script type="text/javascript">
 	$(function() {
 		parent.$.messager.progress('close');
 		$('#form').form({
-			url : '${pageContext.request.contextPath}/bshootPraiseController/edit',
+			url : '${pageContext.request.contextPath}/lvAreaController/edit',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -34,16 +34,22 @@
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: hidden;">
 		<form id="form" method="post">
-				<input type="hidden" name="id" value = "${bshootPraise.id}"/>
+				<input type="hidden" name="id" value = "${lvArea.id}"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TbshootPraise.ALIAS_USER_ID%></th>	
+					<th><%=TlvArea.ALIAS_CODE%></th>	
 					<td>
-					<input class="span2" name="userId" type="text" class="span2"  value="${bshootPraise.userId}"/>
+					<input class="span2" name="code" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvArea.code}"/>
 					</td>							
-					<th><%=TbshootPraise.ALIAS_BSHOOT_ID%></th>	
+					<th><%=TlvArea.ALIAS_NAME%></th>	
 					<td>
-					<input class="span2" name="bshootId" type="text" class="span2"  value="${bshootPraise.bshootId}"/>
+					<input class="span2" name="name" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvArea.name}"/>
+					</td>							
+			</tr>	
+				<tr>	
+					<th><%=TlvArea.ALIAS_PARENT_CODE%></th>	
+					<td>
+					<input class="span2" name="parentCode" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvArea.parentCode}"/>
 					</td>							
 			</tr>	
 			</table>				

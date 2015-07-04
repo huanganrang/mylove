@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="jb.model.TbshootComment" %>
+<%@ page import="jb.model.TlvPartnerCondition" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script type="text/javascript">
 	$(function() {
 		parent.$.messager.progress('close');
 		$('#form').form({
-			url : '${pageContext.request.contextPath}/bshootCommentController/edit',
+			url : '${pageContext.request.contextPath}/lvPartnerConditionController/edit',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -34,26 +34,42 @@
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: hidden;">
 		<form id="form" method="post">
-				<input type="hidden" name="id" value = "${bshootComment.id}"/>
+				<input type="hidden" name="id" value = "${lvPartnerCondition.id}"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TbshootComment.ALIAS_USER_ID%></th>	
+					<th><%=TlvPartnerCondition.ALIAS_ACCOUNT_ID%></th>	
 					<td>
-					<input class="span2" name="userId" type="text" class="span2"  value="${bshootComment.userId}"/>
+					<input class="span2" name="accountId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvPartnerCondition.accountId}"/>
 					</td>							
-					<th><%=TbshootComment.ALIAS_BSHOOT_ID%></th>	
+					<th><%=TlvPartnerCondition.ALIAS_AGE%></th>	
 					<td>
-					<input class="span2" name="bshootId" type="text" class="span2"  value="${bshootComment.bshootId}"/>
+					<input class="span2" name="age" type="text" class="span2"  value="${lvPartnerCondition.age}"/>
 					</td>							
 			</tr>	
 				<tr>	
-					<th><%=TbshootComment.ALIAS_PARENT_ID%></th>	
+					<th><%=TlvPartnerCondition.ALIAS_ADDRESS%></th>	
 					<td>
-					<input class="span2" name="parentId" type="text" class="span2"  value="${bshootComment.parentId}"/>
+					<input class="span2" name="address" type="text" class="span2"  value="${lvPartnerCondition.address}"/>
 					</td>							
-					<th><%=TbshootComment.ALIAS_BS_COMMENT_TEXT%></th>	
+					<th><%=TlvPartnerCondition.ALIAS_HEIGHT%></th>	
 					<td>
-					<input class="span2" name="bsCommentText" type="text" class="span2"  value="${bshootComment.bsCommentText}"/>
+					<input class="span2" name="height" type="text" class="span2"  value="${lvPartnerCondition.height}"/>
+					</td>							
+			</tr>	
+				<tr>	
+					<th><%=TlvPartnerCondition.ALIAS_WEIGHT%></th>	
+					<td>
+					<input class="span2" name="weight" type="text" class="span2"  value="${lvPartnerCondition.weight}"/>
+					</td>							
+					<th><%=TlvPartnerCondition.ALIAS_EDUCATION%></th>	
+					<td>
+					<input class="span2" name="education" type="text" class="span2"  value="${lvPartnerCondition.education}"/>
+					</td>							
+			</tr>	
+				<tr>	
+					<th><%=TlvPartnerCondition.ALIAS_MONTH_INCOME%></th>	
+					<td>
+					<input class="span2" name="monthIncome" type="text" class="span2"  value="${lvPartnerCondition.monthIncome}"/>
 					</td>							
 			</tr>	
 			</table>				

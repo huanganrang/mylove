@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="jb.model.TbshootPraise" %>
+<%@ page import="jb.model.TlvAccountPhoto" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script type="text/javascript">
 	$(function() {
 		parent.$.messager.progress('close');
 		$('#form').form({
-			url : '${pageContext.request.contextPath}/bshootPraiseController/edit',
+			url : '${pageContext.request.contextPath}/lvAccountPhotoController/edit',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -34,16 +34,22 @@
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: hidden;">
 		<form id="form" method="post">
-				<input type="hidden" name="id" value = "${bshootPraise.id}"/>
+				<input type="hidden" name="id" value = "${lvAccountPhoto.id}"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TbshootPraise.ALIAS_USER_ID%></th>	
+					<th><%=TlvAccountPhoto.ALIAS_ACCOUNT_ID%></th>	
 					<td>
-					<input class="span2" name="userId" type="text" class="span2"  value="${bshootPraise.userId}"/>
+					<input class="span2" name="accountId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvAccountPhoto.accountId}"/>
 					</td>							
-					<th><%=TbshootPraise.ALIAS_BSHOOT_ID%></th>	
+					<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
 					<td>
-					<input class="span2" name="bshootId" type="text" class="span2"  value="${bshootPraise.bshootId}"/>
+					<input class="span2" name="photoImg" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvAccountPhoto.photoImg}"/>
+					</td>							
+			</tr>	
+				<tr>	
+					<th><%=TlvAccountPhoto.ALIAS_CREATE_TIME%></th>	
+					<td>
+					<input class="span2" name="createTime" type="text" onclick="WdatePicker({dateFmt:'<%=TlvAccountPhoto.FORMAT_CREATE_TIME%>'})"   maxlength="0" value="${lvAccountPhoto.createTime}"/>
 					</td>							
 			</tr>	
 			</table>				

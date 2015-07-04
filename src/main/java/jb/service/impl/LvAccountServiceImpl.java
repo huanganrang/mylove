@@ -1,7 +1,6 @@
 package jb.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +9,11 @@ import java.util.UUID;
 import jb.absx.F;
 import jb.dao.LvAccountDaoI;
 import jb.model.TlvAccount;
-import jb.pageModel.LvAccount;
 import jb.pageModel.DataGrid;
+import jb.pageModel.LvAccount;
 import jb.pageModel.PageHelper;
 import jb.service.LvAccountServiceI;
+import jb.util.MyBeanUtils;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +101,7 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	public void edit(LvAccount lvAccount) {
 		TlvAccount t = lvAccountDao.get(TlvAccount.class, lvAccount.getId());
 		if (t != null) {
-			BeanUtils.copyProperties(lvAccount, t, new String[] { "id" , "createdatetime" });
+			MyBeanUtils.copyProperties(lvAccount, t, new String[] { "id" , "createdatetime" }, true);
 			//t.setModifydatetime(new Date());
 		}
 	}

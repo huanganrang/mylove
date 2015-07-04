@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="jb.model.TbshootPraise" %>
+<%@ page import="jb.model.TlvPartnerCondition" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script type="text/javascript">
 	$(function() {
 	 parent.$.messager.progress('close');
 		$('#form').form({
-			url : '${pageContext.request.contextPath}/bshootPraiseController/add',
+			url : '${pageContext.request.contextPath}/lvPartnerConditionController/add',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -37,13 +37,39 @@
 				<input type="hidden" name="id"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TbshootPraise.ALIAS_USER_ID%></th>	
+					<th><%=TlvPartnerCondition.ALIAS_ACCOUNT_ID%></th>	
 					<td>
-					<input class="span2" name="userId" type="text" class="span2"/>
+					<input class="span2" name="accountId" type="text" class="easyui-validatebox span2" data-options="required:true"/>
 					</td>							
-					<th><%=TbshootPraise.ALIAS_BSHOOT_ID%></th>	
+					<th><%=TlvPartnerCondition.ALIAS_AGE%></th>	
 					<td>
-					<input class="span2" name="bshootId" type="text" class="span2"/>
+					<input class="span2" name="age" type="text" class="span2"/>
+					</td>							
+				</tr>	
+				<tr>	
+					<th><%=TlvPartnerCondition.ALIAS_ADDRESS%></th>	
+					<td>
+					<input class="span2" name="address" type="text" class="span2"/>
+					</td>							
+					<th><%=TlvPartnerCondition.ALIAS_HEIGHT%></th>	
+					<td>
+					<input class="span2" name="height" type="text" class="span2"/>
+					</td>							
+				</tr>	
+				<tr>	
+					<th><%=TlvPartnerCondition.ALIAS_WEIGHT%></th>	
+					<td>
+					<input class="span2" name="weight" type="text" class="span2"/>
+					</td>							
+					<th><%=TlvPartnerCondition.ALIAS_EDUCATION%></th>	
+					<td>
+					<input class="span2" name="education" type="text" class="span2"/>
+					</td>							
+				</tr>	
+				<tr>	
+					<th><%=TlvPartnerCondition.ALIAS_MONTH_INCOME%></th>	
+					<td>
+					<input class="span2" name="monthIncome" type="text" class="span2"/>
 					</td>							
 				</tr>	
 			</table>		
