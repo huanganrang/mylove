@@ -152,7 +152,7 @@ public class TlvAccount implements java.io.Serializable{
 		return this.id;
 	}
 	
-	@Column(name = "openId", unique = false, nullable = false, insertable = true, updatable = true, length = 10)
+	@Column(name = "openId", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
 	public java.lang.Integer getOpenId() {
 		return this.openId;
 	}
