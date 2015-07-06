@@ -1,19 +1,23 @@
 ﻿
 /*
  * @author John
- * @date - 2015-07-04
+ * @date - 2015-07-06
  */
 
 package jb.model;
 
-import javax.persistence.*;
-
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "lv_visit")
 @DynamicInsert(true)
@@ -24,8 +28,8 @@ public class TlvVisit implements java.io.Serializable{
 	//alias
 	public static final String TABLE_ALIAS = "LvVisit";
 	public static final String ALIAS_ID = "主键";
-	public static final String ALIAS_ACCOUNT_ID = "用户ID";
-	public static final String ALIAS_VISIT_ACCOUNT_ID = "来访用户ID";
+	public static final String ALIAS_OPEN_ID = "用户openId";
+	public static final String ALIAS_VISIT_OPEN_ID = "来访用户openId";
 	public static final String ALIAS_CREATE_TIME = "来访时间";
 	
 	//date formats
@@ -36,12 +40,14 @@ public class TlvVisit implements java.io.Serializable{
 	//columns START
 	//@Length(max=36)
 	private java.lang.String id;
-	//@NotBlank @Length(max=36)
-	private java.lang.String accountId;
-	//@NotBlank @Length(max=36)
-	private java.lang.String visitAccountId;
+	//@NotNull 
+	private java.lang.Integer openId;
+	//@NotNull 
+	private java.lang.Integer visitOpenId;
 	//@NotNull 
 	private java.util.Date createTime;
+	private TlvAccount tlvAccount;
+	private TlvAccount visitTlvAccount;
 	//columns END
 
 
@@ -62,22 +68,22 @@ public class TlvVisit implements java.io.Serializable{
 		return this.id;
 	}
 	
-	@Column(name = "accountId", unique = false, nullable = false, insertable = true, updatable = true, length = 36)
-	public java.lang.String getAccountId() {
-		return this.accountId;
+	@Column(name = "openId", unique = false, nullable = false, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getOpenId() {
+		return this.openId;
 	}
 	
-	public void setAccountId(java.lang.String accountId) {
-		this.accountId = accountId;
+	public void setOpenId(java.lang.Integer openId) {
+		this.openId = openId;
 	}
 	
-	@Column(name = "visitAccountId", unique = false, nullable = false, insertable = true, updatable = true, length = 36)
-	public java.lang.String getVisitAccountId() {
-		return this.visitAccountId;
+	@Column(name = "visitOpenId", unique = false, nullable = false, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getVisitOpenId() {
+		return this.visitOpenId;
 	}
 	
-	public void setVisitAccountId(java.lang.String visitAccountId) {
-		this.visitAccountId = visitAccountId;
+	public void setVisitOpenId(java.lang.Integer visitOpenId) {
+		this.visitOpenId = visitOpenId;
 	}
 	
 
@@ -91,12 +97,36 @@ public class TlvVisit implements java.io.Serializable{
 	}
 	
 	
+	public void setVisitTlvAccount(TlvAccount visitTlvAccount){
+		this.visitTlvAccount = visitTlvAccount;
+	}
+	
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name = "visitOpenId",nullable = false, insertable = false, updatable = false) 
+	})
+	public TlvAccount getVisitTlvAccount() {
+		return visitTlvAccount;
+	}
+	
+	public void setTlvAccount(TlvAccount tlvAccount){
+		this.tlvAccount = tlvAccount;
+	}
+	
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name = "openId",nullable = false, insertable = false, updatable = false) 
+	})
+	public TlvAccount getTlvAccount() {
+		return tlvAccount;
+	}
+	
 	/*
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("Id",getId())
-			.append("AccountId",getAccountId())
-			.append("VisitAccountId",getVisitAccountId())
+			.append("OpenId",getOpenId())
+			.append("VisitOpenId",getVisitOpenId())
 			.append("CreateTime",getCreateTime())
 			.toString();
 	}

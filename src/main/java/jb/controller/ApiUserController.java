@@ -112,7 +112,7 @@ public class ApiUserController extends BaseController {
 	private void uploadFile(HttpServletRequest request,User user,MultipartFile headImageFile){
 		if(headImageFile==null||headImageFile.isEmpty())
 			return;
-		String realPath = request.getSession().getServletContext().getRealPath("/"+Constants.UPLOADFILE_HEADIMAGE+"/"+user.getName());  
+		String realPath = request.getSession().getServletContext().getRealPath("/"+Constants.UPLOADFILE_IMAGE+"/"+user.getName());  
 		File file = new File(realPath);
 		if(!file.exists())
 			file.mkdir();
@@ -120,7 +120,7 @@ public class ApiUserController extends BaseController {
 		String fileName = user.getName()+suffix;		
 		 try {
 			FileUtils.copyInputStreamToFile(headImageFile.getInputStream(), new File(realPath, fileName));
-			user.setHeadImage(Constants.UPLOADFILE_HEADIMAGE+"/"+user.getName()+"/"+fileName);
+			user.setHeadImage(Constants.UPLOADFILE_IMAGE+"/"+user.getName()+"/"+fileName);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

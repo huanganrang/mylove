@@ -10,9 +10,9 @@
 	<div data-options="region:'center',border:false">
 		<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvFeedback.ALIAS_ACCOUNT_ID%></th>	
+					<th><%=TlvFeedback.ALIAS_OPEN_ID%></th>	
 					<td>
-						${lvFeedback.accountId}							
+						${lvFeedback.openId}							
 					</td>							
 					<th><%=TlvFeedback.ALIAS_CONTACT_WAY%></th>	
 					<td>

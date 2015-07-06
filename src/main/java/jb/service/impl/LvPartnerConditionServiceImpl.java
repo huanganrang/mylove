@@ -48,10 +48,6 @@ public class LvPartnerConditionServiceImpl extends BaseServiceImpl<LvPartnerCond
 		String whereHql = "";	
 		if (lvPartnerCondition != null) {
 			whereHql += " where 1=1 ";
-			if (!F.empty(lvPartnerCondition.getAccountId())) {
-				whereHql += " and t.accountId = :accountId";
-				params.put("accountId", lvPartnerCondition.getAccountId());
-			}		
 			if (!F.empty(lvPartnerCondition.getAge())) {
 				whereHql += " and t.age = :age";
 				params.put("age", lvPartnerCondition.getAge());

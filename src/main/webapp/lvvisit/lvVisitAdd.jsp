@@ -37,13 +37,13 @@
 				<input type="hidden" name="id"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvVisit.ALIAS_ACCOUNT_ID%></th>	
+					<th><%=TlvVisit.ALIAS_OPEN_ID%></th>	
 					<td>
-					<input class="span2" name="accountId" type="text" class="easyui-validatebox span2" data-options="required:true"/>
+					<input class="span2" name="openId" type="text" class="easyui-validatebox span2" data-options="required:true"/>
 					</td>							
-					<th><%=TlvVisit.ALIAS_VISIT_ACCOUNT_ID%></th>	
+					<th><%=TlvVisit.ALIAS_VISIT_OPEN_ID%></th>	
 					<td>
-					<input class="span2" name="visitAccountId" type="text" class="easyui-validatebox span2" data-options="required:true"/>
+					<input class="span2" name="visitOpenId" type="text" class="easyui-validatebox span2" data-options="required:true"/>
 					</td>							
 				</tr>	
 				<tr>	

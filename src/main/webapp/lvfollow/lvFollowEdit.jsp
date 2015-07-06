@@ -37,13 +37,13 @@
 				<input type="hidden" name="id" value = "${lvFollow.id}"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvFollow.ALIAS_FROM_ACCOUNT_ID%></th>	
+					<th><%=TlvFollow.ALIAS_FROM_OPEN_ID%></th>	
 					<td>
-					<input class="span2" name="fromAccountId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvFollow.fromAccountId}"/>
+					<input class="span2" name="fromOpenId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvFollow.fromOpenId}"/>
 					</td>							
-					<th><%=TlvFollow.ALIAS_TO_ACCOUNT_ID%></th>	
+					<th><%=TlvFollow.ALIAS_TO_OPEN_ID%></th>	
 					<td>
-					<input class="span2" name="toAccountId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvFollow.toAccountId}"/>
+					<input class="span2" name="toOpenId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvFollow.toOpenId}"/>
 					</td>							
 			</tr>	
 				<tr>	

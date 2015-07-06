@@ -8,7 +8,7 @@ public class LvAccountPhoto implements java.io.Serializable {
 	private static final long serialVersionUID = 5454155825314635342L;
 
 	private java.lang.String id;	
-	private java.lang.Integer accountId;	
+	private java.lang.Integer openId;	
 	private java.lang.String photoImg;	
 	private Date createTime;			
 
@@ -23,12 +23,12 @@ public class LvAccountPhoto implements java.io.Serializable {
 	}
 
 	
-	public void setAccountId(java.lang.Integer accountId) {
-		this.accountId = accountId;
+	public void setOpenId(java.lang.Integer openId) {
+		this.openId = openId;
 	}
 	
-	public java.lang.Integer getAccountId() {
-		return this.accountId;
+	public java.lang.Integer getOpenId() {
+		return this.openId;
 	}
 	public void setPhotoImg(java.lang.String photoImg) {
 		this.photoImg = photoImg;

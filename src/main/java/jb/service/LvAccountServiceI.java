@@ -51,4 +51,14 @@ public interface LvAccountServiceI {
 	 */
 	public void delete(String id);
 
+	public LvAccount reg(LvAccount lvAccount);
+
+	public LvAccount login(LvAccount lvAccount);
+
+	public void updatePass(LvAccount lvAccount) throws Exception ;
+
+	public void editByParam(LvAccount lvAccount) throws Exception ;
+
+	public LvAccount queryPersonInfoByParam(LvAccount lvAccount);
+
 }

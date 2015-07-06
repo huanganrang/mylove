@@ -10,13 +10,13 @@
 	<div data-options="region:'center',border:false">
 		<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvFollow.ALIAS_FROM_ACCOUNT_ID%></th>	
+					<th><%=TlvFollow.ALIAS_FROM_OPEN_ID%></th>	
 					<td>
-						${lvFollow.fromAccountId}							
+						${lvFollow.fromOpenId}							
 					</td>							
-					<th><%=TlvFollow.ALIAS_TO_ACCOUNT_ID%></th>	
+					<th><%=TlvFollow.ALIAS_TO_OPEN_ID%></th>	
 					<td>
-						${lvFollow.toAccountId}							
+						${lvFollow.toOpenId}							
 					</td>							
 				</tr>		
 				<tr>	

@@ -48,6 +48,10 @@
 				width : 150,
 				hidden : true
 				}, {
+				field : 'openId',
+				title : '<%=TlvAccount.ALIAS_OPEN_ID%>',
+				width : 50		
+				}, {
 				field : 'loginName',
 				title : '<%=TlvAccount.ALIAS_LOGIN_NAME%>',
 				width : 50		
@@ -291,6 +295,10 @@
 			<form id="searchForm">
 				<table class="table table-hover table-condensed" style="display: none;">
 						<tr>	
+							<th><%=TlvAccount.ALIAS_OPEN_ID%></th>	
+							<td>
+									<input type="text" name="openId" maxlength="10" class="span2"/>
+							</td>
 							<th><%=TlvAccount.ALIAS_LOGIN_NAME%></th>	
 							<td>
 									<input type="text" name="loginName" maxlength="20" class="span2"/>
@@ -301,14 +309,33 @@
 							</td>
 							<th><%=TlvAccount.ALIAS_PASSWORD%></th>	
 							<td>
-									<input type="text" name="password" maxlength="20" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_SEX%></th>	
-							<td>
-									<input type="text" name="sex" maxlength="10" class="span2"/>
+									<input type="text" name="password" maxlength="50" class="span2"/>
 							</td>
 						</tr>	
 						<tr>	
+							<th><%=TlvAccount.ALIAS_SEX%></th>	
+							<td>
+									<input type="text" name="sex" maxlength="20" class="span2"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_BIRTHDAY%></th>	
+							<td>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_BIRTHDAY%>'})" id="birthdayBegin" name="birthdayBegin"/>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_BIRTHDAY%>'})" id="birthdayEnd" name="birthdayEnd"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_HEIGHT%></th>	
+							<td>
+									<input type="text" name="height" maxlength="10" class="span2"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_WEIGHT%></th>	
+							<td>
+									<input type="text" name="weight" maxlength="10" class="span2"/>
+							</td>
+						</tr>	
+						<tr>	
+							<th><%=TlvAccount.ALIAS_MOBILE%></th>	
+							<td>
+									<input type="text" name="mobile" maxlength="20" class="span2"/>
+							</td>
 							<th><%=TlvAccount.ALIAS_QQ%></th>	
 							<td>
 									<input type="text" name="qq" maxlength="20" class="span2"/>
@@ -319,29 +346,83 @@
 							</td>
 							<th><%=TlvAccount.ALIAS_EDUCATION%></th>	
 							<td>
-									<input type="text" name="education" maxlength="10" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_PROFESSION%></th>	
-							<td>
-									<input type="text" name="profession" maxlength="10" class="span2"/>
+									<input type="text" name="education" maxlength="20" class="span2"/>
 							</td>
 						</tr>	
 						<tr>	
+							<th><%=TlvAccount.ALIAS_PROFESSION%></th>	
+							<td>
+									<input type="text" name="profession" maxlength="20" class="span2"/>
+							</td>
 							<th><%=TlvAccount.ALIAS_MONTH_INCOME%></th>	
 							<td>
-									<input type="text" name="monthIncome" maxlength="10" class="span2"/>
+									<input type="text" name="monthIncome" maxlength="20" class="span2"/>
 							</td>
 							<th><%=TlvAccount.ALIAS_MARRY_STATUS%></th>	
 							<td>
-									<input type="text" name="marryStatus" maxlength="10" class="span2"/>
+									<input type="text" name="marryStatus" maxlength="20" class="span2"/>
 							</td>
 							<th><%=TlvAccount.ALIAS_CONSTELLATION%></th>	
 							<td>
-									<input type="text" name="constellation" maxlength="10" class="span2"/>
+									<input type="text" name="constellation" maxlength="20" class="span2"/>
 							</td>
+						</tr>	
+						<tr>	
 							<th><%=TlvAccount.ALIAS_PERSON_DESC%></th>	
 							<td>
 									<input type="text" name="personDesc" maxlength="65535" class="span2"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_CREATE_TIME%></th>	
+							<td>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_CREATE_TIME%>'})" id="createTimeBegin" name="createTimeBegin"/>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_CREATE_TIME%>'})" id="createTimeEnd" name="createTimeEnd"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_UPDATE_TIME%></th>	
+							<td>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_UPDATE_TIME%>'})" id="updateTimeBegin" name="updateTimeBegin"/>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_UPDATE_TIME%>'})" id="updateTimeEnd" name="updateTimeEnd"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_AUDIT_STATUS%></th>	
+							<td>
+									<input type="text" name="auditStatus" maxlength="20" class="span2"/>
+							</td>
+						</tr>	
+						<tr>	
+							<th><%=TlvAccount.ALIAS_HEAD_IMG%></th>	
+							<td>
+									<input type="text" name="headImg" maxlength="100" class="span2"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_LONGITUDE%></th>	
+							<td>
+									<input type="text" name="longitude" maxlength="10" class="span2"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_LATITUDE%></th>	
+							<td>
+									<input type="text" name="latitude" maxlength="10" class="span2"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_VIP_LEVEL%></th>	
+							<td>
+									<input type="text" name="vipLevel" maxlength="20" class="span2"/>
+							</td>
+						</tr>	
+						<tr>	
+							<th><%=TlvAccount.ALIAS_VIP_OPEN_TIME%></th>	
+							<td>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_VIP_OPEN_TIME%>'})" id="vipOpenTimeBegin" name="vipOpenTimeBegin"/>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_VIP_OPEN_TIME%>'})" id="vipOpenTimeEnd" name="vipOpenTimeEnd"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_ONLINE%></th>	
+							<td>
+									<input type="text" name="online" maxlength="20" class="span2"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_LAST_LOGIN_TIME%></th>	
+							<td>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_LAST_LOGIN_TIME%>'})" id="lastLoginTimeBegin" name="lastLoginTimeBegin"/>
+								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_LAST_LOGIN_TIME%>'})" id="lastLoginTimeEnd" name="lastLoginTimeEnd"/>
+							</td>
+							<th><%=TlvAccount.ALIAS_VISIT_NUM%></th>	
+							<td>
+									<input type="text" name="visitNum" maxlength="10" class="span2"/>
 							</td>
 						</tr>	
 				</table>

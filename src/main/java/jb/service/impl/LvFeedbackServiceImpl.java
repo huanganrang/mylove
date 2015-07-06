@@ -48,10 +48,6 @@ public class LvFeedbackServiceImpl extends BaseServiceImpl<LvFeedback> implement
 		String whereHql = "";	
 		if (lvFeedback != null) {
 			whereHql += " where 1=1 ";
-			if (!F.empty(lvFeedback.getAccountId())) {
-				whereHql += " and t.accountId = :accountId";
-				params.put("accountId", lvFeedback.getAccountId());
-			}		
 			if (!F.empty(lvFeedback.getContactWay())) {
 				whereHql += " and t.contactWay = :contactWay";
 				params.put("contactWay", lvFeedback.getContactWay());

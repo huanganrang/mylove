@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import jb.absx.F;
 import jb.dao.LvFollowDaoI;
 import jb.model.TlvFollow;
 import jb.pageModel.DataGrid;
@@ -47,15 +46,6 @@ public class LvFollowServiceImpl extends BaseServiceImpl<LvFollow> implements Lv
 	protected String whereHql(LvFollow lvFollow, Map<String, Object> params) {
 		String whereHql = "";	
 		if (lvFollow != null) {
-			whereHql += " where 1=1 ";
-			if (!F.empty(lvFollow.getFromAccountId())) {
-				whereHql += " and t.fromAccountId = :fromAccountId";
-				params.put("fromAccountId", lvFollow.getFromAccountId());
-			}		
-			if (!F.empty(lvFollow.getToAccountId())) {
-				whereHql += " and t.toAccountId = :toAccountId";
-				params.put("toAccountId", lvFollow.getToAccountId());
-			}		
 		}	
 		return whereHql;
 	}

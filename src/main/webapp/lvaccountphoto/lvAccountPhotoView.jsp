@@ -10,9 +10,9 @@
 	<div data-options="region:'center',border:false">
 		<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvAccountPhoto.ALIAS_ACCOUNT_ID%></th>	
+					<th><%=TlvAccountPhoto.ALIAS_OPEN_ID%></th>	
 					<td>
-						${lvAccountPhoto.accountId}							
+						${lvAccountPhoto.openId}							
 					</td>							
 					<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
 					<td>

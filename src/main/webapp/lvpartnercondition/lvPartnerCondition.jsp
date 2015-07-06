@@ -48,8 +48,8 @@
 				width : 150,
 				hidden : true
 				}, {
-				field : 'accountId',
-				title : '<%=TlvPartnerCondition.ALIAS_ACCOUNT_ID%>',
+				field : 'openId',
+				title : '<%=TlvPartnerCondition.ALIAS_OPEN_ID%>',
 				width : 50		
 				}, {
 				field : 'age',
@@ -211,9 +211,9 @@
 			<form id="searchForm">
 				<table class="table table-hover table-condensed" style="display: none;">
 						<tr>	
-							<th><%=TlvPartnerCondition.ALIAS_ACCOUNT_ID%></th>	
+							<th><%=TlvPartnerCondition.ALIAS_OPEN_ID%></th>	
 							<td>
-									<input type="text" name="accountId" maxlength="36" class="span2"/>
+									<input type="text" name="openId" maxlength="10" class="span2"/>
 							</td>
 							<th><%=TlvPartnerCondition.ALIAS_AGE%></th>	
 							<td>

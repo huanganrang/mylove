@@ -37,9 +37,9 @@
 				<input type="hidden" name="id"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvFeedback.ALIAS_ACCOUNT_ID%></th>	
+					<th><%=TlvFeedback.ALIAS_OPEN_ID%></th>	
 					<td>
-					<input class="span2" name="accountId" type="text" class="easyui-validatebox span2" data-options="required:true"/>
+					<input class="span2" name="openId" type="text" class="easyui-validatebox span2" data-options="required:true"/>
 					</td>							
 					<th><%=TlvFeedback.ALIAS_CONTACT_WAY%></th>	
 					<td>
