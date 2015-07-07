@@ -19,6 +19,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert(true)
 @DynamicUpdate(true)
 public class TlvAccount implements java.io.Serializable{
+
 	private static final long serialVersionUID = 5454155825314635342L;
 	
 	//alias
@@ -53,6 +54,8 @@ public class TlvAccount implements java.io.Serializable{
 	public static final String ALIAS_LAST_LOGIN_TIME = "最近在线时间";
 	public static final String ALIAS_VISIT_NUM = "来访数量";
 	public static final String ALIAS_FOLLOW_NUM = "关注我的用户数量";
+	public static final String ALIAS_QQ_SECRET = "QQ公开度";
+	public static final String ALIAS_MOBILE_SECRET = "手机公开度";
 	
 	//date formats
 	public static final String FORMAT_BIRTHDAY = jb.util.Constants.DATE_FORMAT_For_Entity;
@@ -123,6 +126,8 @@ public class TlvAccount implements java.io.Serializable{
 	//
 	private java.lang.Integer visitNum;
 	private java.lang.Integer followNum;
+	private java.lang.Integer qqSecret;
+	private java.lang.Integer mobileSecret;
 	//columns END
 
 
@@ -407,6 +412,24 @@ public class TlvAccount implements java.io.Serializable{
 	
 	public void setFollowNum(java.lang.Integer followNum) {
 		this.followNum = followNum;
+	}
+	
+	@Column(name = "qqSecret", unique = false, nullable = true, insertable = true, updatable = true, length = 1)
+	public java.lang.Integer getQqSecret() {
+		return qqSecret;
+	}
+	
+	public void setQqSecret(java.lang.Integer qqSecret) {
+		this.qqSecret = qqSecret;
+	}
+	
+	@Column(name = "mobileSecret", unique = false, nullable = true, insertable = true, updatable = true, length = 1)
+	public java.lang.Integer getMobileSecret() {
+		return mobileSecret;
+	}
+	
+	public void setMobileSecret(java.lang.Integer mobileSecret) {
+		this.mobileSecret = mobileSecret;
 	}
 	
 	/*

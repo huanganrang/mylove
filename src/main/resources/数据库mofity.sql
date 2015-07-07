@@ -102,5 +102,15 @@ CREATE TABLE IF NOT EXISTS `lv_visit` (
 -- 2015-07-07 xuwm start --
 ALTER TABLE `lv_account`
 	ADD COLUMN `followNum` INT(11) NULL DEFAULT '0' COMMENT '关注我的用户数量' AFTER `visitNum`;
+ALTER TABLE `lv_account`
+	ADD COLUMN `qqSecret` INT(1) NULL DEFAULT '0' COMMENT 'QQ公开度（0:对VIP用户公开；1：保密）' AFTER `visitNum`,
+	ADD COLUMN `mobileSecret` INT(1) NULL DEFAULT '0' COMMENT '手机号公开度(0:对VIP用户公开；1：保密)' AFTER `qqSecret`;
+ALTER TABLE `lv_partner_condition`
+	CHANGE COLUMN `age` `age` VARCHAR(50) NULL DEFAULT '不限' COMMENT '年龄' AFTER `openId`,
+	CHANGE COLUMN `address` `address` VARCHAR(50) NULL DEFAULT '不限' COMMENT '居住地' AFTER `age`,
+	CHANGE COLUMN `height` `height` VARCHAR(50) NULL DEFAULT '不限' COMMENT '身高' AFTER `address`,
+	CHANGE COLUMN `weight` `weight` VARCHAR(50) NULL DEFAULT '不限' COMMENT '体重' AFTER `height`,
+	CHANGE COLUMN `education` `education` VARCHAR(50) NULL DEFAULT '不限' COMMENT '学历' AFTER `weight`,
+	CHANGE COLUMN `monthIncome` `monthIncome` VARCHAR(50) NULL DEFAULT '不限' COMMENT '月收入' AFTER `education`;
 -- 2015-07-07 xuwm end --
 	

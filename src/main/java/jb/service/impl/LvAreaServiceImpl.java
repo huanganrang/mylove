@@ -97,4 +97,20 @@ public class LvAreaServiceImpl extends BaseServiceImpl<LvArea> implements LvArea
 		lvAreaDao.delete(lvAreaDao.get(TlvArea.class, id));
 	}
 
+
+	@Override
+	public List<LvArea> queryAllList() {
+		List<LvArea> ol = new ArrayList<LvArea>();
+		
+		List<TlvArea> l = lvAreaDao.find("from TlvArea t order by t.code");
+		if (l != null && l.size() > 0) {
+			for (TlvArea t : l) {
+				LvArea o = new LvArea();
+				BeanUtils.copyProperties(t, o);
+				ol.add(o);
+			}
+		}
+		return ol;
+	}
+
 }

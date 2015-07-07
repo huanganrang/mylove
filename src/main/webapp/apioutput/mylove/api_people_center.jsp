@@ -36,9 +36,9 @@
 			style="padding: 1px"></div>
 		<div title="征友条件(改)" data-options="href:'api_people_center_friendConditionUpdate.jsp'"
 			style="padding: 1px"></div>	
-		<div title="行政区划" data-options="href:'api_people_center_friendConditionUpdate.jsp'"
+		<div title="行政区划" data-options="href:'api_people_center_arealist.jsp'"
 			style="padding: 1px"></div>		
-		<div title="意见反馈" data-options="href:'api_people_center_idea.jsp'"
+		<div title="意见反馈" data-options="href:'api_people_center_feedback.jsp'"
 			style="padding: 1px"></div>	
 		<div title="充值记录" data-options="href:'../api_doing.jsp'"
 			style="padding: 1px"></div>										
