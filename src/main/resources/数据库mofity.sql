@@ -1,3 +1,4 @@
+-- 2015-07-06 xuwm start --
 DROP TABLE IF EXISTS `lv_account`;
 CREATE TABLE IF NOT EXISTS `lv_account` (
   `id` varchar(36) NOT NULL COMMENT '主键',
@@ -96,3 +97,10 @@ CREATE TABLE IF NOT EXISTS `lv_visit` (
   CONSTRAINT `FK_lv_visit_lv_account` FOREIGN KEY (`openId`) REFERENCES `lv_account` (`openId`),
   CONSTRAINT `FK_lv_visit_lv_account_2` FOREIGN KEY (`visitOpenId`) REFERENCES `lv_account` (`openId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='来访信息表';
+-- 2015-07-06 xuwm end --
+
+-- 2015-07-07 xuwm start --
+ALTER TABLE `lv_account`
+	ADD COLUMN `followNum` INT(11) NULL DEFAULT '0' COMMENT '关注我的用户数量' AFTER `visitNum`;
+-- 2015-07-07 xuwm end --
+	

@@ -22,6 +22,8 @@ public abstract class BaseServiceImpl<T> {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected DataGrid dataGridQuery(String hql,PageHelper ph,T t,BaseDaoI dao){
 		DataGrid dg = new DataGrid();
+		dg.setPage(Long.valueOf(ph.getPage()));
+		dg.setPageSize(Long.valueOf(ph.getRows()));
 		Map<String, Object> params = new HashMap<String, Object>();
 		String where = whereHql(t, params);
 		List<T> l = dao.find(hql  + where + orderHql(ph), params, ph.getPage(), ph.getRows());

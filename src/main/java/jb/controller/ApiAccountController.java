@@ -3,30 +3,21 @@ package jb.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import jb.absx.F;
 import jb.interceptors.TokenManage;
-import jb.pageModel.Bshoot;
-import jb.pageModel.BshootToSquare;
 import jb.pageModel.DataGrid;
 import jb.pageModel.Json;
 import jb.pageModel.LvAccount;
+import jb.pageModel.LvAccountPhoto;
+import jb.pageModel.LvFollow;
 import jb.pageModel.LvVisit;
 import jb.pageModel.PageHelper;
-import jb.pageModel.SessionInfo;
-import jb.pageModel.User;
-import jb.pageModel.UserAttention;
-import jb.service.BshootCollectServiceI;
-import jb.service.BshootServiceI;
-import jb.service.BshootToSquareServiceI;
+import jb.service.LvAccountPhotoServiceI;
 import jb.service.LvAccountServiceI;
+import jb.service.LvFollowServiceI;
 import jb.service.LvVisitServiceI;
-import jb.service.UserAttentionServiceI;
-import jb.service.UserServiceI;
 import jb.util.Constants;
 import jb.util.StringUtil;
 
@@ -39,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Bshoot管理控制器
+ * 个人中心管理控制器
  * 
  * @author John
  * 
@@ -55,22 +46,13 @@ public class ApiAccountController extends BaseController {
 	private LvVisitServiceI lvVisitService;
 	
 	@Autowired
-	private UserServiceI userService;
+	private LvAccountPhotoServiceI photoService;
+	
+	@Autowired
+	private LvFollowServiceI followService;
 	
 	@Autowired
 	private TokenManage tokenManage;
-	
-	@Autowired
-	private BshootServiceI bshootService;
-	
-	@Autowired
-	private BshootCollectServiceI bshootCollectService;
-	
-	@Autowired
-	private UserAttentionServiceI userAttentionService;
-	
-	@Autowired
-	private BshootToSquareServiceI bshootToSquareService;
 	
 	/**
 	 * 用户登录
@@ -188,7 +170,7 @@ public class ApiAccountController extends BaseController {
 	}
 	
 	/**
-	 * 最近来访
+	 * 头像上传
 	 * @param lvAccount
 	 * @param request
 	 * @return
@@ -198,11 +180,90 @@ public class ApiAccountController extends BaseController {
 	public Json headImgUpload(LvAccount lvAccount, @RequestParam MultipartFile headImgFile, HttpServletRequest request) {
 		Json j = new Json();
 		try {
-			uploadFile(request, lvAccount, headImgFile);
-			lvAccount.setAuditStatus("AD02");
-			accountService.editByParam(lvAccount);
+			String headImg = uploadFile(request, lvAccount.getOpenId(), headImgFile);
+			if(headImg == null) {
+				j.setMsg("头像上传失败");
+			} else {
+				lvAccount.setHeadImg(headImg);
+				lvAccount.setAuditStatus("AD02");
+				accountService.editByParam(lvAccount);
+				j.setSuccess(true);
+				j.setMsg("头像上传成功");
+			}
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 我的相册上传
+	 * @param lvAccount
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/photoImgUpload")
+	public Json photoImgUpload(LvAccountPhoto photo, @RequestParam MultipartFile photoImgFile, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			String photoImg = uploadFile(request, photo.getOpenId(), photoImgFile);
+			if(photoImg == null) {
+				j.setMsg("相册上传失败");
+			} else {
+				photo.setPhotoImg(photoImg);
+				photo.setCreateTime(new Date());
+				photoService.add(photo);
+				j.setSuccess(true);
+				j.setMsg("相册上传成功");
+			}
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 关注我的/我关注的用户列表
+	 * @param lvAccount
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/dataGridFollowAccount")
+	public Json dataGridFollowAccount(LvFollow lvFollow, PageHelper ph, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			DataGrid dg = followService.dataGridAccount(lvFollow, ph);
 			j.setSuccess(true);
-			j.setMsg("头像上传成功");
+			j.setObj(dg);
+			j.setMsg("关注用户列表查询成功");
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 个人相册列表
+	 * @param lvAccount
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/dataGridPhoto")
+	public Json dataGridPhoto(LvAccountPhoto photo, PageHelper ph, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			ph.setSort("createTime");
+			ph.setOrder("desc");
+			DataGrid dg = photoService.dataGrid(photo, ph);
+			j.setSuccess(true);
+			j.setObj(dg);
+			j.setMsg("个人相册列表查询成功");
 		} catch (Exception e) {
 			// e.printStackTrace();
 			j.setMsg(e.getMessage());
@@ -232,10 +293,10 @@ public class ApiAccountController extends BaseController {
 		return j;
 	}
 	
-	private void uploadFile(HttpServletRequest request,LvAccount lvAccount,MultipartFile headImageFile){
+	private String uploadFile(HttpServletRequest request,Integer openId, MultipartFile headImageFile){
 		if(headImageFile==null||headImageFile.isEmpty())
-			return;
-		String realPath = request.getSession().getServletContext().getRealPath("/"+Constants.UPLOADFILE_IMAGE+"/"+lvAccount.getOpenId());  
+			return null;
+		String realPath = request.getSession().getServletContext().getRealPath("/"+Constants.UPLOADFILE_IMAGE+"/"+openId);  
 		File file = new File(realPath);
 		if(!file.exists())
 			file.mkdir();
@@ -243,262 +304,11 @@ public class ApiAccountController extends BaseController {
 		String fileName = System.currentTimeMillis() + StringUtil.getRandomNumber(4) + suffix;		
 		 try {
 			FileUtils.copyInputStreamToFile(headImageFile.getInputStream(), new File(realPath, fileName));
-			lvAccount.setHeadImg(Constants.UPLOADFILE_IMAGE+"/"+lvAccount.getOpenId()+"/"+fileName);
+			return Constants.UPLOADFILE_IMAGE+"/"+openId+"/"+fileName;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 		
 	}
 	
-	private SessionInfo getSessionInfo(HttpServletRequest request){
-		SessionInfo s = tokenManage.getSessionInfo(request);
-		return s;		
-	}
-	
-	/**
-	 * 关注用户
-	 * @param ua
-	 * @param request
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("/user_attention")
-	public Json userAttention(UserAttention ua,HttpServletRequest request) {
-		Json j = new Json();		
-		SessionInfo s = getSessionInfo(request);
-		ua.setUserId(s.getId());		
-		int r = userAttentionService.add(ua);
-		if(r==-1){
-			j.setSuccess(false);
-			j.setMsg("已经关注！");
-		}else{
-			j.setSuccess(true);
-			j.setMsg("成功！");
-			addMessage("MT01",ua.getAttUserId(),ua.getUserId());
-		}
-		
-		return j;
-	}
-	
-	
-	
-	/**
-	 * 取消关注用户
-	 * @param ua
-	 * @param request
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("/user_disattention")
-	public Json disUserAttention(UserAttention ua,HttpServletRequest request) {
-		Json j = new Json();
-		SessionInfo s = getSessionInfo(request);
-		ua.setUserId(s.getId());
-		int r = userAttentionService.deleteUa(ua);
-		if(r==-1){
-			j.setSuccess(false);
-			j.setMsg("已经取消！");
-		}else{
-			j.setSuccess(true);
-			j.setMsg("成功！");
-		}
-		return j;
-	}
-	
-	/**
-	 * 我的首页
-	 * @param request
-	 * @return
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
-	@ResponseBody
-	@RequestMapping("/user_index")
-	public Json userIndex(HttpServletRequest request) {
-		Json j = new Json();
-		String userId = request.getParameter("userId");
-		SessionInfo s = getSessionInfo(request);
-		if(F.empty(userId)){
-			userId = s.getId();
-		}
-		Map map = userService.userIndex(userId);
-		if(s!=null){
-			if(userAttentionService.get(s.getId(), userId)!=null){
-				map.put("attred", Constants.GLOBAL_BOOLEAN_TRUE);
-			}else{
-				map.put("attred", Constants.GLOBAL_BOOLEAN_FALSE);
-			}
-		}else{
-			map.put("attred", Constants.GLOBAL_NOT_LOGIN);
-		}
-		if(map == null){
-			j.setSuccess(false);
-			j.setMsg("不存在该用户");
-		}else{
-			j.setSuccess(true);
-			j.setObj(map);
-		}
-		return j;
-	}
-	
-	/**
-	 * 用户信息
-	 * @param request
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("/user_info")
-	public Json userInfo(HttpServletRequest request) {
-		Json j = new Json();
-		SessionInfo s = getSessionInfo(request);
-		User user = userService.get(s.getId());
-		if(user == null){
-			j.setSuccess(false);
-			j.setMsg("不存在该用户");
-		}else{
-			user.setPwd(null);
-			j.setSuccess(true);
-			j.setObj(user);
-		}
-		return j;
-	}
-	
-	/**
-	 * 添加Bshoot
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/upload")
-	@ResponseBody
-	public Json uploadBshoot(Bshoot bshoot,@RequestParam MultipartFile[] movies,@RequestParam MultipartFile[] icons, HttpServletRequest request) {
-		Json j = new Json();		
-		SessionInfo s = getSessionInfo(request);
-		String realPath = request.getSession().getServletContext().getRealPath("/"+Constants.UPLOADFILE+"/"+s.getName());  
-		File file = new File(realPath);
-		bshoot.setId(UUID.randomUUID().toString());
-		bshoot.setUserId(s.getId());
-		if(!file.exists())
-			file.mkdir();
-		
-		for(MultipartFile f : movies){
-			String suffix = f.getOriginalFilename().substring(f.getOriginalFilename().lastIndexOf("."));
-			String fileName = bshoot.getId()+suffix;
-			bshoot.setBsStream(s.getName()+"/"+fileName);
-			 try {
-				FileUtils.copyInputStreamToFile(f.getInputStream(), new File(realPath, fileName));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
-		
-		for(MultipartFile f : icons){
-			String suffix = f.getOriginalFilename().substring(f.getOriginalFilename().lastIndexOf("."));
-			String fileName = bshoot.getId()+suffix;
-			bshoot.setBsIcon(s.getName()+"/"+fileName);
-			 try {
-				FileUtils.copyInputStreamToFile(f.getInputStream(), new File(realPath, fileName));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
-		
-		bshootService.add(bshoot);	
-		j.setSuccess(true);
-		j.setMsg("添加成功！");		
-		return j;
-	}
-	
-	/**
-	 * 我的美拍
-	 * 
-	 * @param user
-	 * @return
-	 */
-	@RequestMapping("/user_mybshoots")
-	@ResponseBody
-	public DataGrid dataGridMyBs(Bshoot bshoot, PageHelper ph,HttpServletRequest request) {
-		if(F.empty(bshoot.getUserId())){
-			SessionInfo s = getSessionInfo(request);
-			bshoot.setUserId(s.getId());
-		}
-		DataGrid dg = bshootService.dataGrid(bshoot, ph,1);
-		
-		return dg;
-	}
-	
-
-	/**
-	 * 我的转发
-	 * @param bshoot
-	 * @param ph
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/user_mytranspond")
-	@ResponseBody
-	public DataGrid dataGridMytranspond(Bshoot bshoot, PageHelper ph,HttpServletRequest request) {
-		if(F.empty(bshoot.getUserId())){
-			SessionInfo s = getSessionInfo(request);
-			bshoot.setUserId(s.getId());
-		}
-		DataGrid dg = bshootService.dataGrid(bshoot, ph,2);
-		
-		return dg;
-	}
-	
-	/**
-	 * 我关注好友
-	 * @param bshoot
-	 * @param ph
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/user_myattruser")
-	@ResponseBody
-	public DataGrid dataGridMyattruser(UserAttention userAttention, PageHelper ph,HttpServletRequest request) {
-		if(F.empty(userAttention.getUserId())){
-			SessionInfo s = getSessionInfo(request);
-			userAttention.setUserId(s.getId());
-		}
-		DataGrid dg = userAttentionService.dataGridUser(userAttention, ph);
-		return dg;
-	}
-	
-	/**
-	 * 我的粉丝
-	 * @param bshoot
-	 * @param ph
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/user_myattreduser")
-	@ResponseBody
-	public DataGrid dataGridMyattreduser(UserAttention userAttention, PageHelper ph,HttpServletRequest request) {
-		if(F.empty(userAttention.getUserId())){
-			SessionInfo s = getSessionInfo(request);
-			userAttention.setAttUserId(s.getId());
-		}else{
-			userAttention.setAttUserId(userAttention.getUserId());
-		}
-		userAttention.setUserId(null);
-		DataGrid dg = userAttentionService.dataGridUser(userAttention, ph);
-		return dg;
-	}
-	
-	@RequestMapping("/user_bshootToSquare")
-	@ResponseBody
-	public Json bshootToSquare(BshootToSquare bshootToSquare, HttpServletRequest request) {
-		Json j = new Json();		
-		int i = bshootToSquareService.addFromUser(bshootToSquare);
-		if(i==1){
-			j.setSuccess(true);
-			j.setMsg("添加成功！");		
-		}else if(i==-1){
-			j.setSuccess(false);
-			j.setMsg("在审核中或已经上传到广场");	
-		}else{
-			j.setSuccess(false);
-			j.setMsg("失败");
-		}
-		return j;
-	}
 }

@@ -61,4 +61,6 @@ public interface LvAccountServiceI {
 
 	public LvAccount queryPersonInfoByParam(LvAccount lvAccount);
 
+	public LvAccount get(Integer openId);
+
 }

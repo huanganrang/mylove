@@ -14,9 +14,11 @@
 			style="padding: 1px"></div>
 		<div title="ID搜索" data-options="href:'api_home_queryById.jsp'"
 			style="padding: 1px"></div>	
-		<div title="个人详情" data-options="href:'api_home_personalInfo.jsp'"
+		<div title="个人详情" data-options="href:'api_people_center_personInfo.jsp'"
 			style="padding: 1px"></div>	
 		<div title="关注" data-options="href:'api_home_attention.jsp'"
+			style="padding: 1px"></div>
+		<div title="取消关注" data-options="href:'api_home_cancelAttention.jsp'"
 			style="padding: 1px"></div>
 		<div title="打招呼" data-options="href:'api_home_sayHello.jsp'"
 			style="padding: 1px"></div>	

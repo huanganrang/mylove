@@ -9,8 +9,8 @@ package jb.pageModel;
 @SuppressWarnings("serial")
 public class PageHelper implements java.io.Serializable {
 
-	private int page;// 当前页
-	private int rows;// 每页显示记录数
+	private int page = 1;// 当前页， 默认第1页
+	private int rows = 20;// 每页显示记录数， 默认20条
 	private String sort;// 排序字段
 	private String order;// asc/desc
 

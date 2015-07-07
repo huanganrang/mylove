@@ -6,14 +6,14 @@
 
 package jb.model;
 
-import javax.persistence.*;
-
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "lv_follow")
 @DynamicInsert(true)
@@ -88,20 +88,6 @@ public class TlvFollow implements java.io.Serializable{
 	
 	public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
-	}
-	
-	
-	private TlvAccount tlvAccount;
-	public void setTlvAccount(TlvAccount tlvAccount){
-		this.tlvAccount = tlvAccount;
-	}
-	
-	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name = "toOpenId",nullable = false, insertable = false, updatable = false) 
-	})
-	public TlvAccount getTlvAccount() {
-		return tlvAccount;
 	}
 	
 	/*

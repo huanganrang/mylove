@@ -6,15 +6,9 @@
 
 package jb.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -58,6 +52,7 @@ public class TlvAccount implements java.io.Serializable{
 	public static final String ALIAS_ONLINE = "在线状态";
 	public static final String ALIAS_LAST_LOGIN_TIME = "最近在线时间";
 	public static final String ALIAS_VISIT_NUM = "来访数量";
+	public static final String ALIAS_FOLLOW_NUM = "关注我的用户数量";
 	
 	//date formats
 	public static final String FORMAT_BIRTHDAY = jb.util.Constants.DATE_FORMAT_For_Entity;
@@ -127,11 +122,7 @@ public class TlvAccount implements java.io.Serializable{
 	private java.util.Date lastLoginTime;
 	//
 	private java.lang.Integer visitNum;
-	private Set<TlvPartnerCondition> tlvPartnerConditions = new HashSet<TlvPartnerCondition>(0);
-	private Set<TlvFollow> tlvFollows = new HashSet<TlvFollow>(0);
-	private Set<TlvAccountPhoto> tlvAccountPhotos = new HashSet<TlvAccountPhoto>(0);
-	private Set<TlvFeedback> tlvFeedbacks = new HashSet<TlvFeedback>(0);
-	private Set<TlvVisit> tlvVisits = new HashSet<TlvVisit>(0);
+	private java.lang.Integer followNum;
 	//columns END
 
 
@@ -409,50 +400,13 @@ public class TlvAccount implements java.io.Serializable{
 		this.visitNum = visitNum;
 	}
 	
-	
-	public void setTlvFollows(Set<TlvFollow> tlvFollows){
-		this.tlvFollows = tlvFollows;
+	@Column(name = "followNum", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getFollowNum() {
+		return this.followNum;
 	}
 	
-	@OneToMany(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY, mappedBy = "tlvAccount")
-	public Set<TlvFollow> getTlvFollows() {
-		return tlvFollows;
-	}
-	
-	public void setTlvPartnerConditions(Set<TlvPartnerCondition> tlvPartnerConditions){
-		this.tlvPartnerConditions = tlvPartnerConditions;
-	}
-	
-	@OneToMany(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY, mappedBy = "tlvAccount")
-	public Set<TlvPartnerCondition> getTlvPartnerConditions() {
-		return tlvPartnerConditions;
-	}
-	
-	public void setTlvAccountPhotos(Set<TlvAccountPhoto> tlvAccountPhotos){
-		this.tlvAccountPhotos = tlvAccountPhotos;
-	}
-	
-	@OneToMany(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY, mappedBy = "tlvAccount")
-	public Set<TlvAccountPhoto> getTlvAccountPhotos() {
-		return tlvAccountPhotos;
-	}
-	
-	public void setTlvFeedbacks(Set<TlvFeedback> tlvFeedbacks){
-		this.tlvFeedbacks = tlvFeedbacks;
-	}
-	
-	@OneToMany(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY, mappedBy = "tlvAccount")
-	public Set<TlvFeedback> getTlvFeedbacks() {
-		return tlvFeedbacks;
-	}
-	
-	public void setTlvVisits(Set<TlvVisit> tlvVisits){
-		this.tlvVisits = tlvVisits;
-	}
-	
-	@OneToMany(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY, mappedBy = "tlvAccount")
-	public Set<TlvVisit> getTlvVisits() {
-		return tlvVisits;
+	public void setFollowNum(java.lang.Integer followNum) {
+		this.followNum = followNum;
 	}
 	
 	/*

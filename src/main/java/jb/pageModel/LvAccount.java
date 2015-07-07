@@ -36,12 +36,14 @@ public class LvAccount implements java.io.Serializable {
 	private java.lang.String online;	
 	private Date lastLoginTime;			
 	private java.lang.Integer visitNum;	
+	private java.lang.Integer followNum;	
 	
+	private Integer age;
 	private String oldPass;
 	private java.lang.Integer byOpenId;	
 	private java.lang.Integer isVisit;	
 	private List<LvAccountPhoto> photoList;
-
+	
 	
 
 	public void setId(java.lang.String value) {
@@ -248,6 +250,22 @@ public class LvAccount implements java.io.Serializable {
 	
 	public java.lang.Integer getVisitNum() {
 		return this.visitNum;
+	}
+
+	public java.lang.Integer getFollowNum() {
+		return followNum;
+	}
+
+	public void setFollowNum(java.lang.Integer followNum) {
+		this.followNum = followNum;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 	public String getOldPass() {

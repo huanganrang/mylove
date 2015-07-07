@@ -8,11 +8,7 @@ package jb.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -46,8 +42,6 @@ public class TlvVisit implements java.io.Serializable{
 	private java.lang.Integer visitOpenId;
 	//@NotNull 
 	private java.util.Date createTime;
-	private TlvAccount tlvAccount;
-	private TlvAccount visitTlvAccount;
 	//columns END
 
 
@@ -94,31 +88,6 @@ public class TlvVisit implements java.io.Serializable{
 	
 	public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
-	}
-	
-	
-	public void setVisitTlvAccount(TlvAccount visitTlvAccount){
-		this.visitTlvAccount = visitTlvAccount;
-	}
-	
-	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name = "visitOpenId",nullable = false, insertable = false, updatable = false) 
-	})
-	public TlvAccount getVisitTlvAccount() {
-		return visitTlvAccount;
-	}
-	
-	public void setTlvAccount(TlvAccount tlvAccount){
-		this.tlvAccount = tlvAccount;
-	}
-	
-	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name = "openId",nullable = false, insertable = false, updatable = false) 
-	})
-	public TlvAccount getTlvAccount() {
-		return tlvAccount;
 	}
 	
 	/*

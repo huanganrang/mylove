@@ -122,8 +122,8 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	public void edit(LvAccount lvAccount) {
 		TlvAccount t = lvAccountDao.get(TlvAccount.class, lvAccount.getId());
 		if (t != null) {
-			MyBeanUtils.copyProperties(lvAccount, t, new String[] { "id" , "createdatetime" },true);
-			//t.setModifydatetime(new Date());
+			MyBeanUtils.copyProperties(lvAccount, t, new String[] { "id" , "createTime" },true);
+			t.setUpdateTime(new Date());
 		}
 	}
 
@@ -154,7 +154,7 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		TlvAccount a = new TlvAccount();
 		account.setId(UUID.randomUUID().toString());
 		account.setPassword(MD5Util.md5(Constants.ACCOUNT_DEFAULT_PSW));
-		account.setBirthday(DateUtil.parse("2015-01-01", DateUtil.YMD_A));
+		account.setBirthday(DateUtil.getBirthdayByAge(account.getAge()));
 		account.setCreateTime(new Date());
 		account.setLastLoginTime(new Date());
 		MyBeanUtils.copyProperties(account, a, true);
@@ -201,25 +201,37 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	 * 个人资料查询
 	 */
 	public LvAccount queryPersonInfoByParam(LvAccount lvAccount) {
-		Map<String, Object> params = new HashMap<String, Object>();
+		LvAccount a = new LvAccount();
 		
-		int isVisit = 2; // 未关注
-		List<LvAccountPhoto> photoList = new ArrayList<LvAccountPhoto>();
-		TlvAccount t = null;
 		if(lvAccount.getByOpenId() == null) {
-			params.put("openId", lvAccount.getOpenId());
-			t = lvAccountDao.get("from TlvAccount t where  t.openId = :openId", params);
+			a = this.get(lvAccount.getOpenId());
 		} else {
+			Map<String, Object> params = new HashMap<String, Object>();
+			a = this.get(lvAccount.getByOpenId());
+			
+			// 获取被查看用户的相册
+			List<LvAccountPhoto> photoList = new ArrayList<LvAccountPhoto>();
 			params.put("openId", lvAccount.getByOpenId());
-			t = lvAccountDao.get("from TlvAccount t left join fetch t.tlvAccountPhotos photos where t.openId = :openId", params);
+			List<TlvAccountPhoto> l = lvAccountPhotoDao.find("from TlvAccountPhoto t where t.openId = :openId order by t.createTime desc", params);
+			if(l != null && l.size() > 0) {
+				LvAccountPhoto photo = null;
+				for(TlvAccountPhoto tPhoto : l) { 
+					photo = new LvAccountPhoto();
+					MyBeanUtils.copyProperties(tPhoto, photo);
+					photoList.add(photo);
+				}
+			}
+			a.setPhotoList(photoList);
 			
 			// 当前关注状态
+			String isVisit = Constants.GLOBAL_BOOLEAN_FALSE; // 未关注
 			params = new HashMap<String, Object>();
 			params.put("fromOpenId", lvAccount.getOpenId()); 
 			params.put("toOpenId", lvAccount.getByOpenId()); 
 			if(lvFollowDao.count("select count(*) from TlvFollow t where t.fromOpenId = :fromOpenId and t.toOpenId = :toOpenId", params) > 0) {
-				isVisit = 1; // 已关注
+				isVisit = Constants.GLOBAL_BOOLEAN_TRUE; // 已关注
 			}
+			a.setIsVisit(Integer.valueOf(isVisit));
 			
 			// 插入来访纪录
 			LvVisit lvVisit = new LvVisit();
@@ -227,20 +239,25 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 			lvVisit.setVisitOpenId(lvAccount.getOpenId());
 			lvVisitService.saveOrUpdate(lvVisit);
 			
+			// 更改被查看用户的来访数量
+			a.setVisitNum(a.getVisitNum() + 1);
+			this.edit(a);
 		}
-		MyBeanUtils.copyProperties(t, lvAccount);
-		if(t.getTlvAccountPhotos().size() > 0) {
-			LvAccountPhoto photo = null;
-			for(TlvAccountPhoto tPhoto : t.getTlvAccountPhotos()) { 
-				photo = new LvAccountPhoto();
-				MyBeanUtils.copyProperties(tPhoto, photo);
-				photoList.add(photo);
-			}
-		}
-		lvAccount.setPhotoList(photoList);
-		lvAccount.setIsVisit(isVisit);
 		
-		return lvAccount;
+		return a;
+	}
+
+
+	@Override
+	public LvAccount get(Integer openId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("openId", openId);
+		TlvAccount t = lvAccountDao.get("from TlvAccount t where t.openId = :openId", params);
+		if(t == null) return null;
+		LvAccount a = new LvAccount();
+		MyBeanUtils.copyProperties(t, a, true);
+		
+		return a;
 	}
 
 }

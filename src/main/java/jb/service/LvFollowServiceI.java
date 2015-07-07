@@ -27,7 +27,7 @@ public interface LvFollowServiceI {
 	 * 
 	 * @param lvFollow
 	 */
-	public void add(LvFollow lvFollow);
+	public int add(LvFollow lvFollow);
 
 	/**
 	 * 获得LvFollow对象
@@ -50,5 +50,13 @@ public interface LvFollowServiceI {
 	 * @param id
 	 */
 	public void delete(String id);
+
+	public DataGrid dataGridAccount(LvFollow lvFollow, PageHelper ph);
+
+	/**
+	 * 取消关注
+	 * @param f
+	 */
+	public int delete(LvFollow f);
 
 }

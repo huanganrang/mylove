@@ -377,6 +377,50 @@ public final class DateUtil {
 		return timeAxisList;
 	}
 	
+	/**
+	 * 根据用户生日计算年龄
+	 */
+	public static int getAgeByBirthday(Date birthday) {
+		Calendar cal = Calendar.getInstance();
+
+		if (cal.before(birthday)) {
+			throw new IllegalArgumentException(
+					"The birthDay is before Now.It's unbelievable!");
+		}
+
+		int yearNow = cal.get(Calendar.YEAR);
+		int monthNow = cal.get(Calendar.MONTH) + 1;
+		int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+
+		cal.setTime(birthday);
+		int yearBirth = cal.get(Calendar.YEAR);
+		int monthBirth = cal.get(Calendar.MONTH) + 1;
+		int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+
+		int age = yearNow - yearBirth;
+
+		if (monthNow <= monthBirth) {
+			if (monthNow == monthBirth) {
+				if (dayOfMonthNow < dayOfMonthBirth) {
+					age--;
+				}
+			} else {
+				age--;
+			}
+		}
+		return age;
+	}
+	
+	/**
+	 * 根据用户年龄计算生日（月份默认为1月份，日期默认为1号）
+	 */
+	public static Date getBirthdayByAge(int age) {
+		Calendar cal = Calendar.getInstance();
+		int yearNow = cal.get(Calendar.YEAR);
+		int yearBirth = yearNow - age;
+		cal.set(yearBirth, 0, 1, 0, 0, 0);
+		return cal.getTime();
+	}
 	
 	public static Date getAppointDate(){
 		Calendar calendar = Calendar.getInstance();  
@@ -394,11 +438,11 @@ public final class DateUtil {
 //		System.out.println(9223372036854775807L);
 		//System.out.println(formatTimeToString(59200L));
 		//System.out.println(formatCdrTimeToString(69200L));
-		System.out.println(DateUtil.format(DateUtil.getDayEnd(getAppointDate()), DateUtil.YMDHMS_A));
+//		System.out.println(DateUtil.format(DateUtil.getDayEnd(getAppointDate()), DateUtil.YMDHMS_A));
+		Date birthday = DateUtil.parse("1987-06-05", DateUtil.YMD_A);
+		System.out.println(getAgeByBirthday(birthday));
+		System.out.println(getBirthdayByAge(28));
 	}
 
-	
-	
-	
 	
 }
