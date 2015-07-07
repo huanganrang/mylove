@@ -8,11 +8,11 @@
 </head>
 <body >
 	<div id="index_home_tabs" class="easyui-tabs" data-options="fit:true">
-		<div title="全国" data-options="href:'api_home_country.jsp'"
+		<div title="全国" data-options="href:'api_home_accountSearch.jsp'"
 			style="padding: 1px"></div>
-		<div title="同城" data-options="href:'api_home_sameCity.jsp'"
+		<div title="同城" data-options="href:'api_home_accountSearch.jsp'"
 			style="padding: 1px"></div>
-		<div title="ID搜索" data-options="href:'api_home_queryById.jsp'"
+		<div title="ID搜索" data-options="href:'api_home_accountSearch.jsp'"
 			style="padding: 1px"></div>	
 		<div title="个人详情" data-options="href:'api_people_center_personInfo.jsp'"
 			style="padding: 1px"></div>	

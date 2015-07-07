@@ -1,5 +1,6 @@
 ﻿package jb.service;
 
+import jb.pageModel.AccountSearch;
 import jb.pageModel.LvAccount;
 import jb.pageModel.DataGrid;
 import jb.pageModel.PageHelper;
@@ -62,5 +63,7 @@ public interface LvAccountServiceI {
 	public LvAccount queryPersonInfoByParam(LvAccount lvAccount);
 
 	public LvAccount get(Integer openId);
+
+	public DataGrid dataGridAccount_search(AccountSearch search, PageHelper ph);
 
 }

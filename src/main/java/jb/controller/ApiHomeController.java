@@ -4,8 +4,11 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import jb.pageModel.AccountSearch;
+import jb.pageModel.DataGrid;
 import jb.pageModel.Json;
 import jb.pageModel.LvFollow;
+import jb.pageModel.PageHelper;
 import jb.service.LvAccountPhotoServiceI;
 import jb.service.LvAccountServiceI;
 import jb.service.LvFollowServiceI;
@@ -33,6 +36,30 @@ public class ApiHomeController extends BaseController {
 	
 	@Autowired
 	private LvFollowServiceI followService;
+	
+	/**
+	 * 首页用户查询搜索
+	 * @param a
+	 * @param searchType
+	 * @param searchOpenId
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/accountSearch")
+	public Json accountSearch(AccountSearch search, PageHelper ph, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			DataGrid dg = accountService.dataGridAccount_search(search, ph);
+			
+			j.setSuccess(true);
+			j.setObj(dg);
+			j.setMsg("操作成功！");
+		} catch (Exception e) {
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
 	
 	/**
 	 * 关注用户

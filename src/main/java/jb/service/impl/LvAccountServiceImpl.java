@@ -13,6 +13,7 @@ import jb.dao.LvAccountPhotoDaoI;
 import jb.dao.LvFollowDaoI;
 import jb.model.TlvAccount;
 import jb.model.TlvAccountPhoto;
+import jb.pageModel.AccountSearch;
 import jb.pageModel.DataGrid;
 import jb.pageModel.LvAccount;
 import jb.pageModel.LvAccountPhoto;
@@ -258,6 +259,46 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		MyBeanUtils.copyProperties(t, a, true);
 		
 		return a;
+	}
+
+	/**
+	 * 首页用户查询搜索
+	 */
+	public DataGrid dataGridAccount_search(AccountSearch search, PageHelper ph) {
+		
+		DataGrid dg = new DataGrid();
+		dg.setPage(Long.valueOf(ph.getPage()));
+		dg.setPageSize(Long.valueOf(ph.getRows()));
+		
+		String hql = "from TlvAccount t  ";
+		String whereHql = "";
+		Map<String, Object> params = new HashMap<String, Object>();
+		if("2".equals(search.getSearchType())) {
+			LvAccount a = get(Integer.valueOf(search.getOpenId()));
+			if(!F.empty(a.getAddress())) {
+				whereHql += " where t.address like :searchAreaCode ";
+				params.put("searchAreaCode", "'%" + a.getAddress().split("_")[0] + "%'");
+			}
+		} else if("3".equals(search.getSearchType())) {
+			whereHql += " where t.openId like :searchOpenId ";
+			params.put("searchOpenId", "'%" + search.getSearchOpenId() + "%'");
+		}
+		
+		String orderString = " order by t.visitNum desc, t.followNum desc";
+		List<TlvAccount> l = lvAccountDao.find(hql + whereHql + orderString, params, ph.getPage(), ph.getRows());
+		dg.setTotal(lvAccountDao.count("select count(*) " + hql + whereHql, params));
+		
+		List<LvAccount> al = new ArrayList<LvAccount>();
+		if (l != null && l.size() > 0) {
+			for (TlvAccount t : l) {
+				LvAccount a = new LvAccount();
+				MyBeanUtils.copyProperties(t, a, true);
+				al.add(a);
+			}
+		}
+		dg.setRows(al);
+		
+		return dg;
 	}
 
 }
