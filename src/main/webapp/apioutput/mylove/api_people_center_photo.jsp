@@ -71,16 +71,10 @@
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、name	   登录名         <br/>
-						utype	    账号类型      <br/>
-						third_user	第三方账号  <br/>
-						head_image	头像地址    <br/>
-						nickname	昵称          <br/>
-						usex			性别          <br/>
-						areaCode	地区          <br/>
-						birthday	生日          <br/>
-						bardian		个性签名      <br/>
-						member_v	会员级别      <br/>
+					3、page	   当前页         <br/>
+						pageSize	   每页数      <br/>
+						total	总数  <br/>
+						photoImg	照片路径    <br/>
 					
 			</div>
 		</div>

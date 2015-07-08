@@ -3,6 +3,8 @@ package jb.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -87,11 +89,12 @@ public class ApiAccountController extends BaseController {
 		if (a != null) {
 			j.setSuccess(true);
 			j.setMsg("登陆成功！");
-
-			/*SessionInfo sessionInfo = new SessionInfo();
-			BeanUtils.copyProperties(u, sessionInfo);*/
-			String tid = tokenManage.buildToken(a.getId(), a.getNickName());
-			j.setObj(tid);
+			
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("tokenId", tokenManage.buildToken(a.getId(), a.getNickName()));
+			result.put("openId", a.getOpenId());
+			
+			j.setObj(result);
 		} else {
 			j.setMsg("用户名或密码错误！");
 		}
@@ -109,13 +112,16 @@ public class ApiAccountController extends BaseController {
 	public Json register(LvAccount lvAccount, HttpServletRequest request) {
 		Json j = new Json();
 		try {
-			lvAccount = accountService.reg(lvAccount);			
+			lvAccount = accountService.reg(lvAccount);	
+			lvAccount = accountService.get(lvAccount.getId());
 			j.setSuccess(true);
 			j.setMsg("注册成功");
-			String tid = tokenManage.buildToken(lvAccount.getId(),lvAccount.getNickName());
-			j.setObj(tid);
 			
-			lvAccount = accountService.get(lvAccount.getId());
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("tokenId", tokenManage.buildToken(lvAccount.getId(),lvAccount.getNickName()));
+			result.put("openId", lvAccount.getOpenId());
+			j.setObj(result);
+			
 			LvPartnerCondition lvPartnerCondition = new LvPartnerCondition();
 			lvPartnerCondition.setOpenId(lvAccount.getOpenId());
 			partnerConditionService.add(lvPartnerCondition);

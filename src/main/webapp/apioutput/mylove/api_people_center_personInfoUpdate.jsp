@@ -94,8 +94,16 @@
 						<td><input name="constellation" type="text" class="span2" value="CL01"/>（CL01：白羊座；CL02：金牛座；CL03：双子座；CL04：巨蟹座；CL05：狮子座；CL06：处女座；CL07：天秤座；CL08：天蝎座；CL09：射手座；CL10：摩羯座；CL11：水瓶座；CL12：双鱼座）</td>
 					</tr>
 					<tr>
+						<td align="right" style="width: 180px;"><label>qq(QQ号)：</label></td>
+						<td><input name="qq" type="text" class="span2" value=""/></td>
+					</tr>
+					<tr>
 						<td align="right" style="width: 180px;"><label>qqSecret(QQ公开度)：</label></td>
 						<td><input name="qqSecret" type="text" class="span2" value="0"/>（0：对VIP用户公开；1：保密）</td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>mobile(手机号)：</label></td>
+						<td><input name="mobile" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>mobileSecret(手机公开度)：</label></td>
@@ -116,16 +124,6 @@
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、name	   登录名         <br/>
-						utype	    账号类型      <br/>
-						third_user	第三方账号  <br/>
-						head_image	头像地址    <br/>
-						nickname	昵称          <br/>
-						usex			性别          <br/>
-						areaCode	地区          <br/>
-						birthday	生日          <br/>
-						bardian		个性签名      <br/>
-						member_v	会员级别      <br/>
 					
 			</div>
 		</div>

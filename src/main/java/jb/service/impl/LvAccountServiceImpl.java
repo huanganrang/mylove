@@ -139,8 +139,9 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	public LvAccount login(LvAccount lvAccount) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("openId", lvAccount.getOpenId());
+		params.put("mobile", lvAccount.getOpenId().toString());
 		params.put("password", MD5Util.md5(lvAccount.getPassword()));
-		TlvAccount a = lvAccountDao.get("from TlvAccount t where t.openId = :openId and t.password = :password", params);
+		TlvAccount a = lvAccountDao.get("from TlvAccount t where (t.openId = :openId or t.mobile = :mobile) and t.password = :password", params);
 		if (a != null) {
 			BeanUtils.copyProperties(a, lvAccount);
 			return lvAccount;

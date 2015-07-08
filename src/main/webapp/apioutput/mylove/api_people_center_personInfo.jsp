@@ -69,17 +69,29 @@
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、name	   登录名         <br/>
-						utype	    账号类型      <br/>
-						third_user	第三方账号  <br/>
-						head_image	头像地址    <br/>
-						nickname	昵称          <br/>
-						usex			性别          <br/>
-						areaCode	地区          <br/>
+					3、openId	  用户openId值         <br/>
+						sex	性别          <br/>
 						birthday	生日          <br/>
-						bardian		个性签名      <br/>
-						member_v	会员级别      <br/>
-					
+						age	年龄         <br/>
+						personDesc	    个性签名      <br/>
+						nickName	昵称  <br/>
+						address	居住地    <br/>
+						height	身高          <br/>
+						weight	体重          <br/>
+						monthIncome			月收入          <br/>
+						marryStatus	婚姻状态          <br/>
+						education		学历      <br/>
+						profession	职业      <br/>
+						constellation	星座      <br/>
+						qq	QQ号      <br/>
+						qqSecret	QQ公开度      <br/>
+						mobile	手机号    <br/>
+						mobileSecret	手机公开度     <br/>
+						headImg	头像图片路径     <br/>
+						auditStatus	头像审核状态     <br/>
+						vipLevel	VIP等级     <br/>
+						vipOpenTime	VIP开通时间     <br/>
+						photoImg	照片路径     <br/>
 			</div>
 		</div>
 	</div>

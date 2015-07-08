@@ -66,7 +66,8 @@
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、obj:xxxx  成功时token值
+					3、openId：服务器生成的用户唯一ID值<br/>
+						tokenId：token值
 			</div>
 		</div>
 	</div>
