@@ -272,10 +272,13 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		dg.setPageSize(Long.valueOf(ph.getRows()));
 		
 		String hql = "from TlvAccount t  ";
-		String whereHql = " where 1=1 ";
+		
 		Map<String, Object> params = new HashMap<String, Object>();
+		LvAccount a = get(Integer.valueOf(search.getOpenId()));
+		String whereHql = " where t.sex = :sex and t.openId != :openId ";
+		params.put("sex", "SX01".equals(a.getSex()) ? "SX02" : "SX01"); // 男查女、女查男
+		params.put("openId", Integer.valueOf(search.getOpenId())); 
 		if("2".equals(search.getSearchType())) {
-			LvAccount a = get(Integer.valueOf(search.getOpenId()));
 			if(!F.empty(a.getAddress())) {
 				whereHql += " and t.address like :searchAreaCode ";
 				params.put("searchAreaCode", "%%" + a.getAddress().split("_")[0] + "%%");
@@ -284,8 +287,6 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 			whereHql += " and t.openId = :searchOpenId ";
 			params.put("searchOpenId", Integer.valueOf(search.getSearchOpenId()));
 		}
-		whereHql += " and t.openId != :openId ";
-		params.put("openId", Integer.valueOf(search.getOpenId()));
 		
 		String orderString = " order by t.visitNum desc, t.followNum desc";
 		List<TlvAccount> l = lvAccountDao.find(hql + whereHql + orderString, params, ph.getPage(), ph.getRows());
@@ -294,9 +295,9 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		List<LvAccount> al = new ArrayList<LvAccount>();
 		if (l != null && l.size() > 0) {
 			for (TlvAccount t : l) {
-				LvAccount a = new LvAccount();
-				MyBeanUtils.copyProperties(t, a, true);
-				al.add(a);
+				LvAccount o = new LvAccount();
+				MyBeanUtils.copyProperties(t, o, true);
+				al.add(o);
 			}
 		}
 		dg.setRows(al);
