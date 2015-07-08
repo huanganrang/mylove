@@ -45,13 +45,18 @@ public class BeanToMapUtil {
     }
 	
 	@SuppressWarnings("rawtypes")
-	public static Map convertBean(Object o, String[] cProperties, boolean isNull) throws IllegalArgumentException, IntrospectionException, IllegalAccessException, InvocationTargetException{
-		return convertBean(o, cProperties, null, isNull);
+	public static Map convertBean(Object o, String[] cProperties) throws IllegalArgumentException, IntrospectionException, IllegalAccessException, InvocationTargetException{
+		return convertBean(o, cProperties, null, false);
     }
 	
 	@SuppressWarnings("rawtypes")
+	public static Map convertBean(Object o, String[] ucProperties, boolean isNull) throws IllegalArgumentException, IntrospectionException, IllegalAccessException, InvocationTargetException{
+		return convertBean(o, null, ucProperties, isNull);
+	}
+	
+	@SuppressWarnings("rawtypes")
 	public static Map convertBean(Object o) throws IllegalArgumentException, IntrospectionException, IllegalAccessException, InvocationTargetException{
-		return convertBean(o, null, null, true);
+		return convertBean(o, null, null, false);
 	}
 	
 	@SuppressWarnings("rawtypes")
