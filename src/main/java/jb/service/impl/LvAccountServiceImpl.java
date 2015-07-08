@@ -21,6 +21,7 @@ import jb.pageModel.LvVisit;
 import jb.pageModel.PageHelper;
 import jb.service.LvAccountServiceI;
 import jb.service.LvVisitServiceI;
+import jb.util.BeanToMapUtil;
 import jb.util.Constants;
 import jb.util.DateUtil;
 import jb.util.MD5Util;
@@ -293,12 +294,16 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		List<TlvAccount> l = lvAccountDao.find(hql + whereHql + orderString, params, ph.getPage(), ph.getRows());
 		dg.setTotal(lvAccountDao.count("select count(*) " + hql + whereHql, params));
 		
-		List<LvAccount> al = new ArrayList<LvAccount>();
+		List<Map<String, Object>> al = new ArrayList<Map<String, Object>>();
 		if (l != null && l.size() > 0) {
+			Map<String, Object> map = null;
 			for (TlvAccount t : l) {
+				map = new HashMap<String, Object>();
 				LvAccount o = new LvAccount();
 				MyBeanUtils.copyProperties(t, o, true);
-				al.add(o);
+				o.setAge(DateUtil.getAgeByBirthday(o.getBirthday()));
+				map = BeanToMapUtil.convertBean(o, new String[]{"openId", "headImg", "age", "sex", "vipLevel", "vipOpenTime"});
+				al.add(map);
 			}
 		}
 		dg.setRows(al);
