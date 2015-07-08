@@ -245,6 +245,7 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 			this.edit(a);
 		}
 		
+		a.setAge(DateUtil.getAgeByBirthday(a.getBirthday()));
 		return a;
 	}
 
@@ -271,18 +272,20 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		dg.setPageSize(Long.valueOf(ph.getRows()));
 		
 		String hql = "from TlvAccount t  ";
-		String whereHql = "";
+		String whereHql = " where 1=1 ";
 		Map<String, Object> params = new HashMap<String, Object>();
 		if("2".equals(search.getSearchType())) {
 			LvAccount a = get(Integer.valueOf(search.getOpenId()));
 			if(!F.empty(a.getAddress())) {
-				whereHql += " where t.address like :searchAreaCode ";
-				params.put("searchAreaCode", "'%" + a.getAddress().split("_")[0] + "%'");
+				whereHql += " and t.address like :searchAreaCode ";
+				params.put("searchAreaCode", "%%" + a.getAddress().split("_")[0] + "%%");
 			}
 		} else if("3".equals(search.getSearchType())) {
-			whereHql += " where t.openId like :searchOpenId ";
-			params.put("searchOpenId", "'%" + search.getSearchOpenId() + "%'");
+			whereHql += " and t.openId = :searchOpenId ";
+			params.put("searchOpenId", Integer.valueOf(search.getSearchOpenId()));
 		}
+		whereHql += " and t.openId != :openId ";
+		params.put("openId", Integer.valueOf(search.getOpenId()));
 		
 		String orderString = " order by t.visitNum desc, t.followNum desc";
 		List<TlvAccount> l = lvAccountDao.find(hql + whereHql + orderString, params, ph.getPage(), ph.getRows());
