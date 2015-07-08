@@ -1,5 +1,7 @@
 ﻿package jb.service;
 
+import java.util.List;
+
 import jb.pageModel.LvArea;
 import jb.pageModel.DataGrid;
 import jb.pageModel.PageHelper;
@@ -50,5 +52,7 @@ public interface LvAreaServiceI {
 	 * @param id
 	 */
 	public void delete(String id);
+
+	public List<LvArea> queryAllList();
 
 }

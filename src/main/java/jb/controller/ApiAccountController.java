@@ -6,19 +6,26 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import jb.absx.F;
 import jb.interceptors.TokenManage;
 import jb.pageModel.DataGrid;
 import jb.pageModel.Json;
 import jb.pageModel.LvAccount;
 import jb.pageModel.LvAccountPhoto;
+import jb.pageModel.LvFeedback;
 import jb.pageModel.LvFollow;
+import jb.pageModel.LvPartnerCondition;
 import jb.pageModel.LvVisit;
 import jb.pageModel.PageHelper;
 import jb.service.LvAccountPhotoServiceI;
 import jb.service.LvAccountServiceI;
+import jb.service.LvAreaServiceI;
+import jb.service.LvFeedbackServiceI;
 import jb.service.LvFollowServiceI;
+import jb.service.LvPartnerConditionServiceI;
 import jb.service.LvVisitServiceI;
 import jb.util.Constants;
+import jb.util.DateUtil;
 import jb.util.StringUtil;
 
 import org.apache.commons.io.FileUtils;
@@ -53,6 +60,15 @@ public class ApiAccountController extends BaseController {
 	
 	@Autowired
 	private TokenManage tokenManage;
+	
+	@Autowired
+	private LvPartnerConditionServiceI partnerConditionService;
+	
+	@Autowired
+	private LvFeedbackServiceI feedbackService;
+	
+	@Autowired
+	private LvAreaServiceI areaService;
 	
 	/**
 	 * 用户登录
@@ -98,6 +114,11 @@ public class ApiAccountController extends BaseController {
 			j.setMsg("注册成功");
 			String tid = tokenManage.buildToken(lvAccount.getId(),lvAccount.getNickName());
 			j.setObj(tid);
+			
+			lvAccount = accountService.get(lvAccount.getId());
+			LvPartnerCondition lvPartnerCondition = new LvPartnerCondition();
+			lvPartnerCondition.setOpenId(lvAccount.getOpenId());
+			partnerConditionService.add(lvPartnerCondition);
 		} catch (Exception e) {
 			// e.printStackTrace();
 			j.setMsg(e.getMessage());
@@ -286,6 +307,114 @@ public class ApiAccountController extends BaseController {
 			j.setSuccess(true);
 			j.setObj(lvAccount);
 			j.setMsg("个人资料查询成功");
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 个人资料修改
+	 * @param lvAccount
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateAccount")
+	public Json updateAccount(LvAccount lvAccount, String birthdayStr, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			if(!F.empty(birthdayStr)) {
+				lvAccount.setBirthday(DateUtil.parse(birthdayStr, DateUtil.YMD_A));
+			}
+			accountService.editByParam(lvAccount);			
+			j.setSuccess(true);
+			j.setMsg("个人资料修改成功");
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 查询用户征友条件
+	 * @param lvAccount
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/partnerConditionInfo")
+	public Json partnerConditionInfo(Integer openId, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			j.setSuccess(true);
+			j.setObj(partnerConditionService.get(openId));
+			j.setMsg("用户征友条件查询成功");
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 修改用户征友条件
+	 * @param lvAccount
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updatePartnerCondition")
+	public Json updatePartnerCondition(LvPartnerCondition pc, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			partnerConditionService.editByParam(pc);
+			j.setSuccess(true);
+			j.setMsg("用户征友条件修改成功");
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 添加用户反馈信息
+	 * @param lvAccount
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/addFeedback")
+	public Json addFeedback(LvFeedback f, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			feedbackService.add(f);
+			j.setSuccess(true);
+			j.setMsg("用户反馈信息添加成功");
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 获取省市区列表
+	 * @param lvAccount
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/areaList")
+	public Json areaList() {
+		Json j = new Json();
+		try {
+			j.setSuccess(true);
+			j.setObj(areaService.queryAllList());
+			j.setMsg("获取省市区列表成功");
 		} catch (Exception e) {
 			// e.printStackTrace();
 			j.setMsg(e.getMessage());

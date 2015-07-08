@@ -109,4 +109,30 @@ public class LvPartnerConditionServiceImpl extends BaseServiceImpl<LvPartnerCond
 		lvPartnerConditionDao.delete(lvPartnerConditionDao.get(TlvPartnerCondition.class, id));
 	}
 
+
+	@Override
+	public LvPartnerCondition get(Integer openId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("openId", openId);
+		TlvPartnerCondition t = lvPartnerConditionDao.get("from TlvPartnerCondition t where t.openId = :openId", params);
+		if(t == null) return null;
+		LvPartnerCondition pc = new LvPartnerCondition();
+		MyBeanUtils.copyProperties(t, pc, true);
+		
+		return pc;
+	}
+
+
+	@Override
+	public void editByParam(LvPartnerCondition lvPartnerCondition) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("openId", lvPartnerCondition.getOpenId());
+		TlvPartnerCondition t = lvPartnerConditionDao.get("from TlvPartnerCondition t where t.openId = :openId", params);
+		if (t == null) {
+			throw new Exception("信息不存在！");
+		} else {
+			MyBeanUtils.copyProperties(lvPartnerCondition, t, new String[] {"openId"},true);
+		}
+	}
+
 }

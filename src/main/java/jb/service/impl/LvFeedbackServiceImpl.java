@@ -1,6 +1,7 @@
 package jb.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class LvFeedbackServiceImpl extends BaseServiceImpl<LvFeedback> implement
 		TlvFeedback t = new TlvFeedback();
 		BeanUtils.copyProperties(lvFeedback, t);
 		t.setId(UUID.randomUUID().toString());
-		//t.setCreatedatetime(new Date());
+		t.setCreateTime(new Date());
 		lvFeedbackDao.save(t);
 	}
 

@@ -36,7 +36,9 @@ public class LvAccount implements java.io.Serializable {
 	private java.lang.String online;	
 	private Date lastLoginTime;			
 	private java.lang.Integer visitNum;	
-	private java.lang.Integer followNum;	
+	private java.lang.Integer followNum;
+	private java.lang.Integer qqSecret;
+	private java.lang.Integer mobileSecret;
 	
 	private Integer age;
 	private String oldPass;
@@ -258,6 +260,22 @@ public class LvAccount implements java.io.Serializable {
 
 	public void setFollowNum(java.lang.Integer followNum) {
 		this.followNum = followNum;
+	}
+	
+	public java.lang.Integer getQqSecret() {
+		return qqSecret;
+	}
+
+	public void setQqSecret(java.lang.Integer qqSecret) {
+		this.qqSecret = qqSecret;
+	}
+
+	public java.lang.Integer getMobileSecret() {
+		return mobileSecret;
+	}
+
+	public void setMobileSecret(java.lang.Integer mobileSecret) {
+		this.mobileSecret = mobileSecret;
 	}
 
 	public Integer getAge() {

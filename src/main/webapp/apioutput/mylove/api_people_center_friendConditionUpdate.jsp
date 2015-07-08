@@ -10,8 +10,8 @@
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#accountSearch_Form').form({
-			url : '${pageContext.request.contextPath}/api/apiHomeController/accountSearch',
+		$('#updatePartnerCondition_Form').form({
+			url : '${pageContext.request.contextPath}/api/apiAccountController/updatePartnerCondition',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -25,7 +25,7 @@
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#accountSearch_result").text(result);
+				$("#updatePartnerCondition_result").text(result);
 			}
 		});
 	});
@@ -34,11 +34,11 @@
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="accountSearch_Form">
+			<form id="updatePartnerCondition_Form" action="" method="post">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
-						<td>${pageContext.request.contextPath}/api/apiHomeController/accountSearch</td>
+						<td>${pageContext.request.contextPath}/api/apiAccountController/updatePartnerCondition</td>
 					</tr>
 					
 					<tr>
@@ -50,32 +50,35 @@
 						<td><input name="openId" type="text" class="span2" value="10000000"/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>searchType(搜索类型)：</label></td>
-						<td><input name="searchType" type="text" class="span2" value=""/>(1、全国；2、同城；3、openId搜索)</td>
+						<td align="right" style="width: 180px;"><label>age(年龄)：</label></td>
+						<td><input name="age" type="text" class="span2" value="不限"/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>searchOpenId(搜索账户号)：</label></td>
-						<td><input name="searchOpenId" type="text" class="span2" value=""/>（当searchType=3时需要传入值）</td>
+						<td align="right" style="width: 180px;"><label>address(居住地)：</label></td>
+						<td><input name="address" type="text" class="span2" value="不限"/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>page(第几页)：</label></td>
-						<td><input name="page" type="text" class="span2" value="1"/></td>
+						<td align="right" style="width: 180px;"><label>height(身高)：</label></td>
+						<td><input name="height" type="text" class="span2" value="不限"/></td>
 					</tr>
-					
 					<tr>
-						<td align="right" style="width: 180px;"><label>rows(每页数)：</label></td>
-						<td><input name="rows" type="text" class="span2" value="10"/></td>
+						<td align="right" style="width: 180px;"><label>education(学历)：</label></td>
+						<td><input name="education" type="text" class="span2" value="不限"/></td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>monthIncome(月收入)：</label></td>
+						<td><input name="monthIncome" type="text" class="span2" value="不限"/></td>
 					</tr>
 					
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#accountSearch_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#updatePartnerCondition_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="accountSearch_result">
+				<div id="updatePartnerCondition_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
