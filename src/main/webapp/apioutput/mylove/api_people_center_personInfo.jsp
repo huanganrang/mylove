@@ -5,12 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%
+	int type = Integer.valueOf(request.getParameter("type"));
+%>
 </head>
 <body>
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#personInfo_Form').form({
+		$('#personInfo_<%=type %>_Form').form({
 			url : '${pageContext.request.contextPath}/api/apiAccountController/personInfo',
 			onSubmit : function() {
 				parent.$.messager.progress({
@@ -25,7 +28,7 @@
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#personInfo_result").text(result);
+				$("#personInfo_<%=type %>_result").text(result);
 			}
 		});
 	});
@@ -34,7 +37,7 @@
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="personInfo_Form" action="">
+			<form id="personInfo_<%=type %>_Form" action="">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
@@ -51,17 +54,17 @@
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>byOpenId(对方账户号)：</label></td>
-						<td><input name="byOpenId" type="text" class="span2" value=""/>(不传表示查看自己个人资料)</td>
+						<td><input name="byOpenId" type="text" class="span2" value="<%if(type == 2){%>10000001<%}%>"/>(不传表示查看自己个人资料)</td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#personInfo_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#personInfo_<%=type %>_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="personInfo_result">
+				<div id="personInfo_<%=type %>_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>

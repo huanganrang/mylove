@@ -5,12 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%
+	String searchType = request.getParameter("searchType");
+%>
 </head>
 <body>
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#accountSearch_Form').form({
+		$('#accountSearch_<%=searchType %>_Form').form({
 			url : '${pageContext.request.contextPath}/api/apiHomeController/accountSearch',
 			onSubmit : function() {
 				parent.$.messager.progress({
@@ -25,7 +28,7 @@
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#accountSearch_result").text(result);
+				$("#accountSearch_<%=searchType %>_result").text(result);
 			}
 		});
 	});
@@ -34,7 +37,7 @@
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="accountSearch_Form">
+			<form id="accountSearch_<%=searchType %>_Form">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
@@ -51,7 +54,7 @@
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>searchType(搜索类型)：</label></td>
-						<td><input name="searchType" type="text" class="span2" value=""/>(1、全国；2、同城；3、openId搜索)</td>
+						<td><input name="searchType" type="text" class="span2" value="<%=searchType %>"/>(1、全国；2、同城；3、openId搜索)</td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>searchOpenId(搜索账户号)：</label></td>
@@ -70,12 +73,12 @@
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#accountSearch_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#accountSearch_<%=searchType %>_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="accountSearch_result">
+				<div id="accountSearch_<%=searchType %>_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>

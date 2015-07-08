@@ -24,7 +24,7 @@
 			style="padding: 1px"></div>	
 		<div title="谁关注我(我关注的)" data-options="href:'api_people_center_meAttention.jsp'"
 			style="padding: 1px"></div>	
-		<div title="个人资料(查)" data-options="href:'api_people_center_personInfo.jsp'"
+		<div title="个人资料(查)" data-options="href:'api_people_center_personInfo.jsp?type=1'"
 			style="padding: 1px"></div>
 		<div title="个人资料(改)" data-options="href:'api_people_center_personInfoUpdate.jsp'"
 			style="padding: 1px"></div>	

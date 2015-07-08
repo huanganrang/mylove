@@ -8,13 +8,13 @@
 </head>
 <body >
 	<div id="index_home_tabs" class="easyui-tabs" data-options="fit:true">
-		<div title="全国" data-options="href:'api_home_accountSearch.jsp'"
+		<div title="全国" data-options="href:'api_home_accountSearch.jsp?searchType=1'"
 			style="padding: 1px"></div>
-		<div title="同城" data-options="href:'api_home_accountSearch.jsp'"
+		<div title="同城" data-options="href:'api_home_accountSearch.jsp?searchType=2'"
 			style="padding: 1px"></div>
-		<div title="ID搜索" data-options="href:'api_home_accountSearch.jsp'"
+		<div title="ID搜索" data-options="href:'api_home_accountSearch.jsp?searchType=3'"
 			style="padding: 1px"></div>	
-		<div title="个人详情" data-options="href:'api_people_center_personInfo.jsp'"
+		<div title="个人详情" data-options="href:'api_people_center_personInfo.jsp?type=2'"
 			style="padding: 1px"></div>	
 		<div title="关注" data-options="href:'api_home_attention.jsp'"
 			style="padding: 1px"></div>
