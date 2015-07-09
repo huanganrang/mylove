@@ -113,4 +113,54 @@ ALTER TABLE `lv_partner_condition`
 	CHANGE COLUMN `education` `education` VARCHAR(50) NULL DEFAULT '不限' COMMENT '学历' AFTER `weight`,
 	CHANGE COLUMN `monthIncome` `monthIncome` VARCHAR(50) NULL DEFAULT '不限' COMMENT '月收入' AFTER `education`;
 -- 2015-07-07 xuwm end --
+
+-- 2015-07-09 xuwm start --
+CREATE TABLE `lv_boost_activty` (
+	`id` VARCHAR(36) NOT NULL COMMENT '主键',
+	`goods_name` VARCHAR(100) NULL COMMENT '活动商品名称',
+	`goods_price` DOUBLE NULL COMMENT '市场价值',
+	`goods_img` VARCHAR(100) NULL COMMENT '商品图片',
+	`assist_num` INT(1) NULL DEFAULT '1' COMMENT '所需助力点数',
+	`startTime` TIME NULL COMMENT '开始时间',
+	`endTime` TIME NULL COMMENT '结束时间',
+	`goods_detail_img` VARCHAR(100) NULL COMMENT '商品详情图片',
+	PRIMARY KEY (`id`)
+)
+COMMENT='挖宝活动信息表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
+CREATE TABLE `lv_boost_record` (
+	`id` VARCHAR(36) NOT NULL COMMENT '主键',
+	`openId` INT NOT NULL COMMENT '用户openId',
+	`activtyId` VARCHAR(36) NOT NULL COMMENT '挖宝活动ID',
+	`assist_num` INT(1) NULL DEFAULT '0' COMMENT '助力数',
+	`visit_num` INT(1) NULL DEFAULT '0' COMMENT '查看数',
+	`boostTime` DATETIME NOT NULL COMMENT '征集时间',
+	`openTime` DATETIME NULL COMMENT '宝箱开启时间',
+	`openStatus` INT(1) NULL DEFAULT '2' COMMENT '是否开启成功(1:成功；2：失败)',
+	PRIMARY KEY (`id`),
+	CONSTRAINT `FK__lv_boost_activty` FOREIGN KEY (`activtyId`) REFERENCES `lv_boost_activty` (`id`)
+)
+COMMENT='挖宝记录信息表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
+CREATE TABLE `lv_address` (
+	`id` VARCHAR(36) NOT NULL COMMENT '主键',
+	`openId` INT NOT NULL COMMENT '用户openId',
+	`consignee` VARCHAR(20) NULL COMMENT '收货人姓名',
+	`mobile` VARCHAR(20) NULL COMMENT '手机号',
+	`province` VARCHAR(6) NULL COMMENT '所在省code',
+	`city` VARCHAR(6) NULL COMMENT '所在市code',
+	`district` VARCHAR(6) NULL COMMENT '所在区code',
+	`address` VARCHAR(100) NULL COMMENT '详细地址',
+	`createTime` DATETIME NULL COMMENT '创建时间',
+	`updateTime` DATETIME NULL COMMENT '更新时间',
+	PRIMARY KEY (`id`)
+)
+COMMENT='收货地址信息表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+-- 2015-07-09 xuwm end --
 	
