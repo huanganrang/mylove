@@ -10,7 +10,11 @@
 	<div id="index_people_center_tabs" class="easyui-tabs" data-options="fit:true">
 		<div title="助力墙列表（男）" data-options="href:'../api_doing.jsp'"
 			style="padding: 1px"></div>
-		<div title="宝贝（活动列表）" data-options="href:'../api_doing.jsp'"
+		<div title="查看助力（男）" data-options="href:'../api_doing.jsp'"
+			style="padding: 1px"></div>
+		<div title="为她助力（男）" data-options="href:'../api_doing.jsp'"
+			style="padding: 1px"></div>
+		<div title="宝贝（活动列表）" data-options="href:'api_my_boost_activtyList.jsp'"
 			style="padding: 1px"></div>
 		<div title="开始挖宝" data-options="href:'../api_doing.jsp'"
 			style="padding: 1px"></div>
