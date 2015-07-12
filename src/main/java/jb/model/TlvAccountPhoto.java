@@ -1,19 +1,19 @@
 ﻿
 /*
  * @author John
- * @date - 2015-07-04
+ * @date - 2015-07-06
  */
 
 package jb.model;
 
-import javax.persistence.*;
-
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "lv_account_photo")
 @DynamicInsert(true)
@@ -24,7 +24,7 @@ public class TlvAccountPhoto implements java.io.Serializable{
 	//alias
 	public static final String TABLE_ALIAS = "LvAccountPhoto";
 	public static final String ALIAS_ID = "主键";
-	public static final String ALIAS_ACCOUNT_ID = "用户ID";
+	public static final String ALIAS_OPEN_ID = "用户openId";
 	public static final String ALIAS_PHOTO_IMG = "照片路径";
 	public static final String ALIAS_CREATE_TIME = "上传时间";
 	
@@ -37,7 +37,7 @@ public class TlvAccountPhoto implements java.io.Serializable{
 	//@Length(max=36)
 	private java.lang.String id;
 	//@NotNull 
-	private java.lang.Integer accountId;
+	private java.lang.Integer openId;
 	//@NotBlank @Length(max=100)
 	private java.lang.String photoImg;
 	//@NotNull 
@@ -62,13 +62,13 @@ public class TlvAccountPhoto implements java.io.Serializable{
 		return this.id;
 	}
 	
-	@Column(name = "accountId", unique = false, nullable = false, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getAccountId() {
-		return this.accountId;
+	@Column(name = "openId", unique = false, nullable = false, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getOpenId() {
+		return this.openId;
 	}
 	
-	public void setAccountId(java.lang.Integer accountId) {
-		this.accountId = accountId;
+	public void setOpenId(java.lang.Integer openId) {
+		this.openId = openId;
 	}
 	
 	@Column(name = "photoImg", unique = false, nullable = false, insertable = true, updatable = true, length = 100)
@@ -90,12 +90,11 @@ public class TlvAccountPhoto implements java.io.Serializable{
 		this.createTime = createTime;
 	}
 	
-	
 	/*
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("Id",getId())
-			.append("AccountId",getAccountId())
+			.append("OpenId",getOpenId())
 			.append("PhotoImg",getPhotoImg())
 			.append("CreateTime",getCreateTime())
 			.toString();

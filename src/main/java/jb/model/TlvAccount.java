@@ -1,29 +1,31 @@
 ﻿
 /*
  * @author John
- * @date - 2015-07-04
+ * @date - 2015-07-06
  */
 
 package jb.model;
 
-import javax.persistence.*;
-
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "lv_account")
 @DynamicInsert(true)
 @DynamicUpdate(true)
 public class TlvAccount implements java.io.Serializable{
+
 	private static final long serialVersionUID = 5454155825314635342L;
 	
 	//alias
 	public static final String TABLE_ALIAS = "LvAccount";
 	public static final String ALIAS_ID = "主键";
+	public static final String ALIAS_OPEN_ID = "注册时生成的唯一ID";
 	public static final String ALIAS_LOGIN_NAME = "登录账号";
 	public static final String ALIAS_NICK_NAME = "昵称";
 	public static final String ALIAS_PASSWORD = "登录密码";
@@ -51,6 +53,9 @@ public class TlvAccount implements java.io.Serializable{
 	public static final String ALIAS_ONLINE = "在线状态";
 	public static final String ALIAS_LAST_LOGIN_TIME = "最近在线时间";
 	public static final String ALIAS_VISIT_NUM = "来访数量";
+	public static final String ALIAS_FOLLOW_NUM = "关注我的用户数量";
+	public static final String ALIAS_QQ_SECRET = "QQ公开度";
+	public static final String ALIAS_MOBILE_SECRET = "手机公开度";
 	
 	//date formats
 	public static final String FORMAT_BIRTHDAY = jb.util.Constants.DATE_FORMAT_For_Entity;
@@ -64,14 +69,16 @@ public class TlvAccount implements java.io.Serializable{
 	//columns START
 	//@Length(max=36)
 	private java.lang.String id;
+	//@NotNull 
+	private java.lang.Integer openId;
 	//@Length(max=20)
 	private java.lang.String loginName;
 	//@Length(max=20)
 	private java.lang.String nickName;
-	//@NotBlank @Length(max=20)
+	//@NotBlank @Length(max=50)
 	private java.lang.String password;
-	//@NotNull 
-	private java.lang.Integer sex;
+	//@NotBlank @Length(max=20)
+	private java.lang.String sex;
 	//@NotNull 
 	private java.util.Date birthday;
 	//
@@ -84,40 +91,43 @@ public class TlvAccount implements java.io.Serializable{
 	private java.lang.String qq;
 	//@Length(max=100)
 	private java.lang.String address;
-	//
-	private java.lang.Integer education;
-	//
-	private java.lang.Integer profession;
-	//
-	private java.lang.Integer monthIncome;
-	//
-	private java.lang.Integer marryStatus;
-	//
-	private java.lang.Integer constellation;
+	//@Length(max=20)
+	private java.lang.String education;
+	//@Length(max=20)
+	private java.lang.String profession;
+	//@Length(max=20)
+	private java.lang.String monthIncome;
+	//@Length(max=20)
+	private java.lang.String marryStatus;
+	//@Length(max=20)
+	private java.lang.String constellation;
 	//@Length(max=65535)
 	private java.lang.String personDesc;
 	//@NotNull 
 	private java.util.Date createTime;
 	//
 	private java.util.Date updateTime;
-	//
-	private java.lang.Integer auditStatus;
+	//@Length(max=20)
+	private java.lang.String auditStatus;
 	//@Length(max=100)
 	private java.lang.String headImg;
 	//
 	private Long longitude;
 	//
 	private Long latitude;
-	//
-	private java.lang.Integer vipLevel;
+	//@Length(max=20)
+	private java.lang.String vipLevel;
 	//
 	private java.util.Date vipOpenTime;
-	//
-	private java.lang.Integer online;
+	//@Length(max=20)
+	private java.lang.String online;
 	//@NotNull 
 	private java.util.Date lastLoginTime;
 	//
 	private java.lang.Integer visitNum;
+	private java.lang.Integer followNum;
+	private java.lang.Integer qqSecret;
+	private java.lang.Integer mobileSecret;
 	//columns END
 
 
@@ -138,6 +148,15 @@ public class TlvAccount implements java.io.Serializable{
 		return this.id;
 	}
 	
+	@Column(name = "openId", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getOpenId() {
+		return this.openId;
+	}
+	
+	public void setOpenId(java.lang.Integer openId) {
+		this.openId = openId;
+	}
+	
 	@Column(name = "loginName", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
 	public java.lang.String getLoginName() {
 		return this.loginName;
@@ -156,7 +175,7 @@ public class TlvAccount implements java.io.Serializable{
 		this.nickName = nickName;
 	}
 	
-	@Column(name = "password", unique = false, nullable = false, insertable = true, updatable = true, length = 20)
+	@Column(name = "password", unique = false, nullable = false, insertable = true, updatable = true, length = 50)
 	public java.lang.String getPassword() {
 		return this.password;
 	}
@@ -165,12 +184,12 @@ public class TlvAccount implements java.io.Serializable{
 		this.password = password;
 	}
 	
-	@Column(name = "sex", unique = false, nullable = false, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getSex() {
+	@Column(name = "sex", unique = false, nullable = false, insertable = true, updatable = true, length = 20)
+	public java.lang.String getSex() {
 		return this.sex;
 	}
 	
-	public void setSex(java.lang.Integer sex) {
+	public void setSex(java.lang.String sex) {
 		this.sex = sex;
 	}
 	
@@ -229,48 +248,48 @@ public class TlvAccount implements java.io.Serializable{
 		this.address = address;
 	}
 	
-	@Column(name = "education", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getEducation() {
+	@Column(name = "education", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
+	public java.lang.String getEducation() {
 		return this.education;
 	}
 	
-	public void setEducation(java.lang.Integer education) {
+	public void setEducation(java.lang.String education) {
 		this.education = education;
 	}
 	
-	@Column(name = "profession", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getProfession() {
+	@Column(name = "profession", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
+	public java.lang.String getProfession() {
 		return this.profession;
 	}
 	
-	public void setProfession(java.lang.Integer profession) {
+	public void setProfession(java.lang.String profession) {
 		this.profession = profession;
 	}
 	
-	@Column(name = "monthIncome", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getMonthIncome() {
+	@Column(name = "monthIncome", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
+	public java.lang.String getMonthIncome() {
 		return this.monthIncome;
 	}
 	
-	public void setMonthIncome(java.lang.Integer monthIncome) {
+	public void setMonthIncome(java.lang.String monthIncome) {
 		this.monthIncome = monthIncome;
 	}
 	
-	@Column(name = "marryStatus", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getMarryStatus() {
+	@Column(name = "marryStatus", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
+	public java.lang.String getMarryStatus() {
 		return this.marryStatus;
 	}
 	
-	public void setMarryStatus(java.lang.Integer marryStatus) {
+	public void setMarryStatus(java.lang.String marryStatus) {
 		this.marryStatus = marryStatus;
 	}
 	
-	@Column(name = "constellation", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getConstellation() {
+	@Column(name = "constellation", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
+	public java.lang.String getConstellation() {
 		return this.constellation;
 	}
 	
-	public void setConstellation(java.lang.Integer constellation) {
+	public void setConstellation(java.lang.String constellation) {
 		this.constellation = constellation;
 	}
 	
@@ -303,12 +322,12 @@ public class TlvAccount implements java.io.Serializable{
 		this.updateTime = updateTime;
 	}
 	
-	@Column(name = "auditStatus", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getAuditStatus() {
+	@Column(name = "auditStatus", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
+	public java.lang.String getAuditStatus() {
 		return this.auditStatus;
 	}
 	
-	public void setAuditStatus(java.lang.Integer auditStatus) {
+	public void setAuditStatus(java.lang.String auditStatus) {
 		this.auditStatus = auditStatus;
 	}
 	
@@ -339,12 +358,12 @@ public class TlvAccount implements java.io.Serializable{
 		this.latitude = latitude;
 	}
 	
-	@Column(name = "vipLevel", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getVipLevel() {
+	@Column(name = "vipLevel", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
+	public java.lang.String getVipLevel() {
 		return this.vipLevel;
 	}
 	
-	public void setVipLevel(java.lang.Integer vipLevel) {
+	public void setVipLevel(java.lang.String vipLevel) {
 		this.vipLevel = vipLevel;
 	}
 	
@@ -358,12 +377,12 @@ public class TlvAccount implements java.io.Serializable{
 		this.vipOpenTime = vipOpenTime;
 	}
 	
-	@Column(name = "online", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public java.lang.Integer getOnline() {
+	@Column(name = "online", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
+	public java.lang.String getOnline() {
 		return this.online;
 	}
 	
-	public void setOnline(java.lang.Integer online) {
+	public void setOnline(java.lang.String online) {
 		this.online = online;
 	}
 	
@@ -386,11 +405,38 @@ public class TlvAccount implements java.io.Serializable{
 		this.visitNum = visitNum;
 	}
 	
+	@Column(name = "followNum", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getFollowNum() {
+		return this.followNum;
+	}
+	
+	public void setFollowNum(java.lang.Integer followNum) {
+		this.followNum = followNum;
+	}
+	
+	@Column(name = "qqSecret", unique = false, nullable = true, insertable = true, updatable = true, length = 1)
+	public java.lang.Integer getQqSecret() {
+		return qqSecret;
+	}
+	
+	public void setQqSecret(java.lang.Integer qqSecret) {
+		this.qqSecret = qqSecret;
+	}
+	
+	@Column(name = "mobileSecret", unique = false, nullable = true, insertable = true, updatable = true, length = 1)
+	public java.lang.Integer getMobileSecret() {
+		return mobileSecret;
+	}
+	
+	public void setMobileSecret(java.lang.Integer mobileSecret) {
+		this.mobileSecret = mobileSecret;
+	}
 	
 	/*
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("Id",getId())
+			.append("OpenId",getOpenId())
 			.append("LoginName",getLoginName())
 			.append("NickName",getNickName())
 			.append("Password",getPassword())

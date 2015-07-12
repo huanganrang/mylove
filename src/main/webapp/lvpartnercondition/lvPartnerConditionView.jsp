@@ -10,9 +10,9 @@
 	<div data-options="region:'center',border:false">
 		<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvPartnerCondition.ALIAS_ACCOUNT_ID%></th>	
+					<th><%=TlvPartnerCondition.ALIAS_OPEN_ID%></th>	
 					<td>
-						${lvPartnerCondition.accountId}							
+						${lvPartnerCondition.openId}							
 					</td>							
 					<th><%=TlvPartnerCondition.ALIAS_AGE%></th>	
 					<td>

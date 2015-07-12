@@ -1,5 +1,6 @@
 ﻿package jb.service;
 
+import jb.pageModel.AccountSearch;
 import jb.pageModel.LvAccount;
 import jb.pageModel.DataGrid;
 import jb.pageModel.PageHelper;
@@ -50,5 +51,19 @@ public interface LvAccountServiceI {
 	 * @param id
 	 */
 	public void delete(String id);
+
+	public LvAccount reg(LvAccount lvAccount);
+
+	public LvAccount login(LvAccount lvAccount);
+
+	public void updatePass(LvAccount lvAccount) throws Exception ;
+
+	public void editByParam(LvAccount lvAccount) throws Exception ;
+
+	public LvAccount queryPersonInfoByParam(LvAccount lvAccount);
+
+	public LvAccount get(Integer openId);
+
+	public DataGrid dataGridAccount_search(AccountSearch search, PageHelper ph);
 
 }

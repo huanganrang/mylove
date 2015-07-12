@@ -13,7 +13,7 @@
 				style="padding: 1px"></div>
 			<div title="信箱" data-options="href:'../api_doing.jsp'"
 				style="padding: 1px"></div>
-			<div title="我的挖宝" data-options="href:'../api_doing.jsp'"
+			<div title="我的挖宝" data-options="href:'api_my_boost.jsp'"
 				style="padding: 1px"></div>	
 			<div title="个人中心" data-options="href:'api_people_center.jsp'"
 				style="padding: 1px"></div>	

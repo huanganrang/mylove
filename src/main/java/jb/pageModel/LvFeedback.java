@@ -8,7 +8,7 @@ public class LvFeedback implements java.io.Serializable {
 	private static final long serialVersionUID = 5454155825314635342L;
 
 	private java.lang.String id;	
-	private java.lang.String accountId;	
+	private java.lang.Integer openId;	
 	private java.lang.String contactWay;	
 	private java.lang.String content;	
 	private Date createTime;			
@@ -24,12 +24,12 @@ public class LvFeedback implements java.io.Serializable {
 	}
 
 	
-	public void setAccountId(java.lang.String accountId) {
-		this.accountId = accountId;
+	public void setOpenId(java.lang.Integer openId) {
+		this.openId = openId;
 	}
 	
-	public java.lang.String getAccountId() {
-		return this.accountId;
+	public java.lang.Integer getOpenId() {
+		return this.openId;
 	}
 	public void setContactWay(java.lang.String contactWay) {
 		this.contactWay = contactWay;

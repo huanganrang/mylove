@@ -10,136 +10,140 @@
 	<div data-options="region:'center',border:false">
 		<table class="table table-hover table-condensed">
 				<tr>	
+					<th><%=TlvAccount.ALIAS_OPEN_ID%></th>	
+					<td>
+						${lvAccount.openId}							
+					</td>							
 					<th><%=TlvAccount.ALIAS_LOGIN_NAME%></th>	
 					<td>
 						${lvAccount.loginName}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_NICK_NAME%></th>	
 					<td>
 						${lvAccount.nickName}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_PASSWORD%></th>	
 					<td>
 						${lvAccount.password}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_SEX%></th>	
 					<td>
 						${lvAccount.sex}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_BIRTHDAY%></th>	
 					<td>
 						${lvAccount.birthday}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_HEIGHT%></th>	
 					<td>
 						${lvAccount.height}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_WEIGHT%></th>	
 					<td>
 						${lvAccount.weight}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_MOBILE%></th>	
 					<td>
 						${lvAccount.mobile}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_QQ%></th>	
 					<td>
 						${lvAccount.qq}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_ADDRESS%></th>	
 					<td>
 						${lvAccount.address}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_EDUCATION%></th>	
 					<td>
 						${lvAccount.education}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_PROFESSION%></th>	
 					<td>
 						${lvAccount.profession}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_MONTH_INCOME%></th>	
 					<td>
 						${lvAccount.monthIncome}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_MARRY_STATUS%></th>	
 					<td>
 						${lvAccount.marryStatus}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_CONSTELLATION%></th>	
 					<td>
 						${lvAccount.constellation}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_PERSON_DESC%></th>	
 					<td>
 						${lvAccount.personDesc}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_CREATE_TIME%></th>	
 					<td>
 						${lvAccount.createTime}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_UPDATE_TIME%></th>	
 					<td>
 						${lvAccount.updateTime}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_AUDIT_STATUS%></th>	
 					<td>
 						${lvAccount.auditStatus}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_HEAD_IMG%></th>	
 					<td>
 						${lvAccount.headImg}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_LONGITUDE%></th>	
 					<td>
 						${lvAccount.longitude}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_LATITUDE%></th>	
 					<td>
 						${lvAccount.latitude}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_VIP_LEVEL%></th>	
 					<td>
 						${lvAccount.vipLevel}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_VIP_OPEN_TIME%></th>	
 					<td>
 						${lvAccount.vipOpenTime}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_ONLINE%></th>	
 					<td>
 						${lvAccount.online}							
 					</td>							
+				</tr>		
+				<tr>	
 					<th><%=TlvAccount.ALIAS_LAST_LOGIN_TIME%></th>	
 					<td>
 						${lvAccount.lastLoginTime}							
 					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_VISIT_NUM%></th>	
 					<td>
 						${lvAccount.visitNum}							

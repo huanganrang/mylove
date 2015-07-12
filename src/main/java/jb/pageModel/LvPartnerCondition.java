@@ -8,7 +8,7 @@ public class LvPartnerCondition implements java.io.Serializable {
 	private static final long serialVersionUID = 5454155825314635342L;
 
 	private java.lang.String id;	
-	private java.lang.String accountId;	
+	private java.lang.Integer openId;	
 	private java.lang.String age;	
 	private java.lang.String address;	
 	private java.lang.String height;	
@@ -27,12 +27,12 @@ public class LvPartnerCondition implements java.io.Serializable {
 	}
 
 	
-	public void setAccountId(java.lang.String accountId) {
-		this.accountId = accountId;
+	public void setOpenId(java.lang.Integer openId) {
+		this.openId = openId;
 	}
 	
-	public java.lang.String getAccountId() {
-		return this.accountId;
+	public java.lang.Integer getOpenId() {
+		return this.openId;
 	}
 	public void setAge(java.lang.String age) {
 		this.age = age;

@@ -10,13 +10,13 @@
 	<div data-options="region:'center',border:false">
 		<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvVisit.ALIAS_ACCOUNT_ID%></th>	
+					<th><%=TlvVisit.ALIAS_OPEN_ID%></th>	
 					<td>
-						${lvVisit.accountId}							
+						${lvVisit.openId}							
 					</td>							
-					<th><%=TlvVisit.ALIAS_VISIT_ACCOUNT_ID%></th>	
+					<th><%=TlvVisit.ALIAS_VISIT_OPEN_ID%></th>	
 					<td>
-						${lvVisit.visitAccountId}							
+						${lvVisit.visitOpenId}							
 					</td>							
 				</tr>		
 				<tr>	

@@ -1,19 +1,19 @@
 ﻿
 /*
  * @author John
- * @date - 2015-07-04
+ * @date - 2015-07-06
  */
 
 package jb.model;
 
-import javax.persistence.*;
-
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "lv_follow")
 @DynamicInsert(true)
@@ -24,8 +24,8 @@ public class TlvFollow implements java.io.Serializable{
 	//alias
 	public static final String TABLE_ALIAS = "LvFollow";
 	public static final String ALIAS_ID = "主键";
-	public static final String ALIAS_FROM_ACCOUNT_ID = "关注人ID";
-	public static final String ALIAS_TO_ACCOUNT_ID = "被关注人ID";
+	public static final String ALIAS_FROM_OPEN_ID = "关注人openId";
+	public static final String ALIAS_TO_OPEN_ID = "被关注人openId";
 	public static final String ALIAS_CREATE_TIME = "关注时间";
 	
 	//date formats
@@ -36,10 +36,10 @@ public class TlvFollow implements java.io.Serializable{
 	//columns START
 	//@Length(max=36)
 	private java.lang.String id;
-	//@NotBlank @Length(max=36)
-	private java.lang.String fromAccountId;
-	//@NotBlank @Length(max=36)
-	private java.lang.String toAccountId;
+	//@NotNull 
+	private java.lang.Integer fromOpenId;
+	//@NotNull 
+	private java.lang.Integer toOpenId;
 	//@NotNull 
 	private java.util.Date createTime;
 	//columns END
@@ -62,22 +62,22 @@ public class TlvFollow implements java.io.Serializable{
 		return this.id;
 	}
 	
-	@Column(name = "fromAccountId", unique = false, nullable = false, insertable = true, updatable = true, length = 36)
-	public java.lang.String getFromAccountId() {
-		return this.fromAccountId;
+	@Column(name = "fromOpenId", unique = false, nullable = false, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getFromOpenId() {
+		return this.fromOpenId;
 	}
 	
-	public void setFromAccountId(java.lang.String fromAccountId) {
-		this.fromAccountId = fromAccountId;
+	public void setFromOpenId(java.lang.Integer fromOpenId) {
+		this.fromOpenId = fromOpenId;
 	}
 	
-	@Column(name = "toAccountId", unique = false, nullable = false, insertable = true, updatable = true, length = 36)
-	public java.lang.String getToAccountId() {
-		return this.toAccountId;
+	@Column(name = "toOpenId", unique = false, nullable = false, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getToOpenId() {
+		return this.toOpenId;
 	}
 	
-	public void setToAccountId(java.lang.String toAccountId) {
-		this.toAccountId = toAccountId;
+	public void setToOpenId(java.lang.Integer toOpenId) {
+		this.toOpenId = toOpenId;
 	}
 	
 
@@ -90,13 +90,12 @@ public class TlvFollow implements java.io.Serializable{
 		this.createTime = createTime;
 	}
 	
-	
 	/*
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("Id",getId())
-			.append("FromAccountId",getFromAccountId())
-			.append("ToAccountId",getToAccountId())
+			.append("FromOpenId",getFromOpenId())
+			.append("ToOpenId",getToOpenId())
 			.append("CreateTime",getCreateTime())
 			.toString();
 	}

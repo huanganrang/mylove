@@ -48,12 +48,12 @@
 				width : 150,
 				hidden : true
 				}, {
-				field : 'fromAccountId',
-				title : '<%=TlvFollow.ALIAS_FROM_ACCOUNT_ID%>',
+				field : 'fromOpenId',
+				title : '<%=TlvFollow.ALIAS_FROM_OPEN_ID%>',
 				width : 50		
 				}, {
-				field : 'toAccountId',
-				title : '<%=TlvFollow.ALIAS_TO_ACCOUNT_ID%>',
+				field : 'toOpenId',
+				title : '<%=TlvFollow.ALIAS_TO_OPEN_ID%>',
 				width : 50		
 				}, {
 				field : 'createTime',
@@ -195,13 +195,13 @@
 			<form id="searchForm">
 				<table class="table table-hover table-condensed" style="display: none;">
 						<tr>	
-							<th><%=TlvFollow.ALIAS_FROM_ACCOUNT_ID%></th>	
+							<th><%=TlvFollow.ALIAS_FROM_OPEN_ID%></th>	
 							<td>
-									<input type="text" name="fromAccountId" maxlength="36" class="span2"/>
+									<input type="text" name="fromOpenId" maxlength="10" class="span2"/>
 							</td>
-							<th><%=TlvFollow.ALIAS_TO_ACCOUNT_ID%></th>	
+							<th><%=TlvFollow.ALIAS_TO_OPEN_ID%></th>	
 							<td>
-									<input type="text" name="toAccountId" maxlength="36" class="span2"/>
+									<input type="text" name="toOpenId" maxlength="10" class="span2"/>
 							</td>
 							<th><%=TlvFollow.ALIAS_CREATE_TIME%></th>	
 							<td>

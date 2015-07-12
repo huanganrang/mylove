@@ -1,6 +1,7 @@
 package jb.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,10 +49,6 @@ public class LvFeedbackServiceImpl extends BaseServiceImpl<LvFeedback> implement
 		String whereHql = "";	
 		if (lvFeedback != null) {
 			whereHql += " where 1=1 ";
-			if (!F.empty(lvFeedback.getAccountId())) {
-				whereHql += " and t.accountId = :accountId";
-				params.put("accountId", lvFeedback.getAccountId());
-			}		
 			if (!F.empty(lvFeedback.getContactWay())) {
 				whereHql += " and t.contactWay = :contactWay";
 				params.put("contactWay", lvFeedback.getContactWay());
@@ -69,7 +66,7 @@ public class LvFeedbackServiceImpl extends BaseServiceImpl<LvFeedback> implement
 		TlvFeedback t = new TlvFeedback();
 		BeanUtils.copyProperties(lvFeedback, t);
 		t.setId(UUID.randomUUID().toString());
-		//t.setCreatedatetime(new Date());
+		t.setCreateTime(new Date());
 		lvFeedbackDao.save(t);
 	}
 

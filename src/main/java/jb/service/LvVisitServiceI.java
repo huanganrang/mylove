@@ -1,7 +1,10 @@
 ﻿package jb.service;
 
-import jb.pageModel.LvVisit;
+import java.util.List;
+
 import jb.pageModel.DataGrid;
+import jb.pageModel.LvAccount;
+import jb.pageModel.LvVisit;
 import jb.pageModel.PageHelper;
 
 /**
@@ -50,5 +53,9 @@ public interface LvVisitServiceI {
 	 * @param id
 	 */
 	public void delete(String id);
+
+	public void saveOrUpdate(LvVisit lvVisit);
+
+	public List<LvAccount> queryAllVisitAccount(Integer openId);
 
 }

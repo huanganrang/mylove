@@ -37,9 +37,9 @@
 				<input type="hidden" name="id" value = "${lvAccountPhoto.id}"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvAccountPhoto.ALIAS_ACCOUNT_ID%></th>	
+					<th><%=TlvAccountPhoto.ALIAS_OPEN_ID%></th>	
 					<td>
-					<input class="span2" name="accountId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvAccountPhoto.accountId}"/>
+					<input class="span2" name="openId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvAccountPhoto.openId}"/>
 					</td>							
 					<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
 					<td>

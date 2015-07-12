@@ -48,8 +48,8 @@
 				width : 150,
 				hidden : true
 				}, {
-				field : 'accountId',
-				title : '<%=TlvFeedback.ALIAS_ACCOUNT_ID%>',
+				field : 'openId',
+				title : '<%=TlvFeedback.ALIAS_OPEN_ID%>',
 				width : 50		
 				}, {
 				field : 'contactWay',
@@ -199,9 +199,9 @@
 			<form id="searchForm">
 				<table class="table table-hover table-condensed" style="display: none;">
 						<tr>	
-							<th><%=TlvFeedback.ALIAS_ACCOUNT_ID%></th>	
+							<th><%=TlvFeedback.ALIAS_OPEN_ID%></th>	
 							<td>
-									<input type="text" name="accountId" maxlength="36" class="span2"/>
+									<input type="text" name="openId" maxlength="10" class="span2"/>
 							</td>
 							<th><%=TlvFeedback.ALIAS_CONTACT_WAY%></th>	
 							<td>

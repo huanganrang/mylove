@@ -51,7 +51,11 @@ public class LvAccountPhotoServiceImpl extends BaseServiceImpl<LvAccountPhoto> i
 			if (!F.empty(lvAccountPhoto.getPhotoImg())) {
 				whereHql += " and t.photoImg = :photoImg";
 				params.put("photoImg", lvAccountPhoto.getPhotoImg());
-			}		
+			}
+			if (lvAccountPhoto.getOpenId() != null) {
+				whereHql += " and t.openId = :openId";
+				params.put("openId", lvAccountPhoto.getOpenId());
+			}	
 		}	
 		return whereHql;
 	}

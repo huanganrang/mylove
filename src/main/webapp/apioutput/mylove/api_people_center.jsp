@@ -8,6 +8,12 @@
 </head>
 <body >
 	<div id="index_people_center_tabs" class="easyui-tabs" data-options="fit:true">
+		<div title="注册" data-options="href:'api_register.jsp'"
+			style="padding: 1px"></div>
+		<div title="登录" data-options="href:'api_login.jsp'"
+			style="padding: 1px"></div>
+		<div title="修改密码" data-options="href:'api_updatePass.jsp'"
+			style="padding: 1px"></div>
 		<div title="立即开通" data-options="href:'api_people_center_registerVip.jsp'"
 			style="padding: 1px"></div>
 		<div title="最近来访" data-options="href:'api_people_center_recentlyAccount.jsp'"
@@ -18,7 +24,7 @@
 			style="padding: 1px"></div>	
 		<div title="谁关注我(我关注的)" data-options="href:'api_people_center_meAttention.jsp'"
 			style="padding: 1px"></div>	
-		<div title="个人资料(查)" data-options="href:'api_people_center_personInfo.jsp'"
+		<div title="个人资料(查)" data-options="href:'api_people_center_personInfo.jsp?type=1'"
 			style="padding: 1px"></div>
 		<div title="个人资料(改)" data-options="href:'api_people_center_personInfoUpdate.jsp'"
 			style="padding: 1px"></div>	
@@ -30,9 +36,9 @@
 			style="padding: 1px"></div>
 		<div title="征友条件(改)" data-options="href:'api_people_center_friendConditionUpdate.jsp'"
 			style="padding: 1px"></div>	
-		<div title="行政区划" data-options="href:'api_people_center_friendConditionUpdate.jsp'"
+		<div title="行政区划" data-options="href:'api_people_center_arealist.jsp'"
 			style="padding: 1px"></div>		
-		<div title="意见反馈" data-options="href:'api_people_center_idea.jsp'"
+		<div title="意见反馈" data-options="href:'api_people_center_feedback.jsp'"
 			style="padding: 1px"></div>	
 		<div title="充值记录" data-options="href:'../api_doing.jsp'"
 			style="padding: 1px"></div>										

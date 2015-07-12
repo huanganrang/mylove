@@ -62,7 +62,7 @@ public interface Constants {
 	/**
 	 * 存储头相
 	 */
-	public static final String UPLOADFILE_HEADIMAGE = "headimagefiles";
+	public static final String UPLOADFILE_IMAGE = "imagefiles";
 	
 	/**
 	 * 未登录状态
@@ -78,4 +78,10 @@ public interface Constants {
 	 * 布尔false
 	 */
 	public static final String GLOBAL_BOOLEAN_FALSE = "0";
+	
+	/**
+	 * 账户默认密码：123456
+	 */
+	public static final String ACCOUNT_DEFAULT_PSW = "123456";
+	
 }

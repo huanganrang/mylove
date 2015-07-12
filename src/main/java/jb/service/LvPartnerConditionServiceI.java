@@ -51,4 +51,8 @@ public interface LvPartnerConditionServiceI {
 	 */
 	public void delete(String id);
 
+	public LvPartnerCondition get(Integer openId);
+
+	public void editByParam(LvPartnerCondition lvPartnerCondition) throws Exception ;
+
 }
