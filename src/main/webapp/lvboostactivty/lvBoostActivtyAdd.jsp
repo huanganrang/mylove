@@ -57,19 +57,19 @@
 					</td>							
 				</tr>	
 				<tr>	
-					<th><%=TlvBoostActivty.ALIAS_START_TIME%></th>	
-					<td>
-					<input class="span2" name="startTime" type="text" onclick="WdatePicker({dateFmt:'<%=TlvBoostActivty.FORMAT_START_TIME%>'})"  maxlength="0" class="" />
-					</td>							
-					<th><%=TlvBoostActivty.ALIAS_END_TIME%></th>	
-					<td>
-					<input class="span2" name="endTime" type="text" onclick="WdatePicker({dateFmt:'<%=TlvBoostActivty.FORMAT_END_TIME%>'})"  maxlength="0" class="" />
-					</td>							
-				</tr>	
-				<tr>	
 					<th><%=TlvBoostActivty.ALIAS_GOODS_DETAIL_IMG%></th>	
 					<td>
 					<input class="span2" name="goodsDetailImg" type="text" class="span2"/>
+					</td>							
+					<th><%=TlvBoostActivty.ALIAS_STATUS%></th>	
+					<td>
+					<input class="span2" name="status" type="text" class="span2"/>
+					</td>							
+				</tr>	
+				<tr>	
+					<th><%=TlvBoostActivty.ALIAS_HOUR_OF_DAY%></th>	
+					<td colspan="3">
+					<input class="span2" name="hourOfDay" type="text" class="span2"/>(-1~23，-1代表全天、0代表0点到1点等)
 					</td>							
 				</tr>	
 			</table>		

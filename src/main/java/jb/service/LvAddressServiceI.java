@@ -51,4 +51,8 @@ public interface LvAddressServiceI {
 	 */
 	public void delete(String id);
 
+	public LvAddress getByOpenId(Integer openId);
+
+	public void saveOrUpdate(LvAddress address);
+
 }

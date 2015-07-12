@@ -10,15 +10,15 @@ import java.util.UUID;
 import jb.absx.F;
 import jb.dao.LvAddressDaoI;
 import jb.model.TlvAddress;
-import jb.pageModel.LvAddress;
 import jb.pageModel.DataGrid;
+import jb.pageModel.LvAddress;
 import jb.pageModel.PageHelper;
 import jb.service.LvAddressServiceI;
+import jb.util.MyBeanUtils;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jb.util.MyBeanUtils;
 
 @Service
 public class LvAddressServiceImpl extends BaseServiceImpl<LvAddress> implements LvAddressServiceI {
@@ -83,6 +83,7 @@ public class LvAddressServiceImpl extends BaseServiceImpl<LvAddress> implements 
 		BeanUtils.copyProperties(lvAddress, t);
 		t.setId(UUID.randomUUID().toString());
 		//t.setCreatedatetime(new Date());
+		t.setCreateTime(new Date());
 		lvAddressDao.save(t);
 	}
 
@@ -101,6 +102,7 @@ public class LvAddressServiceImpl extends BaseServiceImpl<LvAddress> implements 
 		TlvAddress t = lvAddressDao.get(TlvAddress.class, lvAddress.getId());
 		if (t != null) {
 			MyBeanUtils.copyProperties(lvAddress, t, new String[] { "id" , "createdatetime" },true);
+			t.setUpdateTime(new Date());
 			//t.setModifydatetime(new Date());
 		}
 	}
@@ -108,6 +110,35 @@ public class LvAddressServiceImpl extends BaseServiceImpl<LvAddress> implements 
 	@Override
 	public void delete(String id) {
 		lvAddressDao.delete(lvAddressDao.get(TlvAddress.class, id));
+	}
+
+
+	/**
+	 * 根据openId查询收货地址
+	 */
+	public LvAddress getByOpenId(Integer openId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("openId", openId);
+		TlvAddress t = lvAddressDao.get("from TlvAddress t where t.openId = :openId", params);
+		LvAddress o = null;
+		if(t != null) {
+			o = new LvAddress();
+			BeanUtils.copyProperties(t, o);
+		}
+		return o;
+	}
+
+
+	@Override
+	public void saveOrUpdate(LvAddress address) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("openId", address.getOpenId());
+		TlvAddress t = lvAddressDao.get("from TlvAddress t where t.openId = :openId", params);
+		if(t != null) {
+			MyBeanUtils.copyProperties(address, t, new String[] {"id", "openId"},true);
+		} else {
+			add(address);
+		}
 	}
 
 }

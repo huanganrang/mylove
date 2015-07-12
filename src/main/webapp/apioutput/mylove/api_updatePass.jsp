@@ -17,11 +17,6 @@
 					title : '提示',
 					text : '数据处理中，请稍后....'
 				});
-				if($("input[name=password1]").val() != $("input[name=confirmPassword]").val()) {
-					alert("两次密码输入不同");
-					parent.$.messager.progress('close');
-					return false;
-				}
 				$("input[name=password]").val($("input[name=password1]").val());
 				var isValid = $(this).form('validate');
 				if (!isValid) {
@@ -65,10 +60,6 @@
 							<input name="password1" type="text" class="span2" value=""/>
 							<input type="hidden" name="password">
 						</td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>confirmPassword(确认密码)：</label></td>
-						<td><input name="confirmPassword" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">

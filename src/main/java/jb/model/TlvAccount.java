@@ -50,6 +50,7 @@ public class TlvAccount implements java.io.Serializable{
 	public static final String ALIAS_LATITUDE = "纬度";
 	public static final String ALIAS_VIP_LEVEL = "VIP等级";
 	public static final String ALIAS_VIP_OPEN_TIME = "VIP开通时间";
+	public static final String ALIAS_VIP_END_TIME = "VIP结束时间";
 	public static final String ALIAS_ONLINE = "在线状态";
 	public static final String ALIAS_LAST_LOGIN_TIME = "最近在线时间";
 	public static final String ALIAS_VISIT_NUM = "来访数量";
@@ -119,6 +120,8 @@ public class TlvAccount implements java.io.Serializable{
 	private java.lang.String vipLevel;
 	//
 	private java.util.Date vipOpenTime;
+	//
+	private java.util.Date vipEndTime;
 	//@Length(max=20)
 	private java.lang.String online;
 	//@NotNull 
@@ -375,6 +378,15 @@ public class TlvAccount implements java.io.Serializable{
 	
 	public void setVipOpenTime(java.util.Date vipOpenTime) {
 		this.vipOpenTime = vipOpenTime;
+	}
+	
+	@Column(name = "vipEndTime", unique = false, nullable = true, insertable = true, updatable = true, length = 19)
+	public java.util.Date getVipEndTime() {
+		return this.vipEndTime;
+	}
+	
+	public void setVipEndTime(java.util.Date vipEndTime) {
+		this.vipEndTime = vipEndTime;
 	}
 	
 	@Column(name = "online", unique = false, nullable = true, insertable = true, updatable = true, length = 20)

@@ -88,6 +88,12 @@
 						total	总数  <br/>
 						openId	用户openId值    <br/>
 						headImg	头像图片路径     <br/>
+						age	年龄     <br/>
+						nickName	昵称     <br/>
+						sex	性别（SX01：男；SX02：女）    <br/>
+						vipLevel	会员等级（VP01：年会员；VP02：季会员；VP03：月会员）    <br/>
+						vipOpenTime	会员开通时间    <br/>
+						vipEndTime	会员到期时间   <br/>
 					
 			</div>
 		</div>

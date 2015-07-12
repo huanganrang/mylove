@@ -53,6 +53,13 @@ public interface LvBoostActivtyServiceI {
 	 */
 	public void delete(String id);
 
-	public List<LvBoostActivty> findAllList();
+	public List<LvBoostActivty> findAllList(Integer openId, Integer hourOfDay);
+
+	/**
+	 * 根据活动ID获取挖宝活动详情
+	 * @param id
+	 * @return
+	 */
+	public LvBoostActivty getActivtyDetail(String id);
 
 }

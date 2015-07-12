@@ -1,8 +1,7 @@
 package jb.pageModel;
 
-import java.util.Date;
+import java.util.List;
 
-@SuppressWarnings("serial")
 public class LvBoostActivty implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5454155825314635342L;
@@ -12,11 +11,13 @@ public class LvBoostActivty implements java.io.Serializable {
 	private java.lang.Double goodsPrice;	
 	private java.lang.String goodsImg;	
 	private java.lang.Integer assistNum;	
-	private Date startTime;			
-	private Date endTime;			
 	private java.lang.String goodsDetailImg;	
-
+	private java.lang.Integer status;	
+	private java.lang.Integer hourOfDay;	
 	
+	private List<LvBoostRecord> recordList;
+	private Integer recordNum; // 参与人数
+	private Integer assistedNum; // 已获得的助力数
 
 	public void setId(java.lang.String value) {
 		this.id = value;
@@ -55,20 +56,6 @@ public class LvBoostActivty implements java.io.Serializable {
 	public java.lang.Integer getAssistNum() {
 		return this.assistNum;
 	}
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-	
-	public Date getStartTime() {
-		return this.startTime;
-	}
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-	
-	public Date getEndTime() {
-		return this.endTime;
-	}
 	public void setGoodsDetailImg(java.lang.String goodsDetailImg) {
 		this.goodsDetailImg = goodsDetailImg;
 	}
@@ -76,5 +63,42 @@ public class LvBoostActivty implements java.io.Serializable {
 	public java.lang.String getGoodsDetailImg() {
 		return this.goodsDetailImg;
 	}
+	public void setStatus(java.lang.Integer status) {
+		this.status = status;
+	}
+	
+	public java.lang.Integer getStatus() {
+		return this.status;
+	}
+	public void setHourOfDay(java.lang.Integer hourOfDay) {
+		this.hourOfDay = hourOfDay;
+	}
+	
+	public java.lang.Integer getHourOfDay() {
+		return this.hourOfDay;
+	}
 
+	public List<LvBoostRecord> getRecordList() {
+		return recordList;
+	}
+
+	public void setRecordList(List<LvBoostRecord> recordList) {
+		this.recordList = recordList;
+	}
+	
+	public Integer getRecordNum() {
+		return recordNum;
+	}
+
+	public void setRecordNum(Integer recordNum) {
+		this.recordNum = recordNum;
+	}
+
+	public Integer getAssistedNum() {
+		return assistedNum;
+	}
+
+	public void setAssistedNum(Integer assistedNum) {
+		this.assistedNum = assistedNum;
+	}
 }

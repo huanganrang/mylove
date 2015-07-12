@@ -66,4 +66,6 @@ public interface LvAccountServiceI {
 
 	public DataGrid dataGridAccount_search(AccountSearch search, PageHelper ph);
 
+	public void registerVip(LvAccount lvAccount);
+
 }

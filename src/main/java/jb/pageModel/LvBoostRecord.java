@@ -2,7 +2,6 @@ package jb.pageModel;
 
 import java.util.Date;
 
-@SuppressWarnings("serial")
 public class LvBoostRecord implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5454155825314635342L;
@@ -16,7 +15,9 @@ public class LvBoostRecord implements java.io.Serializable {
 	private Date openTime;			
 	private java.lang.Integer openStatus;	
 
-	
+	private String nickName; 
+	private String goodsImg;
+	private String goodsName;
 
 	public void setId(java.lang.String value) {
 		this.id = value;
@@ -76,5 +77,26 @@ public class LvBoostRecord implements java.io.Serializable {
 	public java.lang.Integer getOpenStatus() {
 		return this.openStatus;
 	}
+	public String getNickName() {
+		return nickName;
+	}
 
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public String getGoodsImg() {
+		return goodsImg;
+	}
+
+	public void setGoodsImg(String goodsImg) {
+		this.goodsImg = goodsImg;
+	}
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
+	
 }

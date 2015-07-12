@@ -64,16 +64,16 @@
 				title : '<%=TlvBoostActivty.ALIAS_ASSIST_NUM%>',
 				width : 50		
 				}, {
-				field : 'startTime',
-				title : '<%=TlvBoostActivty.ALIAS_START_TIME%>',
-				width : 50		
-				}, {
-				field : 'endTime',
-				title : '<%=TlvBoostActivty.ALIAS_END_TIME%>',
-				width : 50		
-				}, {
 				field : 'goodsDetailImg',
 				title : '<%=TlvBoostActivty.ALIAS_GOODS_DETAIL_IMG%>',
+				width : 50		
+				}, {
+				field : 'status',
+				title : '<%=TlvBoostActivty.ALIAS_STATUS%>',
+				width : 50		
+				}, {
+				field : 'hourOfDay',
+				title : '<%=TlvBoostActivty.ALIAS_HOUR_OF_DAY%>',
 				width : 50		
 			}, {
 				field : 'action',
@@ -229,19 +229,17 @@
 							</td>
 						</tr>	
 						<tr>	
-							<th><%=TlvBoostActivty.ALIAS_START_TIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvBoostActivty.FORMAT_START_TIME%>'})" id="startTimeBegin" name="startTimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvBoostActivty.FORMAT_START_TIME%>'})" id="startTimeEnd" name="startTimeEnd"/>
-							</td>
-							<th><%=TlvBoostActivty.ALIAS_END_TIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvBoostActivty.FORMAT_END_TIME%>'})" id="endTimeBegin" name="endTimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvBoostActivty.FORMAT_END_TIME%>'})" id="endTimeEnd" name="endTimeEnd"/>
-							</td>
 							<th><%=TlvBoostActivty.ALIAS_GOODS_DETAIL_IMG%></th>	
 							<td>
 									<input type="text" name="goodsDetailImg" maxlength="100" class="span2"/>
+							</td>
+							<th><%=TlvBoostActivty.ALIAS_STATUS%></th>	
+							<td>
+									<input type="text" name="status" maxlength="10" class="span2"/>
+							</td>
+							<th><%=TlvBoostActivty.ALIAS_HOUR_OF_DAY%></th>	
+							<td>
+									<input type="text" name="hourOfDay" maxlength="10" class="span2"/>
 							</td>
 						</tr>	
 				</table>

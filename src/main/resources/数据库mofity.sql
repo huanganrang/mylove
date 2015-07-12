@@ -163,4 +163,32 @@ COMMENT='收货地址信息表'
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
 -- 2015-07-09 xuwm end --
+
+-- 2015-07-11 xuwm start --
+CREATE TABLE `lv_assist_log` (
+	`id` VARCHAR(36) NOT NULL COMMENT '主键',
+	`boostRecordId` VARCHAR(36) NOT NULL COMMENT '挖宝记录ID',
+	`openId` INT NOT NULL COMMENT '助力人',
+	`assistTime` DATETIME NOT NULL COMMENT '助力时间',
+	PRIMARY KEY (`id`),
+	CONSTRAINT `FK__lv_boost_record` FOREIGN KEY (`boostRecordId`) REFERENCES `lv_boost_record` (`id`)
+)
+COMMENT='助力记录日志表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+ALTER TABLE `lv_boost_activty`
+	ADD COLUMN `status` INT(1) NULL DEFAULT '1' COMMENT '状态（1：启用；2：停用）' AFTER `goods_detail_img`,
+	ADD COLUMN `hourOfDay` INT(2) NULL DEFAULT '-1' COMMENT '时间标记' AFTER `status`,
+	DROP COLUMN `startTime`,
+	DROP COLUMN `endTime`;
+	
+ALTER TABLE `lv_account`
+	ADD COLUMN `vipEndTime` DATETIME NULL DEFAULT NULL COMMENT 'VIP结束时间' AFTER `vipOpenTime`;
+	
+ALTER TABLE `lv_account`
+	CHANGE COLUMN `vipOpenTime` `vipOpenTime` DATE NULL DEFAULT NULL COMMENT 'VIP开通时间' AFTER `vipLevel`,
+	CHANGE COLUMN `vipEndTime` `vipEndTime` DATE NULL DEFAULT NULL COMMENT 'VIP结束时间' AFTER `vipOpenTime`;
+-- 2015-07-11 xuwm end --
 	

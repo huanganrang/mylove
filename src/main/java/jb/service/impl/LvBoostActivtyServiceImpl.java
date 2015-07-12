@@ -1,5 +1,6 @@
 package jb.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -9,12 +10,14 @@ import java.util.UUID;
 
 import jb.absx.F;
 import jb.dao.LvBoostActivtyDaoI;
+import jb.dao.LvBoostRecordDaoI;
 import jb.model.TlvBoostActivty;
+import jb.model.TlvBoostRecord;
 import jb.pageModel.DataGrid;
 import jb.pageModel.LvBoostActivty;
+import jb.pageModel.LvBoostRecord;
 import jb.pageModel.PageHelper;
 import jb.service.LvBoostActivtyServiceI;
-import jb.util.DateUtil;
 import jb.util.MyBeanUtils;
 
 import org.springframework.beans.BeanUtils;
@@ -26,6 +29,9 @@ public class LvBoostActivtyServiceImpl extends BaseServiceImpl<LvBoostActivty> i
 
 	@Autowired
 	private LvBoostActivtyDaoI lvBoostActivtyDao;
+	
+	@Autowired
+	private LvBoostRecordDaoI lvBoostRecordDao;
 
 	@Override
 	public DataGrid dataGrid(LvBoostActivty lvBoostActivty, PageHelper ph) {
@@ -99,27 +105,74 @@ public class LvBoostActivtyServiceImpl extends BaseServiceImpl<LvBoostActivty> i
 		lvBoostActivtyDao.delete(lvBoostActivtyDao.get(TlvBoostActivty.class, id));
 	}
 
-
 	@Override
-	public List<LvBoostActivty> findAllList() {
+	public List<LvBoostActivty> findAllList(Integer openId, Integer hourOfDay) {
 		List<LvBoostActivty> lb = new ArrayList<LvBoostActivty>();
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		Calendar cal = Calendar.getInstance();
-		params.put("startTime", DateUtil.parse(DateUtil.format(cal.getTime(), "HH:mm:ss"), "HH:mm:ss"));
-		cal.set(Calendar.HOUR_OF_DAY, 1);
-		params.put("endTime", DateUtil.parse(DateUtil.format(cal.getTime(), "HH:mm:ss"), "HH:mm:ss"));
+		hourOfDay = hourOfDay == null ? cal.get(Calendar.HOUR_OF_DAY) : hourOfDay;
+		params.put("hourOfDay", hourOfDay);
+		params.put("status", 1);
 		
-		List<TlvBoostActivty> l = lvBoostActivtyDao.find("from TlvBoostActivty t where t.startTime <= :startTime and t.endTime >= :endTime", params);
+		List<TlvBoostActivty> l = lvBoostActivtyDao.find("from TlvBoostActivty t where t.status = :status and (t.hourOfDay = :hourOfDay or t.hourOfDay = -1)", params);
 		if(l != null && l.size() > 0) {
 			for(TlvBoostActivty t : l) {
 				LvBoostActivty b = new LvBoostActivty();
 				MyBeanUtils.copyProperties(t, b, true);
+				
+				params = new HashMap<String, Object>();
+				cal = Calendar.getInstance();
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+				params.put("startTime", cal.getTime());
+				cal.add(Calendar.HOUR_OF_DAY, 1);
+				params.put("endTime", cal.getTime());
+				b.setRecordNum(lvBoostRecordDao.count("select count(*) from TlvBoostRecord t where t.boostTime between :startTime and :endTime", params).intValue());
+				if(cal.get(Calendar.HOUR_OF_DAY) - 1 == hourOfDay) {
+					params.put("openId", openId);
+					params.put("activtyId", t.getId());
+					TlvBoostRecord br = lvBoostRecordDao.get("from TlvBoostRecord t left join fetch t.tlvBoostActivty b where t.boostTime between :startTime and :endTime and t.openId = :openId and t.activtyId = :activtyId", params);
+					if(br == null) {
+						b.setAssistedNum(-1);
+					} else {
+						b.setAssistedNum(br.getAssistNum());
+					}
+				}
 				lb.add(b);
 			}
 		}
 		return lb;
 	}
-	
+
+	/**
+	 * 商品详情（包括挖宝记录）
+	 */
+	@SuppressWarnings("rawtypes")
+	@Override
+	public LvBoostActivty getActivtyDetail(String id) {
+		LvBoostActivty ba = new LvBoostActivty();
+		TlvBoostActivty t = lvBoostActivtyDao.get(TlvBoostActivty.class, id);
+		MyBeanUtils.copyProperties(t, ba, true);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("activtyId", id);
+		List<Map> l = lvBoostRecordDao.findBySql2Map("select r.boostTime, a.nickName from lv_boost_record r left join lv_account a on a.openId = r.openId where r.activtyId = :activtyId order by r.boostTime desc limit 10", params);
+		List<LvBoostRecord> rl = new ArrayList<LvBoostRecord>();
+		if (l != null && l.size() > 0) {
+			for (Map m : l) {
+				LvBoostRecord r = new LvBoostRecord();
+				try {
+					org.apache.commons.beanutils.BeanUtils.populate(r, m);
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
+				rl.add(r);
+			}
+		}	
+		ba.setRecordList(rl);
+		return ba;
+	}
 
 }

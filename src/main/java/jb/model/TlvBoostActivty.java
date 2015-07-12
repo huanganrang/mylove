@@ -1,7 +1,7 @@
 ﻿
 /*
  * @author John
- * @date - 2015-07-09
+ * @date - 2015-07-12
  */
 
 package jb.model;
@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "lv_boost_activty")
 @DynamicInsert(true)
@@ -35,13 +34,11 @@ public class TlvBoostActivty implements java.io.Serializable{
 	public static final String ALIAS_GOODS_PRICE = "市场价值";
 	public static final String ALIAS_GOODS_IMG = "商品图片";
 	public static final String ALIAS_ASSIST_NUM = "所需助力点数";
-	public static final String ALIAS_START_TIME = "开始时间";
-	public static final String ALIAS_END_TIME = "结束时间";
 	public static final String ALIAS_GOODS_DETAIL_IMG = "商品详情图片";
+	public static final String ALIAS_STATUS = "状态（1：启用；2：停用）";
+	public static final String ALIAS_HOUR_OF_DAY = "时间标记";
 	
 	//date formats
-	public static final String FORMAT_START_TIME = jb.util.Constants.DATE_FORMAT_For_Entity;
-	public static final String FORMAT_END_TIME = jb.util.Constants.DATE_FORMAT_For_Entity;
 	
 
 	//可以直接使用: @Length(max=50,message="用户名长度不能大于50")显示错误消息
@@ -56,12 +53,12 @@ public class TlvBoostActivty implements java.io.Serializable{
 	private java.lang.String goodsImg;
 	//
 	private java.lang.Integer assistNum;
-	//
-	private java.util.Date startTime;
-	//
-	private java.util.Date endTime;
 	//@Length(max=100)
 	private java.lang.String goodsDetailImg;
+	//
+	private java.lang.Integer status;
+	//
+	private java.lang.Integer hourOfDay;
 	//columns END
 
 
@@ -118,26 +115,6 @@ public class TlvBoostActivty implements java.io.Serializable{
 		this.assistNum = assistNum;
 	}
 	
-
-	@Column(name = "startTime", unique = false, nullable = true, insertable = true, updatable = true, length = 8)
-	public java.util.Date getStartTime() {
-		return this.startTime;
-	}
-	
-	public void setStartTime(java.util.Date startTime) {
-		this.startTime = startTime;
-	}
-	
-
-	@Column(name = "endTime", unique = false, nullable = true, insertable = true, updatable = true, length = 8)
-	public java.util.Date getEndTime() {
-		return this.endTime;
-	}
-	
-	public void setEndTime(java.util.Date endTime) {
-		this.endTime = endTime;
-	}
-	
 	@Column(name = "goods_detail_img", unique = false, nullable = true, insertable = true, updatable = true, length = 100)
 	public java.lang.String getGoodsDetailImg() {
 		return this.goodsDetailImg;
@@ -145,6 +122,24 @@ public class TlvBoostActivty implements java.io.Serializable{
 	
 	public void setGoodsDetailImg(java.lang.String goodsDetailImg) {
 		this.goodsDetailImg = goodsDetailImg;
+	}
+	
+	@Column(name = "status", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getStatus() {
+		return this.status;
+	}
+	
+	public void setStatus(java.lang.Integer status) {
+		this.status = status;
+	}
+	
+	@Column(name = "hourOfDay", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getHourOfDay() {
+		return this.hourOfDay;
+	}
+	
+	public void setHourOfDay(java.lang.Integer hourOfDay) {
+		this.hourOfDay = hourOfDay;
 	}
 	
 	
@@ -166,9 +161,9 @@ public class TlvBoostActivty implements java.io.Serializable{
 			.append("GoodsPrice",getGoodsPrice())
 			.append("GoodsImg",getGoodsImg())
 			.append("AssistNum",getAssistNum())
-			.append("StartTime",getStartTime())
-			.append("EndTime",getEndTime())
 			.append("GoodsDetailImg",getGoodsDetailImg())
+			.append("Status",getStatus())
+			.append("HourOfDay",getHourOfDay())
 			.toString();
 	}
 	

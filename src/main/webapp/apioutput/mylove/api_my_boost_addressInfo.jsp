@@ -10,8 +10,8 @@
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#activtyList_Form').form({
-			url : '${pageContext.request.contextPath}/api/apiBoostController/activtyList',
+		$('#addressInfo_Form').form({
+			url : '${pageContext.request.contextPath}/api/apiBoostController/addressInfo',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -25,7 +25,7 @@
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#activtyList_result").text(result);
+				$("#addressInfo_result").text(result);
 			}
 		});
 	});
@@ -34,11 +34,11 @@
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="activtyList_Form" action="">
+			<form id="addressInfo_Form" action="">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
-						<td>${pageContext.request.contextPath}/api/apiBoostController/activtyList（宝贝活动请在后台添加）</td>
+						<td>${pageContext.request.contextPath}/api/apiBoostController/addressInfo</td>
 					</tr>
 					
 					<tr>
@@ -46,32 +46,29 @@
 						<td><input name="tokenId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>openId(账户openId)：</label></td>
+						<td align="right" style="width: 180px;"><label>openId(用户openId)：</label></td>
 						<td><input name="openId" type="text" class="span2" value=""/></td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>hourOfDay(开始时间值)：</label></td>
-						<td><input name="hourOfDay" type="text" class="span2" value=""/>（范围0-23整数）</td>
 					</tr>
 					
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#activtyList_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#addressInfo_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="activtyList_result">
+				<div id="addressInfo_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、id：宝贝活动ID<br/>
-						goodsImg：商品图片地址<br/>
-						assistNum：所需助力数<br/>
-						assistedNum：当前用户已经成功获取的助力数,当为-1时表示未参与<br/>
-						recordNum：参与人数<br/>
+					3、consignee：收货人姓名<br/>
+						mobile：手机号<br/>
+						province：所在省code<br/>
+						city：所在市code<br/>
+						district：所在区code<br/>
+						address：详细地址<br/>
 			</div>
 		</div>
 	</div>

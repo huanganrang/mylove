@@ -199,6 +199,69 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		}
 	}
 
+	/**
+	 * 开通VIP
+	 */
+	public void registerVip(LvAccount lvAccount) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("openId", lvAccount.getOpenId());
+		TlvAccount t = lvAccountDao.get("from TlvAccount t where t.openId = :openId", params);
+		Date now = DateUtil.parse(DateUtil.format(new Date(), DateUtil.YMD_A), DateUtil.YMD_A);
+		if(!F.empty(t.getVipLevel())) {
+			if(now.getTime() > t.getVipEndTime().getTime()) {
+				lvAccount.setVipOpenTime(now);
+				if("VP01".equals(lvAccount.getVipLevel())) {
+					lvAccount.setVipEndTime(DateUtil.addYearToDate(now, 1));
+				} else if("VP02".equals(lvAccount.getVipLevel())){
+					lvAccount.setVipEndTime(DateUtil.addMonthToDate(now, 3));
+				} else {
+					lvAccount.setVipEndTime(DateUtil.addMonthToDate(now, 1));
+				}
+			} else {
+				if("VP01".equals(t.getVipLevel())) {
+					if("VP01".equals(lvAccount.getVipLevel())) {
+						lvAccount.setVipEndTime(DateUtil.addYearToDate(t.getVipEndTime(), 1));
+					} else if("VP02".equals(lvAccount.getVipLevel())) {
+						lvAccount.setVipLevel(t.getVipLevel());
+						lvAccount.setVipEndTime(DateUtil.addMonthToDate(t.getVipEndTime(), 3));
+					} else {
+						lvAccount.setVipLevel(t.getVipLevel());
+						lvAccount.setVipEndTime(DateUtil.addMonthToDate(t.getVipEndTime(), 1));
+					}
+					
+				} else if("VP02".equals(t.getVipLevel())){
+					if("VP01".equals(lvAccount.getVipLevel())) {
+						lvAccount.setVipEndTime(DateUtil.addYearToDate(t.getVipEndTime(), 1));
+					} else if("VP02".equals(lvAccount.getVipLevel())) {
+						lvAccount.setVipEndTime(DateUtil.addMonthToDate(t.getVipEndTime(), 3));
+					} else {
+						lvAccount.setVipLevel(t.getVipLevel());
+						lvAccount.setVipEndTime(DateUtil.addMonthToDate(t.getVipEndTime(), 1));
+					}
+				} else {
+					if("VP01".equals(lvAccount.getVipLevel())) {
+						lvAccount.setVipEndTime(DateUtil.addYearToDate(t.getVipEndTime(), 1));
+					} else if("VP02".equals(lvAccount.getVipLevel())) {
+						lvAccount.setVipEndTime(DateUtil.addMonthToDate(t.getVipEndTime(), 3));
+					} else {
+						lvAccount.setVipEndTime(DateUtil.addMonthToDate(t.getVipEndTime(), 1));
+					}
+				}
+			}
+		} else {
+			lvAccount.setVipOpenTime(now);
+			if("VP01".equals(lvAccount.getVipLevel())) {
+				lvAccount.setVipEndTime(DateUtil.addYearToDate(now, 1));
+			} else if("VP02".equals(lvAccount.getVipLevel())){
+				lvAccount.setVipEndTime(DateUtil.addMonthToDate(now, 3));
+			} else {
+				lvAccount.setVipEndTime(DateUtil.addMonthToDate(now, 1));
+			}
+		}
+		
+		MyBeanUtils.copyProperties(lvAccount, t, new String[] {"openId", "createTime"},true);
+		t.setUpdateTime(new Date());
+	}
 
 	/**
 	 * 个人资料查询
@@ -302,7 +365,7 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 				LvAccount o = new LvAccount();
 				MyBeanUtils.copyProperties(t, o, true);
 				o.setAge(DateUtil.getAgeByBirthday(o.getBirthday()));
-				map = BeanToMapUtil.convertBean(o, new String[]{"openId", "headImg", "age", "sex", "vipLevel", "vipOpenTime"});
+				map = BeanToMapUtil.convertBean(o, new String[]{"openId", "headImg", "age", "sex", "vipLevel", "vipOpenTime", "vipEndTime", "nickName"});
 				al.add(map);
 			}
 		}

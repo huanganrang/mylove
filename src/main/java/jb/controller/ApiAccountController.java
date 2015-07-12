@@ -164,8 +164,7 @@ public class ApiAccountController extends BaseController {
 	public Json registerVip(LvAccount lvAccount, HttpServletRequest request) {
 		Json j = new Json();
 		try {
-			lvAccount.setVipOpenTime(new Date());
-			accountService.editByParam(lvAccount);			
+			accountService.registerVip(lvAccount);			
 			j.setSuccess(true);
 			j.setMsg("会员开通成功");
 		} catch (Exception e) {

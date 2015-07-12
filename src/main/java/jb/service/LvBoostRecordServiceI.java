@@ -1,5 +1,7 @@
 ﻿package jb.service;
 
+import java.util.List;
+
 import jb.pageModel.LvBoostRecord;
 import jb.pageModel.DataGrid;
 import jb.pageModel.PageHelper;
@@ -50,5 +52,11 @@ public interface LvBoostRecordServiceI {
 	 * @param id
 	 */
 	public void delete(String id);
+
+	public List<LvBoostRecord> findBoostInfoList(Integer openId);
+
+	public List<LvBoostRecord> findBoostRecordList(Integer openId, Integer type);
+
+	public DataGrid dataGridAssistList(Integer openId, PageHelper ph);
 
 }

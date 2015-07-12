@@ -30,19 +30,19 @@
 					</td>							
 				</tr>		
 				<tr>	
-					<th><%=TlvBoostActivty.ALIAS_START_TIME%></th>	
-					<td>
-						${lvBoostActivty.startTime}							
-					</td>							
-					<th><%=TlvBoostActivty.ALIAS_END_TIME%></th>	
-					<td>
-						${lvBoostActivty.endTime}							
-					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvBoostActivty.ALIAS_GOODS_DETAIL_IMG%></th>	
 					<td>
 						${lvBoostActivty.goodsDetailImg}							
+					</td>							
+					<th><%=TlvBoostActivty.ALIAS_STATUS%></th>	
+					<td>
+						${lvBoostActivty.status}							
+					</td>							
+				</tr>		
+				<tr>	
+					<th><%=TlvBoostActivty.ALIAS_HOUR_OF_DAY%></th>	
+					<td>
+						${lvBoostActivty.hourOfDay}							
 					</td>							
 				</tr>		
 		</table>
