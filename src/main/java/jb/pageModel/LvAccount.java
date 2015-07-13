@@ -33,6 +33,7 @@ public class LvAccount implements java.io.Serializable {
 	private Long latitude;	
 	private java.lang.String vipLevel;	
 	private Date vipOpenTime;			
+	private Date vipEndTime;			
 	private java.lang.String online;	
 	private Date lastLoginTime;			
 	private java.lang.Integer visitNum;	
@@ -231,6 +232,13 @@ public class LvAccount implements java.io.Serializable {
 	
 	public Date getVipOpenTime() {
 		return this.vipOpenTime;
+	}
+	public void setVipEndTime(Date vipEndTime) {
+		this.vipEndTime = vipEndTime;
+	}
+	
+	public Date getVipEndTime() {
+		return this.vipEndTime;
 	}
 	public void setOnline(java.lang.String online) {
 		this.online = online;

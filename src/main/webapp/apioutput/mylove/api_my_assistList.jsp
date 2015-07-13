@@ -5,16 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<%
-	String searchType = request.getParameter("searchType");
-%>
 </head>
 <body>
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#accountSearch_<%=searchType %>_Form').form({
-			url : '${pageContext.request.contextPath}/api/apiHomeController/accountSearch',
+		$('#assistList_Form').form({
+			url : '${pageContext.request.contextPath}/api/apiBoostController/assistList',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -28,7 +25,7 @@
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#accountSearch_<%=searchType %>_result").text(result);
+				$("#assistList_result").text(result);
 			}
 		});
 	});
@@ -37,11 +34,11 @@
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="accountSearch_<%=searchType %>_Form">
+			<form id="assistList_Form" action="">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
-						<td>${pageContext.request.contextPath}/api/apiHomeController/accountSearch</td>
+						<td>${pageContext.request.contextPath}/api/apiBoostController/assistList</td>
 					</tr>
 					
 					<tr>
@@ -49,22 +46,13 @@
 						<td><input name="tokenId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>openId(账户号)：</label></td>
-						<td><input name="openId" type="text" class="span2" value="10000000"/></td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>searchType(搜索类型)：</label></td>
-						<td><input name="searchType" type="text" class="span2" value="<%=searchType %>"/>(1、全国；2、同城；3、openId搜索)</td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>searchOpenId(搜索账户号)：</label></td>
-						<td><input name="searchOpenId" type="text" class="span2" value=""/>（当searchType=3时需要传入值）</td>
+						<td align="right" style="width: 180px;"><label>openId(用户openId)：</label></td>
+						<td><input name="openId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>page(第几页)：</label></td>
 						<td><input name="page" type="text" class="span2" value="1"/></td>
 					</tr>
-					
 					<tr>
 						<td align="right" style="width: 180px;"><label>rows(每页数)：</label></td>
 						<td><input name="rows" type="text" class="span2" value="10"/></td>
@@ -73,28 +61,21 @@
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#accountSearch_<%=searchType %>_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#assistList_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="accountSearch_<%=searchType %>_result">
+				<div id="assistList_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、page	   当前页         <br/>
-						pageSize	   每页数      <br/>
-						total	总数  <br/>
-						openId	用户openId值    <br/>
-						headImg	头像图片路径     <br/>
-						age	年龄     <br/>
-						nickName	昵称     <br/>
-						sex	性别（SX01：男；SX02：女）    <br/>
-						vipLevel	会员等级（VP01：年会员；VP02：季会员；VP03：月会员）    <br/>
-						vipOpenTime	会员开通时间    <br/>
-						vipEndTime	会员到期时间   <br/>
-					
+					3、nickName：昵称<br/>
+						headImg：头像路径<br/>
+						boostRecordId：征集挖宝记录ID<br/>
+						boostTime：征集挖宝时间<br/>
+						isAssist：是否助力过（1：是；2：否）<br/>
 			</div>
 		</div>
 	</div>
