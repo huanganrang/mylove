@@ -29,6 +29,7 @@ import jb.service.LvVisitServiceI;
 import jb.util.Constants;
 import jb.util.DateUtil;
 import jb.util.StringUtil;
+import jb.util.easemob.HuanxinUtil;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +126,9 @@ public class ApiAccountController extends BaseController {
 			LvPartnerCondition lvPartnerCondition = new LvPartnerCondition();
 			lvPartnerCondition.setOpenId(lvAccount.getOpenId());
 			partnerConditionService.add(lvPartnerCondition);
+			
+			// 注册环信
+			HuanxinUtil.createUser(lvAccount.getOpenId() + "", "123456");
 		} catch (Exception e) {
 			// e.printStackTrace();
 			j.setMsg(e.getMessage());
