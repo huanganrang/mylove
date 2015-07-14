@@ -191,4 +191,10 @@ ALTER TABLE `lv_account`
 	CHANGE COLUMN `vipOpenTime` `vipOpenTime` DATE NULL DEFAULT NULL COMMENT 'VIP开通时间' AFTER `vipLevel`,
 	CHANGE COLUMN `vipEndTime` `vipEndTime` DATE NULL DEFAULT NULL COMMENT 'VIP结束时间' AFTER `vipOpenTime`;
 -- 2015-07-11 xuwm end --
+
+-- 2015-07-14 xuwm start --
+ALTER TABLE `lv_account`
+	ADD COLUMN `hxPassword` VARCHAR(50) NULL DEFAULT '0' COMMENT '环信登录密码' AFTER `mobileSecret`,
+	ADD COLUMN `hxStatus` INT(1) NULL DEFAULT '2' COMMENT '环信注册状态（1：成功；2：失败））' AFTER `hxPassword`;
+-- 2015-07-14 xuwm end --
 	

@@ -157,6 +157,7 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		TlvAccount a = new TlvAccount();
 		account.setId(UUID.randomUUID().toString());
 		account.setPassword(MD5Util.md5(Constants.ACCOUNT_DEFAULT_PSW));
+		account.setHxPassword(Constants.ACCOUNT_DEFAULT_PSW);
 		account.setBirthday(DateUtil.getBirthdayByAge(account.getAge()));
 		account.setCreateTime(new Date());
 		account.setLastLoginTime(new Date());

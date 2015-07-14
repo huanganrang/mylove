@@ -128,7 +128,12 @@ public class ApiAccountController extends BaseController {
 			partnerConditionService.add(lvPartnerCondition);
 			
 			// 注册环信
-			HuanxinUtil.createUser(lvAccount.getOpenId() + "", "123456");
+			if(!F.empty(HuanxinUtil.createUser(lvAccount.getOpenId() + "", Constants.ACCOUNT_DEFAULT_PSW))) {
+				LvAccount a = new LvAccount();
+				a.setId(lvAccount.getId());
+				a.setHxStatus(1);
+				accountService.edit(a);
+			}
 		} catch (Exception e) {
 			// e.printStackTrace();
 			j.setMsg(e.getMessage());
@@ -147,9 +152,15 @@ public class ApiAccountController extends BaseController {
 	public Json updatePass(LvAccount lvAccount, HttpServletRequest request) {
 		Json j = new Json();
 		try {
-			accountService.updatePass(lvAccount);			
-			j.setSuccess(true);
-			j.setMsg("密码修改成功");
+			lvAccount.setHxPassword(lvAccount.getPassword());
+			if(!F.empty(HuanxinUtil.resetPass(lvAccount.getOpenId() + "", lvAccount.getHxPassword()))) {
+				accountService.updatePass(lvAccount);			
+				j.setSuccess(true);
+				j.setMsg("密码修改成功");
+			} else {
+				j.setMsg("密码修改失败");
+			}
+			
 		} catch (Exception e) {
 			// e.printStackTrace();
 			j.setMsg(e.getMessage());

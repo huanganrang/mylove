@@ -57,6 +57,8 @@ public class TlvAccount implements java.io.Serializable{
 	public static final String ALIAS_FOLLOW_NUM = "关注我的用户数量";
 	public static final String ALIAS_QQ_SECRET = "QQ公开度";
 	public static final String ALIAS_MOBILE_SECRET = "手机公开度";
+	public static final String ALIAS_HX_PASSWORD = "环信登录密码";
+	public static final String ALIAS_HX_STATUS = "环信注册状态（1：成功；2：失败））";
 	
 	//date formats
 	public static final String FORMAT_BIRTHDAY = jb.util.Constants.DATE_FORMAT_For_Entity;
@@ -131,6 +133,10 @@ public class TlvAccount implements java.io.Serializable{
 	private java.lang.Integer followNum;
 	private java.lang.Integer qqSecret;
 	private java.lang.Integer mobileSecret;
+	//@Length(max=50)
+	private java.lang.String hxPassword;
+	//
+	private java.lang.Integer hxStatus;
 	//columns END
 
 
@@ -442,6 +448,24 @@ public class TlvAccount implements java.io.Serializable{
 	
 	public void setMobileSecret(java.lang.Integer mobileSecret) {
 		this.mobileSecret = mobileSecret;
+	}
+	
+	@Column(name = "hxPassword", unique = false, nullable = true, insertable = true, updatable = true, length = 50)
+	public java.lang.String getHxPassword() {
+		return this.hxPassword;
+	}
+	
+	public void setHxPassword(java.lang.String hxPassword) {
+		this.hxPassword = hxPassword;
+	}
+	
+	@Column(name = "hxStatus", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
+	public java.lang.Integer getHxStatus() {
+		return this.hxStatus;
+	}
+	
+	public void setHxStatus(java.lang.Integer hxStatus) {
+		this.hxStatus = hxStatus;
 	}
 	
 	/*

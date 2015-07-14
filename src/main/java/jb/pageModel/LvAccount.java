@@ -40,6 +40,8 @@ public class LvAccount implements java.io.Serializable {
 	private java.lang.Integer followNum;
 	private java.lang.Integer qqSecret;
 	private java.lang.Integer mobileSecret;
+	private java.lang.String hxPassword;
+	private java.lang.Integer hxStatus;
 	
 	private Integer age;
 	private String oldPass;
@@ -284,6 +286,22 @@ public class LvAccount implements java.io.Serializable {
 
 	public void setMobileSecret(java.lang.Integer mobileSecret) {
 		this.mobileSecret = mobileSecret;
+	}
+	
+	public java.lang.String getHxPassword() {
+		return hxPassword;
+	}
+
+	public void setHxPassword(java.lang.String hxPassword) {
+		this.hxPassword = hxPassword;
+	}
+
+	public java.lang.Integer getHxStatus() {
+		return hxStatus;
+	}
+
+	public void setHxStatus(java.lang.Integer hxStatus) {
+		this.hxStatus = hxStatus;
 	}
 
 	public Integer getAge() {

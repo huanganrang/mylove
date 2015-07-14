@@ -187,7 +187,7 @@ public class HuanxinUtil {
 	}
 	
 	/**
-	 * 获取access_token
+	 * 环信注册用户
 	 * @return
 	 */
 	public static String createUser(String username, String password) {
@@ -195,6 +195,22 @@ public class HuanxinUtil {
 		String[] keys = APPKEY.split("#");
 		String requestUrl = "https://a1.easemob.com/"+keys[0]+"/"+keys[1]+"/users";
 		String params = "{\"username\": \""+username+"\",\"password\": \""+password+"\"}";
-		return httpsRequest(requestUrl, "POST", params, true);
+		String response = httpsRequest(requestUrl, "POST", params, true);
+		log.info(response);
+		return response;
+	}
+	
+	/**
+	 * 环信重置用户密码
+	 * @return
+	 */
+	public static String resetPass(String username, String password) {
+		
+		String[] keys = APPKEY.split("#");
+		String requestUrl = "https://a1.easemob.com/"+keys[0]+"/"+keys[1]+"/"+username+"/password";
+		String params = "{\"newpassword\": \""+password+"\"}";
+		String response = httpsRequest(requestUrl, "PUT", params, true);
+		log.info(response);
+		return response;
 	}
 }
