@@ -230,6 +230,7 @@ public class ApiAccountController extends BaseController {
 				accountService.editByParam(lvAccount);
 				j.setSuccess(true);
 				j.setMsg("头像上传成功");
+				j.setObj(headImg);
 			}
 		} catch (Exception e) {
 			// e.printStackTrace();
@@ -258,6 +259,7 @@ public class ApiAccountController extends BaseController {
 				photoService.add(photo);
 				j.setSuccess(true);
 				j.setMsg("相册上传成功");
+				j.setObj(photoImg);
 			}
 		} catch (Exception e) {
 			// e.printStackTrace();
