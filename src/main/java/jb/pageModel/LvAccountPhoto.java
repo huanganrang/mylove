@@ -2,7 +2,6 @@ package jb.pageModel;
 
 import java.util.Date;
 
-@SuppressWarnings("serial")
 public class LvAccountPhoto implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5454155825314635342L;
@@ -10,9 +9,9 @@ public class LvAccountPhoto implements java.io.Serializable {
 	private java.lang.String id;	
 	private java.lang.Integer openId;	
 	private java.lang.String photoImg;	
+	private java.lang.String auditStatus;
 	private Date createTime;			
 
-	
 
 	public void setId(java.lang.String value) {
 		this.id = value;
@@ -36,6 +35,13 @@ public class LvAccountPhoto implements java.io.Serializable {
 	
 	public java.lang.String getPhotoImg() {
 		return this.photoImg;
+	}
+	public java.lang.String getAuditStatus() {
+		return auditStatus;
+	}
+
+	public void setAuditStatus(java.lang.String auditStatus) {
+		this.auditStatus = auditStatus;
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;

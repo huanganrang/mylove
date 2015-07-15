@@ -259,7 +259,7 @@ public class ApiAccountController extends BaseController {
 				photoService.add(photo);
 				j.setSuccess(true);
 				j.setMsg("相册上传成功");
-				j.setObj(photoImg);
+				j.setObj(photo);
 			}
 		} catch (Exception e) {
 			// e.printStackTrace();
@@ -307,6 +307,27 @@ public class ApiAccountController extends BaseController {
 			j.setSuccess(true);
 			j.setObj(dg);
 			j.setMsg("个人相册列表查询成功");
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 个人相册列表
+	 * @param lvAccount
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/delPhoto")
+	public Json delPhoto(LvAccountPhoto photo, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			photoService.delete(photo.getId());
+			j.setSuccess(true);
+			j.setMsg("相册删除成功");
 		} catch (Exception e) {
 			// e.printStackTrace();
 			j.setMsg(e.getMessage());

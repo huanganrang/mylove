@@ -10,8 +10,8 @@
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#photolist_Form').form({
-			url : '${pageContext.request.contextPath}/api/apiAccountController/dataGridPhoto',
+		$('#delPhoto_Form').form({
+			url : '${pageContext.request.contextPath}/api/apiAccountController/delPhoto',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -25,7 +25,7 @@
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#photolist_result").text(result);
+				$("#delPhoto_result").text(result);
 			}
 		});
 	});
@@ -34,11 +34,11 @@
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="photolist_Form">
+			<form id="delPhoto_Form" method="post">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
-						<td>${pageContext.request.contextPath}/api/apiAccountController/dataGridPhoto</td>
+						<td>${pageContext.request.contextPath}/api/apiAccountController/delPhoto</td>
 					</tr>
 					
 					<tr>
@@ -46,36 +46,23 @@
 						<td><input name="tokenId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>openId(账户号)：</label></td>
-						<td><input name="openId" type="text" class="span2" value="10000000"/></td>
-					</tr>
-					<tr>
-						<td align="right" style="width: 180px;"><label>page(第几页)：</label></td>
-						<td><input name="page" type="text" class="span2" value="1"/></td>
+						<td align="right" style="width: 180px;"><label>id(照片唯一ID)：</label></td>
+						<td><input name="id" type="text" class="span2" value=""/></td>
 					</tr>
 					
 					<tr>
-						<td align="right" style="width: 180px;"><label>rows(每页数)：</label></td>
-						<td><input name="rows" type="text" class="span2" value="10"/></td>
-					</tr>
-					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#photolist_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#delPhoto_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="photolist_result">
+				<div id="delPhoto_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、page	   当前页         <br/>
-						pageSize	   每页数      <br/>
-						total	总数  <br/>
-						id	照片唯一ID    <br/>
-						photoImg	照片路径    <br/>
 					
 			</div>
 		</div>

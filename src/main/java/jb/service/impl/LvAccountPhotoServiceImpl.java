@@ -62,9 +62,9 @@ public class LvAccountPhotoServiceImpl extends BaseServiceImpl<LvAccountPhoto> i
 
 	@Override
 	public void add(LvAccountPhoto lvAccountPhoto) {
+		lvAccountPhoto.setId(UUID.randomUUID().toString());
 		TlvAccountPhoto t = new TlvAccountPhoto();
 		BeanUtils.copyProperties(lvAccountPhoto, t);
-		t.setId(UUID.randomUUID().toString());
 		//t.setCreatedatetime(new Date());
 		lvAccountPhotoDao.save(t);
 	}

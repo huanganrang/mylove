@@ -197,4 +197,9 @@ ALTER TABLE `lv_account`
 	ADD COLUMN `hxPassword` VARCHAR(50) NULL DEFAULT '0' COMMENT '环信登录密码' AFTER `mobileSecret`,
 	ADD COLUMN `hxStatus` INT(1) NULL DEFAULT '2' COMMENT '环信注册状态（1：成功；2：失败））' AFTER `hxPassword`;
 -- 2015-07-14 xuwm end --
+
+-- 2015-07-15 xuwm start --
+ALTER TABLE `lv_account_photo`
+	ADD COLUMN `auditStatus` VARCHAR(20) NOT NULL COMMENT '审核状态' AFTER `photoImg`;
+-- 2015-07-15 xuwm end --
 	

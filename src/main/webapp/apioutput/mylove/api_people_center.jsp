@@ -32,6 +32,8 @@
 			style="padding: 1px"></div>	
 		<div title="我的相册(上传)" data-options="href:'api_people_center_photoUpload.jsp'"
 			style="padding: 1px"></div>
+		<div title="我的相册(删除)" data-options="href:'api_people_center_photoDel.jsp'"
+			style="padding: 1px"></div>
 		<div title="征友条件(查)" data-options="href:'api_people_center_friendCondition.jsp'"
 			style="padding: 1px"></div>
 		<div title="征友条件(改)" data-options="href:'api_people_center_friendConditionUpdate.jsp'"

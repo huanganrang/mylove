@@ -26,6 +26,7 @@ public class TlvAccountPhoto implements java.io.Serializable{
 	public static final String ALIAS_ID = "主键";
 	public static final String ALIAS_OPEN_ID = "用户openId";
 	public static final String ALIAS_PHOTO_IMG = "照片路径";
+	public static final String ALIAS_AUDIT_STATUS = "审核状态";
 	public static final String ALIAS_CREATE_TIME = "上传时间";
 	
 	//date formats
@@ -40,6 +41,8 @@ public class TlvAccountPhoto implements java.io.Serializable{
 	private java.lang.Integer openId;
 	//@NotBlank @Length(max=100)
 	private java.lang.String photoImg;
+	//@NotBlank @Length(max=20)
+	private java.lang.String auditStatus;
 	//@NotNull 
 	private java.util.Date createTime;
 	//columns END
@@ -69,6 +72,15 @@ public class TlvAccountPhoto implements java.io.Serializable{
 	
 	public void setOpenId(java.lang.Integer openId) {
 		this.openId = openId;
+	}
+	
+	@Column(name = "auditStatus", unique = false, nullable = false, insertable = true, updatable = true, length = 20)
+	public java.lang.String getAuditStatus() {
+		return this.auditStatus;
+	}
+	
+	public void setAuditStatus(java.lang.String auditStatus) {
+		this.auditStatus = auditStatus;
 	}
 	
 	@Column(name = "photoImg", unique = false, nullable = false, insertable = true, updatable = true, length = 100)
