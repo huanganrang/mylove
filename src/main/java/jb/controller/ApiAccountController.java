@@ -255,6 +255,7 @@ public class ApiAccountController extends BaseController {
 				j.setMsg("相册上传失败");
 			} else {
 				photo.setPhotoImg(photoImg);
+				photo.setAuditStatus("AD02");
 				photo.setCreateTime(new Date());
 				photoService.add(photo);
 				j.setSuccess(true);
@@ -315,7 +316,7 @@ public class ApiAccountController extends BaseController {
 	}
 	
 	/**
-	 * 个人相册列表
+	 * 删除照片
 	 * @param lvAccount
 	 * @param request
 	 * @return
@@ -325,9 +326,14 @@ public class ApiAccountController extends BaseController {
 	public Json delPhoto(LvAccountPhoto photo, HttpServletRequest request) {
 		Json j = new Json();
 		try {
-			photoService.delete(photo.getId());
-			j.setSuccess(true);
-			j.setMsg("相册删除成功");
+			photo = photoService.get(photo.getId());
+			if(deleteFile(request, photo.getOpenId(), photo.getPhotoImg())) {
+				photoService.delete(photo.getId());
+				j.setSuccess(true);
+				j.setMsg("相册删除成功");
+			} else {
+				j.setMsg("相册删除失败");
+			}
 		} catch (Exception e) {
 			// e.printStackTrace();
 			j.setMsg(e.getMessage());
@@ -479,6 +485,19 @@ public class ApiAccountController extends BaseController {
 			return Constants.UPLOADFILE_IMAGE+"/"+openId+"/"+fileName;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		}
+		
+	}
+	
+	private boolean deleteFile(HttpServletRequest request,Integer openId, String imagePath){
+		String filePath = request.getSession().getServletContext().getRealPath("/"+imagePath);  
+		try {
+			File file = new File(filePath);
+			file.delete();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 		
 	}
