@@ -10,7 +10,10 @@ import jb.pageModel.SessionInfo;
 
 public class TokenManage {
 	
-	public static String TOKEN_FIELD = "tokenId";
+	public static final String TOKEN_FIELD = "tokenId";
+	
+	public static final String DEFAULT_TOKEN = "1D96DACB84F21890ED9F4928FA8B352B";
+
 	
 	private ConcurrentHashMap<String, TokenWrap> tokenMap = new ConcurrentHashMap<String, TokenWrap>();
 	
@@ -19,9 +22,12 @@ public class TokenManage {
 	 */
 	private long freeTime = 1000*60*60*24;
 	
-		
+	private void buidDefaultToken(){
+		buildToken(DEFAULT_TOKEN, "1","system");
+	}	
 	
 	public void init(){
+		
 		new Thread("token 回收"){
 			public void run(){
 				while(true){
@@ -41,7 +47,7 @@ public class TokenManage {
 	}
 	
 	public boolean validToken(String tid){
-		return tokenMap.get(tid)==null?false:true;
+		return getUid(tid)==null?false:true;
 	}
 	
 	public String getName(String tid){
@@ -54,17 +60,29 @@ public class TokenManage {
 	}
 	
 	public String getUid(String tid){
-		TokenWrap token = tokenMap.get(tid);
+		TokenWrap token = getTokenWrap(tid);
 		String uid = null;
 		if(token!=null){
 			uid = token.getUid(); 
 		}
 		return uid;
 	}
-	
+	private TokenWrap getTokenWrap(String tid){
+		TokenWrap token = tokenMap.get(tid);
+		if(token != null){
+			token.retime();
+		}else{
+			if(DEFAULT_TOKEN.equals(tid)){
+				buidDefaultToken();
+				token = tokenMap.get(DEFAULT_TOKEN);
+			}			
+		}
+		return token;
+		
+	}
 	public SessionInfo getSessionInfo(HttpServletRequest request){
 		String tokenId = request.getParameter(TokenManage.TOKEN_FIELD);	
-		TokenWrap token = tokenMap.get(tokenId);
+		TokenWrap token = getTokenWrap(tokenId);
 		if(token == null) return null;
 		SessionInfo s = new SessionInfo();		
 		s.setId(token.getUid());
@@ -75,10 +93,18 @@ public class TokenManage {
 	
 	public String buildToken(String uid,String name){
 		String tokenId = UUID.uuid();
+		buildToken(tokenId,uid,name);
+		return tokenId;
+	}
+	
+	private String buildToken(String tokenId,String uid,String name){
 		TokenWrap wrap = new TokenWrap(tokenId,uid,name);
 		wrap.retime();
 		tokenMap.putIfAbsent(tokenId, wrap);
 		return tokenId;
+	}
+	public void removeToken(String tokenId){
+		tokenMap.remove(tokenId);
 	}
 	class TokenWrap{
 		private String tokenId;
