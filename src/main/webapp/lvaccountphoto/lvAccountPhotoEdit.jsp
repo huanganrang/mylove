@@ -38,14 +38,14 @@
 				<input type="hidden" name="id" value = "${lvAccountPhoto.id}"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvAccountPhoto.ALIAS_AUDIT_STATUS%></th>	
-					<td>
+					<th width="30%"><%=TlvAccountPhoto.ALIAS_AUDIT_STATUS%></th>	
+					<td width="70%">
 						<jb:select dataType="AD" name="auditStatus" value="${lvAccountPhoto.auditStatus}"></jb:select>
 					</td>							
 				</tr>	
 				<tr>	
-					<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
-					<td>
+					<th width="30%"><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
+					<td width="70%">
 						<img alt="" src="${lvAccountPhoto.photoImg}">
 					</td>						
 				</tr>	

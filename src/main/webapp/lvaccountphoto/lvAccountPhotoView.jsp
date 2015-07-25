@@ -27,7 +27,7 @@
 				</tr>		
 				<tr>	
 					<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
-					<td>
+					<td colspan="3">
 						<img alt="" src="${lvAccountPhoto.photoImg}">					
 					</td>						
 				</tr>		
