@@ -14,16 +14,22 @@
 					<td>
 						${lvAccountPhoto.openId}							
 					</td>							
-					<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
-					<td>
-						${lvAccountPhoto.photoImg}							
-					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccountPhoto.ALIAS_CREATE_TIME%></th>	
 					<td>
 						${lvAccountPhoto.createTime}							
+					</td>						
+				</tr>		
+				<tr>	
+					<th><%=TlvAccountPhoto.ALIAS_AUDIT_STATUS%></th>	
+					<td colspan="3">
+						${lvAccountPhoto.auditStatusZh}							
 					</td>							
+				</tr>		
+				<tr>	
+					<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
+					<td>
+						<img alt="" src="${lvAccountPhoto.photoImg}">					
+					</td>						
 				</tr>		
 		</table>
 	</div>

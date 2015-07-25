@@ -51,6 +51,10 @@
 					<td>
 					<input class="span2" name="createTime" type="text" onclick="WdatePicker({dateFmt:'<%=TlvAccountPhoto.FORMAT_CREATE_TIME%>'})"  maxlength="0" class="required " />
 					</td>							
+					<th><%=TlvAccountPhoto.ALIAS_AUDIT_STATUS%></th>	
+					<td>
+					<input class="span2" name="auditStatus" type="text" class="easyui-validatebox span2" data-options="required:true"/>
+					</td>							
 				</tr>	
 			</table>		
 		</form>

@@ -20,29 +20,34 @@
 					</td>							
 				</tr>		
 				<tr>	
-					<th><%=TlvBoostActivty.ALIAS_GOODS_IMG%></th>	
-					<td>
-						${lvBoostActivty.goodsImg}							
-					</td>							
 					<th><%=TlvBoostActivty.ALIAS_ASSIST_NUM%></th>	
 					<td>
 						${lvBoostActivty.assistNum}							
 					</td>							
-				</tr>		
-				<tr>	
-					<th><%=TlvBoostActivty.ALIAS_GOODS_DETAIL_IMG%></th>	
-					<td>
-						${lvBoostActivty.goodsDetailImg}							
-					</td>							
-					<th><%=TlvBoostActivty.ALIAS_STATUS%></th>	
-					<td>
-						${lvBoostActivty.status}							
-					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvBoostActivty.ALIAS_HOUR_OF_DAY%></th>	
 					<td>
 						${lvBoostActivty.hourOfDay}							
+					</td>							
+				</tr>	
+				<tr>	
+					<th>状态</th>	
+					<td colspan="3">
+						<c:choose>
+							<c:when test="${lvBoostActivty.status == 1}">启用</c:when>
+							<c:otherwise>停用</c:otherwise>
+						</c:choose>
+					</td>							
+				</tr>
+				<tr>	
+					<th><%=TlvBoostActivty.ALIAS_GOODS_IMG%></th>	
+					<td colspan="3">
+						<img alt="" src="${lvBoostActivty.goodsImg}">
+					</td>									
+				</tr>		
+				<tr>	
+					<th><%=TlvBoostActivty.ALIAS_GOODS_DETAIL_IMG%></th>	
+					<td colspan="3">
+						${lvBoostActivty.goodsDetailImg}							
 					</td>							
 				</tr>		
 		</table>

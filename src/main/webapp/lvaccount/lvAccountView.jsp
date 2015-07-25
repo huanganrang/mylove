@@ -14,9 +14,9 @@
 					<td>
 						${lvAccount.openId}							
 					</td>							
-					<th><%=TlvAccount.ALIAS_LOGIN_NAME%></th>	
+					<th><%=TlvAccount.ALIAS_VIP_LEVEL%></th>	
 					<td>
-						${lvAccount.loginName}							
+						${lvAccount.vipLevel}							
 					</td>							
 				</tr>		
 				<tr>	
@@ -110,26 +110,6 @@
 					</td>							
 				</tr>		
 				<tr>	
-					<th><%=TlvAccount.ALIAS_HEAD_IMG%></th>	
-					<td>
-						${lvAccount.headImg}							
-					</td>							
-					<th><%=TlvAccount.ALIAS_LONGITUDE%></th>	
-					<td>
-						${lvAccount.longitude}							
-					</td>							
-				</tr>		
-				<tr>	
-					<th><%=TlvAccount.ALIAS_LATITUDE%></th>	
-					<td>
-						${lvAccount.latitude}							
-					</td>							
-					<th><%=TlvAccount.ALIAS_VIP_LEVEL%></th>	
-					<td>
-						${lvAccount.vipLevel}							
-					</td>							
-				</tr>		
-				<tr>	
 					<th><%=TlvAccount.ALIAS_VIP_OPEN_TIME%></th>	
 					<td>
 						${lvAccount.vipOpenTime}							
@@ -148,7 +128,14 @@
 					<td>
 						${lvAccount.visitNum}							
 					</td>							
-				</tr>		
+				</tr>
+				<tr>	
+					<th><%=TlvAccount.ALIAS_HEAD_IMG%></th>	
+					<td colspan="3">
+						<img alt="" src="${lvAccount.headImg}">
+													
+					</td>							
+				</tr>			
 		</table>
 	</div>
 </div>

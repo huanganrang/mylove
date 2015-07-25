@@ -56,25 +56,20 @@
 				title : '<%=TlvBoostActivty.ALIAS_GOODS_PRICE%>',
 				width : 50		
 				}, {
-				field : 'goodsImg',
-				title : '<%=TlvBoostActivty.ALIAS_GOODS_IMG%>',
-				width : 50		
-				}, {
 				field : 'assistNum',
 				title : '<%=TlvBoostActivty.ALIAS_ASSIST_NUM%>',
-				width : 50		
-				}, {
-				field : 'goodsDetailImg',
-				title : '<%=TlvBoostActivty.ALIAS_GOODS_DETAIL_IMG%>',
-				width : 50		
-				}, {
-				field : 'status',
-				title : '<%=TlvBoostActivty.ALIAS_STATUS%>',
 				width : 50		
 				}, {
 				field : 'hourOfDay',
 				title : '<%=TlvBoostActivty.ALIAS_HOUR_OF_DAY%>',
 				width : 50		
+				}, {
+				field : 'status',
+				title : '状态',
+				width : 50,
+				formatter: function(value,row,index){
+					return value == 1 ? "启用" : "停用";
+				}
 			}, {
 				field : 'action',
 				title : '操作',
@@ -207,39 +202,21 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit : true,border : false">
-		<div data-options="region:'north',title:'查询条件',border:false" style="height: 160px; overflow: hidden;">
+		<div data-options="region:'north',title:'查询条件',border:false" style="height: 100px; overflow: hidden;">
 			<form id="searchForm">
 				<table class="table table-hover table-condensed" style="display: none;">
 						<tr>	
 							<th><%=TlvBoostActivty.ALIAS_GOODS_NAME%></th>	
 							<td>
-									<input type="text" name="goodsName" maxlength="100" class="span2"/>
+								<input type="text" name="goodsName" maxlength="100" class="span2"/>
 							</td>
-							<th><%=TlvBoostActivty.ALIAS_GOODS_PRICE%></th>	
+							<th>状态</th>	
 							<td>
-									<input type="text" name="goodsPrice" maxlength="22" class="span2"/>
-							</td>
-							<th><%=TlvBoostActivty.ALIAS_GOODS_IMG%></th>	
-							<td>
-									<input type="text" name="goodsImg" maxlength="100" class="span2"/>
-							</td>
-							<th><%=TlvBoostActivty.ALIAS_ASSIST_NUM%></th>	
-							<td>
-									<input type="text" name="assistNum" maxlength="10" class="span2"/>
-							</td>
-						</tr>	
-						<tr>	
-							<th><%=TlvBoostActivty.ALIAS_GOODS_DETAIL_IMG%></th>	
-							<td>
-									<input type="text" name="goodsDetailImg" maxlength="100" class="span2"/>
-							</td>
-							<th><%=TlvBoostActivty.ALIAS_STATUS%></th>	
-							<td>
-									<input type="text" name="status" maxlength="10" class="span2"/>
-							</td>
-							<th><%=TlvBoostActivty.ALIAS_HOUR_OF_DAY%></th>	
-							<td>
-									<input type="text" name="hourOfDay" maxlength="10" class="span2"/>
+								<select name="status" style="width: 140px;">
+									<option value="">全部</option>
+									<option value="1">启用</option>
+									<option value="2">停用</option>
+								</select>
 							</td>
 						</tr>	
 				</table>

@@ -70,7 +70,11 @@ public class Application implements ServletContextListener {
 		BaseData bd = (BaseData)context.getAttribute(PREFIX+key);		
 		return bd;
 	}
-	
+	public static BasedataServiceI getBasedataService(){
+		ApplicationContext app = WebApplicationContextUtils.getWebApplicationContext(context); 
+		BasedataServiceI service = app.getBean(BasedataServiceI.class);
+		return service;
+	}
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		

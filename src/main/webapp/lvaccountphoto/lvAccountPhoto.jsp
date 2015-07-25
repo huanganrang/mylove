@@ -2,6 +2,7 @@
 <%@ page import="jb.model.TlvAccountPhoto" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="jb" uri="http://www.jb.cn/jbtag"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,17 +49,17 @@
 				width : 150,
 				hidden : true
 				}, {
-				field : 'openId',
-				title : '<%=TlvAccountPhoto.ALIAS_OPEN_ID%>',
-				width : 50		
+					field : 'openId',
+					title : '<%=TlvAccountPhoto.ALIAS_OPEN_ID%>',
+					width : 50		
 				}, {
-				field : 'photoImg',
-				title : '<%=TlvAccountPhoto.ALIAS_PHOTO_IMG%>',
-				width : 50		
+					field : 'auditStatusZh',
+					title : '<%=TlvAccountPhoto.ALIAS_AUDIT_STATUS%>',
+					width : 50
 				}, {
-				field : 'createTime',
-				title : '<%=TlvAccountPhoto.ALIAS_CREATE_TIME%>',
-				width : 50		
+					field : 'createTime',
+					title : '<%=TlvAccountPhoto.ALIAS_CREATE_TIME%>',
+					width : 50		
 			}, {
 				field : 'action',
 				title : '操作',
@@ -197,16 +198,11 @@
 						<tr>	
 							<th><%=TlvAccountPhoto.ALIAS_OPEN_ID%></th>	
 							<td>
-									<input type="text" name="openId" maxlength="10" class="span2"/>
+								<input type="text" name="openId" maxlength="10" class="span2"/>
 							</td>
-							<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
+							<th><%=TlvAccountPhoto.ALIAS_AUDIT_STATUS%></th>	
 							<td>
-									<input type="text" name="photoImg" maxlength="100" class="span2"/>
-							</td>
-							<th><%=TlvAccountPhoto.ALIAS_CREATE_TIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccountPhoto.FORMAT_CREATE_TIME%>'})" id="createTimeBegin" name="createTimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccountPhoto.FORMAT_CREATE_TIME%>'})" id="createTimeEnd" name="createTimeEnd"/>
+								<jb:select dataType="AD" name="auditStatus"></jb:select>
 							</td>
 						</tr>	
 				</table>

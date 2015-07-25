@@ -34,7 +34,7 @@
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="updateAccount_Form" action="">
+			<form id="updateAccount_Form" action="" method="post">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
@@ -48,6 +48,10 @@
 					<tr>
 						<td align="right" style="width: 180px;"><label>openId(账户号)：</label></td>
 						<td><input name="openId" type="text" class="span2" value="10000000"/></td>
+					</tr>
+					
+					<tr>
+						<td colspan="2">以下参数修改时则传，否则不传</td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>personDesc(个性签名)：</label></td>
@@ -108,6 +112,18 @@
 					<tr>
 						<td align="right" style="width: 180px;"><label>mobileSecret(手机公开度)：</label></td>
 						<td><input name="mobileSecret" type="text" class="span2" value="0"/>（0：对VIP用户公开；1：保密）</td>
+					</tr>
+					
+					<tr>
+						<td colspan="2">以下两项则是每次启动手机app则调用此接口进行修改</td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>lastLoginTime(最近上线时间)：</label></td>
+						<td><input name="lastLoginTime" type="text" class="span2" value="2015-01-01 12:00:00"/>（格式：yyyy-MM-dd HH:mm:ss）</td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>lastLoginArea(最近上线区域)：</label></td>
+						<td><input name="lastLoginArea" type="text" class="span2" value="上海"/>（如：上海等）</td>
 					</tr>
 					
 					

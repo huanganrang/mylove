@@ -18,7 +18,9 @@ import jb.service.LvBoostActivtyServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 
@@ -97,8 +99,9 @@ public class LvBoostActivtyController extends BaseController {
 	 */
 	@RequestMapping("/add")
 	@ResponseBody
-	public Json add(LvBoostActivty lvBoostActivty) {
+	public Json add(LvBoostActivty lvBoostActivty, @RequestParam MultipartFile goodsImgFile, HttpServletRequest request) {
 		Json j = new Json();		
+		lvBoostActivty.setGoodsImg(uploadFile(request, "activty", goodsImgFile));
 		lvBoostActivtyService.add(lvBoostActivty);
 		j.setSuccess(true);
 		j.setMsg("添加成功！");		
@@ -137,8 +140,9 @@ public class LvBoostActivtyController extends BaseController {
 	 */
 	@RequestMapping("/edit")
 	@ResponseBody
-	public Json edit(LvBoostActivty lvBoostActivty) {
-		Json j = new Json();		
+	public Json edit(LvBoostActivty lvBoostActivty, @RequestParam MultipartFile goodsImgFile, HttpServletRequest request) {
+		Json j = new Json();	
+		lvBoostActivty.setGoodsImg(uploadFile(request, "activty", goodsImgFile));
 		lvBoostActivtyService.edit(lvBoostActivty);
 		j.setSuccess(true);
 		j.setMsg("编辑成功！");		

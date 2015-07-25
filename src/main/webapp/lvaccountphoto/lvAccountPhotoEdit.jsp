@@ -2,6 +2,7 @@
 <%@ page import="jb.model.TlvAccountPhoto" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="jb" uri="http://www.jb.cn/jbtag"%> 
 <script type="text/javascript">
 	$(function() {
 		parent.$.messager.progress('close');
@@ -37,21 +38,17 @@
 				<input type="hidden" name="id" value = "${lvAccountPhoto.id}"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
-					<th><%=TlvAccountPhoto.ALIAS_OPEN_ID%></th>	
+					<th><%=TlvAccountPhoto.ALIAS_AUDIT_STATUS%></th>	
 					<td>
-					<input class="span2" name="openId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvAccountPhoto.openId}"/>
+						<jb:select dataType="AD" name="auditStatus" value="${lvAccountPhoto.auditStatus}"></jb:select>
 					</td>							
+				</tr>	
+				<tr>	
 					<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
 					<td>
-					<input class="span2" name="photoImg" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvAccountPhoto.photoImg}"/>
-					</td>							
-			</tr>	
-				<tr>	
-					<th><%=TlvAccountPhoto.ALIAS_CREATE_TIME%></th>	
-					<td>
-					<input class="span2" name="createTime" type="text" onclick="WdatePicker({dateFmt:'<%=TlvAccountPhoto.FORMAT_CREATE_TIME%>'})"   maxlength="0" value="${lvAccountPhoto.createTime}"/>
-					</td>							
-			</tr>	
+						<img alt="" src="${lvAccountPhoto.photoImg}">
+					</td>						
+				</tr>	
 			</table>				
 		</form>
 	</div>

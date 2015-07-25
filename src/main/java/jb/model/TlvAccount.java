@@ -25,11 +25,11 @@ public class TlvAccount implements java.io.Serializable{
 	//alias
 	public static final String TABLE_ALIAS = "LvAccount";
 	public static final String ALIAS_ID = "主键";
-	public static final String ALIAS_OPEN_ID = "注册时生成的唯一ID";
+	public static final String ALIAS_OPEN_ID = "openId";
 	public static final String ALIAS_LOGIN_NAME = "登录账号";
 	public static final String ALIAS_NICK_NAME = "昵称";
 	public static final String ALIAS_PASSWORD = "登录密码";
-	public static final String ALIAS_SEX = "性别（1、男；2、女）";
+	public static final String ALIAS_SEX = "性别";
 	public static final String ALIAS_BIRTHDAY = "生日";
 	public static final String ALIAS_HEIGHT = "身高（cm）";
 	public static final String ALIAS_WEIGHT = "体重（kg）";
@@ -52,6 +52,7 @@ public class TlvAccount implements java.io.Serializable{
 	public static final String ALIAS_VIP_OPEN_TIME = "VIP开通时间";
 	public static final String ALIAS_VIP_END_TIME = "VIP结束时间";
 	public static final String ALIAS_ONLINE = "在线状态";
+	public static final String ALIAS_LAST_LOGIN_AREA = "最近上线区域";
 	public static final String ALIAS_LAST_LOGIN_TIME = "最近在线时间";
 	public static final String ALIAS_VISIT_NUM = "来访数量";
 	public static final String ALIAS_FOLLOW_NUM = "关注我的用户数量";
@@ -124,6 +125,8 @@ public class TlvAccount implements java.io.Serializable{
 	private java.util.Date vipOpenTime;
 	//
 	private java.util.Date vipEndTime;
+	//@Length(max=128)
+	private java.lang.String lastLoginArea;
 	//@Length(max=20)
 	private java.lang.String online;
 	//@NotNull 
@@ -402,6 +405,15 @@ public class TlvAccount implements java.io.Serializable{
 	
 	public void setOnline(java.lang.String online) {
 		this.online = online;
+	}
+	
+	@Column(name = "lastLoginArea", unique = false, nullable = true, insertable = true, updatable = true, length = 128)
+	public java.lang.String getLastLoginArea() {
+		return this.lastLoginArea;
+	}
+	
+	public void setLastLoginArea(java.lang.String lastLoginArea) {
+		this.lastLoginArea = lastLoginArea;
 	}
 	
 

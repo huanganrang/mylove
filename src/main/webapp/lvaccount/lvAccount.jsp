@@ -2,6 +2,7 @@
 <%@ page import="jb.model.TlvAccount" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="jb" uri="http://www.jb.cn/jbtag"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,117 +49,64 @@
 				width : 150,
 				hidden : true
 				}, {
-				field : 'openId',
-				title : '<%=TlvAccount.ALIAS_OPEN_ID%>',
-				width : 50		
+					field : 'openId',
+					title : 'openId',
+					width : 50		
 				}, {
-				field : 'loginName',
-				title : '<%=TlvAccount.ALIAS_LOGIN_NAME%>',
-				width : 50		
+					field : 'nickName',
+					title : '<%=TlvAccount.ALIAS_NICK_NAME%>',
+					width : 50		
 				}, {
-				field : 'nickName',
-				title : '<%=TlvAccount.ALIAS_NICK_NAME%>',
-				width : 50		
+					field : 'sexZh',
+					title : '性别',
+					width : 50
 				}, {
-				field : 'password',
-				title : '<%=TlvAccount.ALIAS_PASSWORD%>',
-				width : 50		
+					field : 'birthday',
+					title : '<%=TlvAccount.ALIAS_BIRTHDAY%>',
+					width : 50,
+					formatter: function(value,row,index){
+						if(value && value.length > 10) {
+							return value.substring(0, 10);
+						}
+					}
 				}, {
-				field : 'sex',
-				title : '<%=TlvAccount.ALIAS_SEX%>',
-				width : 50		
+					field : 'mobile',
+					title : '<%=TlvAccount.ALIAS_MOBILE%>',
+					width : 50		
 				}, {
-				field : 'birthday',
-				title : '<%=TlvAccount.ALIAS_BIRTHDAY%>',
-				width : 50		
-				}, {
-				field : 'height',
-				title : '<%=TlvAccount.ALIAS_HEIGHT%>',
-				width : 50		
-				}, {
-				field : 'weight',
-				title : '<%=TlvAccount.ALIAS_WEIGHT%>',
-				width : 50		
-				}, {
-				field : 'mobile',
-				title : '<%=TlvAccount.ALIAS_MOBILE%>',
-				width : 50		
-				}, {
-				field : 'qq',
-				title : '<%=TlvAccount.ALIAS_QQ%>',
-				width : 50		
-				}, {
-				field : 'address',
-				title : '<%=TlvAccount.ALIAS_ADDRESS%>',
-				width : 50		
-				}, {
-				field : 'education',
-				title : '<%=TlvAccount.ALIAS_EDUCATION%>',
-				width : 50		
-				}, {
-				field : 'profession',
-				title : '<%=TlvAccount.ALIAS_PROFESSION%>',
-				width : 50		
-				}, {
-				field : 'monthIncome',
-				title : '<%=TlvAccount.ALIAS_MONTH_INCOME%>',
-				width : 50		
-				}, {
-				field : 'marryStatus',
-				title : '<%=TlvAccount.ALIAS_MARRY_STATUS%>',
-				width : 50		
-				}, {
-				field : 'constellation',
-				title : '<%=TlvAccount.ALIAS_CONSTELLATION%>',
-				width : 50		
-				}, {
-				field : 'personDesc',
-				title : '<%=TlvAccount.ALIAS_PERSON_DESC%>',
-				width : 50		
+					field : 'qq',
+					title : '<%=TlvAccount.ALIAS_QQ%>',
+					width : 50		
 				}, {
 				field : 'createTime',
 				title : '<%=TlvAccount.ALIAS_CREATE_TIME%>',
 				width : 50		
 				}, {
-				field : 'updateTime',
-				title : '<%=TlvAccount.ALIAS_UPDATE_TIME%>',
-				width : 50		
-				}, {
-				field : 'auditStatus',
+				field : 'auditStatusZh',
 				title : '<%=TlvAccount.ALIAS_AUDIT_STATUS%>',
 				width : 50		
 				}, {
-				field : 'headImg',
-				title : '<%=TlvAccount.ALIAS_HEAD_IMG%>',
-				width : 50		
+					field : 'vipLevelZh',
+					title : '<%=TlvAccount.ALIAS_VIP_LEVEL%>',
+					width : 50
 				}, {
-				field : 'longitude',
-				title : '<%=TlvAccount.ALIAS_LONGITUDE%>',
-				width : 50		
+					field : 'vipOpenTime',
+					title : '<%=TlvAccount.ALIAS_VIP_OPEN_TIME%>',
+					width : 50,
+					formatter: function(value,row,index){
+						if(value && value.length > 10) {
+							return value.substring(0, 10);
+						}
+					}
 				}, {
-				field : 'latitude',
-				title : '<%=TlvAccount.ALIAS_LATITUDE%>',
-				width : 50		
-				}, {
-				field : 'vipLevel',
-				title : '<%=TlvAccount.ALIAS_VIP_LEVEL%>',
-				width : 50		
-				}, {
-				field : 'vipOpenTime',
-				title : '<%=TlvAccount.ALIAS_VIP_OPEN_TIME%>',
-				width : 50		
-				}, {
-				field : 'online',
-				title : '<%=TlvAccount.ALIAS_ONLINE%>',
-				width : 50		
-				}, {
-				field : 'lastLoginTime',
-				title : '<%=TlvAccount.ALIAS_LAST_LOGIN_TIME%>',
-				width : 50		
-				}, {
-				field : 'visitNum',
-				title : '<%=TlvAccount.ALIAS_VISIT_NUM%>',
-				width : 50		
+					field : 'vipEndTime',
+					title : '<%=TlvAccount.ALIAS_VIP_END_TIME%>',
+					width : 50,
+					formatter: function(value,row,index){
+						if(value && value.length > 10) {
+							return value.substring(0, 10);
+						}
+					}
 			}, {
 				field : 'action',
 				title : '操作',
@@ -295,134 +243,24 @@
 			<form id="searchForm">
 				<table class="table table-hover table-condensed" style="display: none;">
 						<tr>	
-							<th><%=TlvAccount.ALIAS_OPEN_ID%></th>	
+							<th>openId</th>	
 							<td>
 									<input type="text" name="openId" maxlength="10" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_LOGIN_NAME%></th>	
-							<td>
-									<input type="text" name="loginName" maxlength="20" class="span2"/>
 							</td>
 							<th><%=TlvAccount.ALIAS_NICK_NAME%></th>	
 							<td>
 									<input type="text" name="nickName" maxlength="20" class="span2"/>
 							</td>
-							<th><%=TlvAccount.ALIAS_PASSWORD%></th>	
-							<td>
-									<input type="text" name="password" maxlength="50" class="span2"/>
-							</td>
+							
 						</tr>	
 						<tr>	
 							<th><%=TlvAccount.ALIAS_SEX%></th>	
 							<td>
-									<input type="text" name="sex" maxlength="20" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_BIRTHDAY%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_BIRTHDAY%>'})" id="birthdayBegin" name="birthdayBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_BIRTHDAY%>'})" id="birthdayEnd" name="birthdayEnd"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_HEIGHT%></th>	
-							<td>
-									<input type="text" name="height" maxlength="10" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_WEIGHT%></th>	
-							<td>
-									<input type="text" name="weight" maxlength="10" class="span2"/>
-							</td>
-						</tr>	
-						<tr>	
-							<th><%=TlvAccount.ALIAS_MOBILE%></th>	
-							<td>
-									<input type="text" name="mobile" maxlength="20" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_QQ%></th>	
-							<td>
-									<input type="text" name="qq" maxlength="20" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_ADDRESS%></th>	
-							<td>
-									<input type="text" name="address" maxlength="100" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_EDUCATION%></th>	
-							<td>
-									<input type="text" name="education" maxlength="20" class="span2"/>
-							</td>
-						</tr>	
-						<tr>	
-							<th><%=TlvAccount.ALIAS_PROFESSION%></th>	
-							<td>
-									<input type="text" name="profession" maxlength="20" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_MONTH_INCOME%></th>	
-							<td>
-									<input type="text" name="monthIncome" maxlength="20" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_MARRY_STATUS%></th>	
-							<td>
-									<input type="text" name="marryStatus" maxlength="20" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_CONSTELLATION%></th>	
-							<td>
-									<input type="text" name="constellation" maxlength="20" class="span2"/>
-							</td>
-						</tr>	
-						<tr>	
-							<th><%=TlvAccount.ALIAS_PERSON_DESC%></th>	
-							<td>
-									<input type="text" name="personDesc" maxlength="65535" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_CREATE_TIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_CREATE_TIME%>'})" id="createTimeBegin" name="createTimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_CREATE_TIME%>'})" id="createTimeEnd" name="createTimeEnd"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_UPDATE_TIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_UPDATE_TIME%>'})" id="updateTimeBegin" name="updateTimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_UPDATE_TIME%>'})" id="updateTimeEnd" name="updateTimeEnd"/>
+								<jb:select dataType="SX" name="sex"></jb:select>
 							</td>
 							<th><%=TlvAccount.ALIAS_AUDIT_STATUS%></th>	
 							<td>
-									<input type="text" name="auditStatus" maxlength="20" class="span2"/>
-							</td>
-						</tr>	
-						<tr>	
-							<th><%=TlvAccount.ALIAS_HEAD_IMG%></th>	
-							<td>
-									<input type="text" name="headImg" maxlength="100" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_LONGITUDE%></th>	
-							<td>
-									<input type="text" name="longitude" maxlength="10" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_LATITUDE%></th>	
-							<td>
-									<input type="text" name="latitude" maxlength="10" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_VIP_LEVEL%></th>	
-							<td>
-									<input type="text" name="vipLevel" maxlength="20" class="span2"/>
-							</td>
-						</tr>	
-						<tr>	
-							<th><%=TlvAccount.ALIAS_VIP_OPEN_TIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_VIP_OPEN_TIME%>'})" id="vipOpenTimeBegin" name="vipOpenTimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_VIP_OPEN_TIME%>'})" id="vipOpenTimeEnd" name="vipOpenTimeEnd"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_ONLINE%></th>	
-							<td>
-									<input type="text" name="online" maxlength="20" class="span2"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_LAST_LOGIN_TIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_LAST_LOGIN_TIME%>'})" id="lastLoginTimeBegin" name="lastLoginTimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvAccount.FORMAT_LAST_LOGIN_TIME%>'})" id="lastLoginTimeEnd" name="lastLoginTimeEnd"/>
-							</td>
-							<th><%=TlvAccount.ALIAS_VISIT_NUM%></th>	
-							<td>
-									<input type="text" name="visitNum" maxlength="10" class="span2"/>
+								<jb:select dataType="AD" name="auditStatus"></jb:select>
 							</td>
 						</tr>	
 				</table>

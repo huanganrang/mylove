@@ -3,6 +3,8 @@ package jb.pageModel;
 import java.util.Date;
 import java.util.List;
 
+import jb.listener.Application;
+
 public class LvAccount implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5454155825314635342L;
@@ -35,6 +37,7 @@ public class LvAccount implements java.io.Serializable {
 	private Date vipOpenTime;			
 	private Date vipEndTime;			
 	private java.lang.String online;	
+	private java.lang.String lastLoginArea;
 	private Date lastLoginTime;			
 	private java.lang.Integer visitNum;	
 	private java.lang.Integer followNum;
@@ -49,7 +52,15 @@ public class LvAccount implements java.io.Serializable {
 	private java.lang.Integer isVisit;	
 	private List<LvAccountPhoto> photoList;
 	
-	
+	public String getSexZh() {
+		return Application.getString(this.sex);
+	}
+	public String getAuditStatusZh() {
+		return Application.getString(this.auditStatus);
+	}
+	public String getVipLevelZh() {
+		return Application.getString(this.vipLevel);
+	}
 
 	public void setId(java.lang.String value) {
 		this.id = value;
@@ -248,6 +259,13 @@ public class LvAccount implements java.io.Serializable {
 	
 	public java.lang.String getOnline() {
 		return this.online;
+	}
+	public java.lang.String getLastLoginArea() {
+		return lastLoginArea;
+	}
+
+	public void setLastLoginArea(java.lang.String lastLoginArea) {
+		this.lastLoginArea = lastLoginArea;
 	}
 	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;

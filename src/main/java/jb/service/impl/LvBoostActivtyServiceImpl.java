@@ -60,13 +60,9 @@ public class LvBoostActivtyServiceImpl extends BaseServiceImpl<LvBoostActivty> i
 				whereHql += " and t.goodsName = :goodsName";
 				params.put("goodsName", lvBoostActivty.getGoodsName());
 			}		
-			if (!F.empty(lvBoostActivty.getGoodsImg())) {
-				whereHql += " and t.goodsImg = :goodsImg";
-				params.put("goodsImg", lvBoostActivty.getGoodsImg());
-			}		
-			if (!F.empty(lvBoostActivty.getGoodsDetailImg())) {
-				whereHql += " and t.goodsDetailImg = :goodsDetailImg";
-				params.put("goodsDetailImg", lvBoostActivty.getGoodsDetailImg());
+			if (lvBoostActivty.getStatus() != null) {
+				whereHql += " and t.status = :status";
+				params.put("status", lvBoostActivty.getStatus());
 			}		
 		}	
 		return whereHql;

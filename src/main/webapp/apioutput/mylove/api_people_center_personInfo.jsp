@@ -93,6 +93,8 @@
 						vipOpenTime	VIP开通时间     <br/>
 						vipEndTime	VIP到期时间     <br/>
 						photoImg	照片路径     <br/>
+						lastLoginTime	最近上线区域    <br/>
+						lastLoginArea	最近上线时间     <br/>
 			</div>
 		</div>
 	</div>

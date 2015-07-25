@@ -69,33 +69,21 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		String whereHql = "";	
 		if (lvAccount != null) {
 			whereHql += " where 1=1 ";
-			if (!F.empty(lvAccount.getLoginName())) {
-				whereHql += " and t.loginName = :loginName";
-				params.put("loginName", lvAccount.getLoginName());
+			if (lvAccount.getOpenId() != null) {
+				whereHql += " and t.openId = :openId";
+				params.put("openId", lvAccount.getOpenId());
 			}		
 			if (!F.empty(lvAccount.getNickName())) {
 				whereHql += " and t.nickName = :nickName";
 				params.put("nickName", lvAccount.getNickName());
 			}		
-			if (!F.empty(lvAccount.getPassword())) {
-				whereHql += " and t.password = :password";
-				params.put("password", lvAccount.getPassword());
-			}		
 			if (!F.empty(lvAccount.getSex())) {
 				whereHql += " and t.sex = :sex";
 				params.put("sex", lvAccount.getSex());
 			}		
-			if (!F.empty(lvAccount.getMobile())) {
-				whereHql += " and t.mobile = :mobile";
-				params.put("mobile", lvAccount.getMobile());
-			}		
-			if (!F.empty(lvAccount.getQq())) {
-				whereHql += " and t.qq = :qq";
-				params.put("qq", lvAccount.getQq());
-			}		
-			if (!F.empty(lvAccount.getAddress())) {
-				whereHql += " and t.address = :address";
-				params.put("address", lvAccount.getAddress());
+			if (!F.empty(lvAccount.getAuditStatus())) {
+				whereHql += " and t.auditStatus = :auditStatus";
+				params.put("auditStatus", lvAccount.getAuditStatus());
 			}		
 		}	
 		return whereHql;
