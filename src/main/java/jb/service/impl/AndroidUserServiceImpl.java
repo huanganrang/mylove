@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import jb.pageModel.LvAccount;
+import jb.service.LvAccountServiceI;
 import jb.service.UserServiceI;
 
 import org.androidpn.server.model.User;
@@ -12,18 +14,17 @@ import org.androidpn.server.service.UserNotFoundException;
 import org.androidpn.server.service.UserService;
 import org.androidpn.server.xmpp.session.ClientSession;
 import org.androidpn.server.xmpp.session.SessionManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 public class AndroidUserServiceImpl implements UserService {
-	private UserServiceI userService;
+	private LvAccountServiceI lvAccountService;
 	protected SessionManager sessionManager;
 	
 	public AndroidUserServiceImpl(){
 		sessionManager = SessionManager.getInstance();
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		userService = wac.getBean(UserServiceI.class);
+		lvAccountService = wac.getBean(LvAccountServiceI.class);
 	}
 
 	@Override
@@ -42,12 +43,12 @@ public class AndroidUserServiceImpl implements UserService {
 	
 	
 	public User getUserByUsername(String u,String psd) throws UserNotFoundException {		
-		jb.pageModel.User user1 = new jb.pageModel.User();
-		user1.setName(u);
-		user1.setPwd(psd);
+		LvAccount lvAccount = new LvAccount();
+		lvAccount.setOpenId(Integer.parseInt(u));
+		lvAccount.setPassword(psd);
 		User user = new User();
 		user.setUsername(u);
-		if(userService.login(user1)!=null){
+		if(lvAccountService.login(lvAccount)!=null){
 			user.setPassword(psd);
 		}else{
 			user.setPassword("");
