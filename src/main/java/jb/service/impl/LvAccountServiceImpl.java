@@ -11,6 +11,7 @@ import jb.absx.F;
 import jb.dao.LvAccountDaoI;
 import jb.dao.LvAccountPhotoDaoI;
 import jb.dao.LvFollowDaoI;
+import jb.listener.Application;
 import jb.model.TlvAccount;
 import jb.model.TlvAccountPhoto;
 import jb.pageModel.AccountSearch;
@@ -361,6 +362,19 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		dg.setRows(al);
 		
 		return dg;
+	}
+
+
+	/**
+	 * 获取一键打招呼列表
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> getSayHelloList() {
+		String sql = "select t.openId, t.nickName, t.headImg, t.auditStatus from lv_account t where t.openId >= "
+				+ "((select max(t1.openId) from lv_account t1)-(select min(t2.openId) FROM lv_account t2)) * RAND()"
+				+ " + (select min(t3.openId) from lv_account t3) and t.sex = 'SX02' limit " + Application.getString("SV100");
+		List<Map> l = lvAccountDao.findBySql2Map(sql);
+		return l == null ? new ArrayList<Map>() : l;
 	}
 
 }
