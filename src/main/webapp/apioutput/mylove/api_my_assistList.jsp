@@ -71,7 +71,8 @@
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、nickName：昵称<br/>
+					3、openId：openId<br/>
+						nickName：昵称<br/>
 						headImg：头像路径<br/>
 						boostRecordId：征集挖宝记录ID<br/>
 						boostTime：征集挖宝时间<br/>

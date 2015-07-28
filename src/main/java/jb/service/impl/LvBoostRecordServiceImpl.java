@@ -173,7 +173,7 @@ public class LvBoostRecordServiceImpl extends BaseServiceImpl<LvBoostRecord> imp
 		
 		String orderString = " order by t.boostTime desc, a.visitNum desc, a.followNum desc";
 		
-		String selectSql = "select a.headImg, a.nickName, t.id boostRecordId, t.boostTime, "
+		String selectSql = "select a.openId, a.headImg, a.nickName, t.id boostRecordId, t.boostTime, "
 				+ "(case when exists(select * from lv_assist_log l where l.boostRecordId = t.id and l.openId = "+openId+") then 1 "
 				+ "else 2 end) isAssist";
 		List<Map> l = lvBoostRecordDao.findBySql2Map(selectSql + sql + orderString, params, ph.getPage(), ph.getRows());
