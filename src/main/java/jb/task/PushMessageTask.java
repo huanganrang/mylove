@@ -1,5 +1,6 @@
 package jb.task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,10 @@ public class PushMessageTask {
 		Random random = new Random();
 		
 		List<BaseData> bd = basedataService.getBaseDatas("MQ");
+		if(bd == null || bd.size() == 0) {
+			bd = new ArrayList<BaseData>();
+			createDefault(bd);
+		}
 		while(true) {
 			int mCount = 0;
 			params.put("sex", "SX01"); // 男
@@ -65,8 +70,8 @@ public class PushMessageTask {
 								.replaceAll("\\{year\\}", DateUtil.format(tg.getBirthday(), "yyyy"))
 								.replaceAll("\\{age\\}", DateUtil.getAgeByBirthday(tg.getBirthday()) + "")
 								.replaceAll("\\{height\\}", (tg.getHeight() == null ? 165 : tg.getHeight()) + "");
-						NotificationMesageUtil.notifMessage(tm.getOpenId() + "", "{\"openId\":"+tg.getOpenId()+", \"message\":\""+message+"\"}");
-						log.info("####tm.openId:" + tm.getOpenId() + "----- message:" +  "{\"openId\":"+tg.getOpenId()+", \"message\":\""+message+"\", , \"type\":\"MT01\"}");
+						NotificationMesageUtil.notifMessage(tm.getOpenId() + "", "{\"openId\":"+tg.getOpenId()+", \"message\":\""+message+"\", \"type\":\"MT01\"}");
+						log.info("####tm.openId:" + tm.getOpenId() + "----- message:" +  "{\"openId\":"+tg.getOpenId()+", \"message\":\""+message+"\", \"type\":\"MT01\"}");
 					}
 				}
 			}
@@ -76,6 +81,12 @@ public class PushMessageTask {
 		}
 		
 		log.info("pushMessage end!");
+	}
+
+	private void createDefault(List<BaseData> bd) {
+		BaseData b = new BaseData();
+		b.setDescription("找个合适的人真不容易。聊聊？");
+		bd.add(b);
 	}
 	
 }

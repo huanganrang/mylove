@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 import jb.absx.F;
@@ -370,11 +371,23 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	 */
 	@SuppressWarnings("rawtypes")
 	public List<Map> getSayHelloList() {
-		String sql = "select t.openId, t.nickName, t.headImg, t.auditStatus from lv_account t where t.openId >= "
-				+ "((select max(t1.openId) from lv_account t1)-(select min(t2.openId) FROM lv_account t2)) * RAND()"
-				+ " + (select min(t3.openId) from lv_account t3) and t.sex = 'SX02' limit " + Application.getString("SV100");
-		List<Map> l = lvAccountDao.findBySql2Map(sql);
-		return l == null ? new ArrayList<Map>() : l;
+		List<Map> r = new ArrayList<Map>();
+		int pageSize = 50;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sex", "SX02"); // 女
+		int gCount = this.getCount(params);
+		int totalPage = gCount%pageSize == 0 ? gCount/pageSize : gCount/pageSize + 1;
+		Random random = new Random();
+		List<Map> gList = lvAccountDao.findBySql2Map("select t.openId, t.nickName, t.headImg, t.auditStatus from lv_account t where t.sex = :sex", params, random.nextInt(totalPage)+1, pageSize);
+//		List<LvAccount> gList = this.findListByHql("from TlvAccount t where t.sex = :sex", params, random.nextInt(totalPage)+1, pageSize);
+		if(gList != null && gList.size() > 0) {
+			int size = Integer.valueOf(Application.getString("SV100"));
+			for(int i=0; i<size; i++) {
+				r.add(gList.get(random.nextInt(gList.size())));
+			}
+		}
+		
+		return r;
 	}
 
 
