@@ -377,4 +377,27 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		return l == null ? new ArrayList<Map>() : l;
 	}
 
+
+	@Override
+	public int getCount(Map<String, Object> params) {
+		Long l = lvAccountDao.count("select count(*) from TlvAccount t where t.sex = :sex", params);
+		return l == null ? 0 : l.intValue();
+	}
+
+
+	@Override
+	public List<LvAccount> findListByHql(String hql,
+			Map<String, Object> params, int page, int rows) {
+		List<LvAccount> ol = new ArrayList<LvAccount>();
+		List<TlvAccount> l = lvAccountDao.find(hql, params, page, rows);
+		if (l != null && l.size() > 0) {
+			for (TlvAccount t : l) {
+				LvAccount o = new LvAccount();
+				BeanUtils.copyProperties(t, o);
+				ol.add(o);
+			}
+		}
+		return ol;
+	}
+
 }

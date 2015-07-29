@@ -73,5 +73,13 @@ public interface LvAccountServiceI {
 
 	@SuppressWarnings("rawtypes")
 	public List<Map> getSayHelloList();
+	
+	/**
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public int getCount(Map<String, Object> params);
 
+	public List<LvAccount> findListByHql(String hql, Map<String, Object> params, int page, int rows);
 }
