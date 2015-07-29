@@ -49,9 +49,9 @@ public class ApiBoostController extends BaseController {
 	public Json assistList(Integer openId, PageHelper ph) {
 		Json j = new Json();
 		try {
+			j.setObj(boostRecordService.dataGridAssistList(openId, ph));
 			j.setSuccess(true);
 			j.setMsg("宝贝-活动列表查询成功！");
-			j.setObj(boostRecordService.dataGridAssistList(openId, ph));
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());
 		}
@@ -128,9 +128,9 @@ public class ApiBoostController extends BaseController {
 	@RequestMapping("/activtyList")
 	public Json activtyList(Integer openId, Integer hourOfDay) {
 		Json j = new Json();
+		j.setObj(boostActivtyService.findAllList(openId, hourOfDay));
 		j.setSuccess(true);
 		j.setMsg("宝贝-活动列表查询成功！");
-		j.setObj(boostActivtyService.findAllList(openId, hourOfDay));
 		return j;
 	}
 	
@@ -162,9 +162,9 @@ public class ApiBoostController extends BaseController {
 	public Json activtyDetail(LvBoostActivty ba, HttpServletRequest request) {
 		Json j = new Json();
 		try {
+			j.setObj(boostActivtyService.getActivtyDetail(ba.getId()));
 			j.setSuccess(true);
 			j.setMsg("商品详情查询成功！");
-			j.setObj(boostActivtyService.getActivtyDetail(ba.getId()));
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());
 		}
@@ -181,9 +181,9 @@ public class ApiBoostController extends BaseController {
 	public Json boostInfo(Integer openId) {
 		Json j = new Json();
 		try {
+			j.setObj(boostRecordService.findBoostInfoList(openId));
 			j.setSuccess(true);
 			j.setMsg("助力信息列表查询成功！");
-			j.setObj(boostRecordService.findBoostInfoList(openId));
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());
 		}
@@ -200,9 +200,9 @@ public class ApiBoostController extends BaseController {
 	public Json boostRecord(Integer openId, Integer type) {
 		Json j = new Json();
 		try {
+			j.setObj(boostRecordService.findBoostRecordList(openId, type));
 			j.setSuccess(true);
 			j.setMsg("挖宝记录列表查询成功！");
-			j.setObj(boostRecordService.findBoostRecordList(openId, type));
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());
 		}
@@ -219,9 +219,9 @@ public class ApiBoostController extends BaseController {
 	public Json addressInfo(Integer openId) {
 		Json j = new Json();
 		try {
+			j.setObj(addressService.getByOpenId(openId));
 			j.setSuccess(true);
 			j.setMsg("收货地址查询成功！");
-			j.setObj(addressService.getByOpenId(openId));
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());
 		}

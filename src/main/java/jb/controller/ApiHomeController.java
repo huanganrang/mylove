@@ -112,4 +112,22 @@ public class ApiHomeController extends BaseController {
 		return j;
 	}
 	
+	/**
+	 * 一键打招呼列表
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/sayHelloList")
+	public Json sayHelloList() {
+		Json j = new Json();
+		try {
+			j.setObj(accountService.getSayHelloList());
+			j.setSuccess(true);
+			j.setMsg("一键打招呼列表查询成功！");
+		} catch (Exception e) {
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
 }

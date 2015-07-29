@@ -1,8 +1,11 @@
 ﻿package jb.service;
 
+import java.util.List;
+import java.util.Map;
+
 import jb.pageModel.AccountSearch;
-import jb.pageModel.LvAccount;
 import jb.pageModel.DataGrid;
+import jb.pageModel.LvAccount;
 import jb.pageModel.PageHelper;
 
 /**
@@ -68,4 +71,15 @@ public interface LvAccountServiceI {
 
 	public void registerVip(LvAccount lvAccount);
 
+	@SuppressWarnings("rawtypes")
+	public List<Map> getSayHelloList();
+	
+	/**
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public int getCount(Map<String, Object> params);
+
+	public List<LvAccount> findListByHql(String hql, Map<String, Object> params, int page, int rows);
 }
