@@ -43,7 +43,7 @@ public class ApiPayController {
 			Pingpp.apiKey = "sk_test_nLOe54GGubX95aXfz9C40G4K";
 			Map<String, Object> chargeParams = new HashMap<String, Object>();
 		    chargeParams.put("order_no",  DateUtil.format(now, "yyyyMMdd") + order.getOrderNo());
-		    chargeParams.put("amount", (long)(order.getAmount()*1000));
+		    chargeParams.put("amount", (long)(order.getAmount()*100));
 		    Map<String, String> app = new HashMap<String, String>();
 		    app.put("id", appId); // app_9WHWH0rDC8q10qfn
 		    chargeParams.put("app",app);
