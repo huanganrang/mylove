@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import jb.listener.Application;
 import jb.pageModel.Json;
 import jb.pageModel.LvOrder;
 import jb.service.LvOrderServiceI;
@@ -40,7 +41,7 @@ public class ApiPayController {
 			
 			order = orderService.get(order.getId());
 			
-			Pingpp.apiKey = "sk_test_nLOe54GGubX95aXfz9C40G4K";
+			Pingpp.apiKey = Application.getString("SV200");
 			Map<String, Object> chargeParams = new HashMap<String, Object>();
 		    chargeParams.put("order_no",  DateUtil.format(now, "yyyyMMdd") + order.getOrderNo());
 		    chargeParams.put("amount", (long)(order.getAmount()*100));
