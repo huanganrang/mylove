@@ -42,7 +42,7 @@
 			style="padding: 1px"></div>		
 		<div title="意见反馈" data-options="href:'api_people_center_feedback.jsp'"
 			style="padding: 1px"></div>	
-		<div title="充值记录" data-options="href:'../api_doing.jsp'"
+		<div title="支付" data-options="href:'api_ping_pay.jsp'"
 			style="padding: 1px"></div>										
 	</div>
 </body>
