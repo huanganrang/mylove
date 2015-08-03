@@ -30,17 +30,32 @@
 				}
 			}
 		});
+		
+		function ProcessFile() {
+			var file = document.getElementById('headImg').files[0];
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function ( event ) {
+					var txt = event.target.result;
+					$('.img-preview').attr('src',txt);
+				};
+			}
+		    reader.readAsDataURL(file);
+		}
+		$(document).delegate('#headImg','change',function () {
+			ProcessFile();
+		});
 	});
 </script>
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: auto;">
-		<form id="form" method="post">
+		<form id="form" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="id" value = "${lvAccount.id}"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
 					<th><%=TlvAccount.ALIAS_OPEN_ID%></th>	
 					<td>
-					<input class="span2" name="openId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvAccount.openId}"/>
+					<input class="span2" name="openId" type="text" class="easyui-validatebox span2" data-options="required:true" value="${lvAccount.openId}" readonly="readonly"/>
 					</td>
 					<th><%=TlvAccount.ALIAS_NICK_NAME%></th>	
 					<td>
@@ -58,10 +73,15 @@
 					</td>							
 			</tr>	
 				<tr>	
-					<th><%=TlvAccount.ALIAS_HEAD_IMG%></th>	
+					<th>头像上传</th>	
 					<td colspan="3">
-						<img alt="" src="${lvAccount.headImg}">
-													
+						<input type="file" id="headImg" name="headImgFile">
+					</td>							
+				</tr>
+				<tr>	
+					<th>头像</th>	
+					<td colspan="3">
+						<img class="img-preview" src="${lvAccount.headImg}"/> 
 					</td>							
 				</tr>
 			</table>				

@@ -53,6 +53,6 @@ public interface LvAreaServiceI {
 	 */
 	public void delete(String id);
 
-	public List<LvArea> queryAllList();
+	public List<LvArea> queryAllList(LvArea lvArea);
 
 }

@@ -14,6 +14,7 @@ import jb.pageModel.DataGrid;
 import jb.pageModel.Json;
 import jb.pageModel.LvAccount;
 import jb.pageModel.LvAccountPhoto;
+import jb.pageModel.LvArea;
 import jb.pageModel.LvFeedback;
 import jb.pageModel.LvFollow;
 import jb.pageModel.LvPartnerCondition;
@@ -462,7 +463,7 @@ public class ApiAccountController extends BaseController {
 		Json j = new Json();
 		try {
 			j.setSuccess(true);
-			j.setObj(areaService.queryAllList());
+			j.setObj(areaService.queryAllList(new LvArea()));
 			j.setMsg("获取省市区列表成功");
 		} catch (Exception e) {
 			// e.printStackTrace();

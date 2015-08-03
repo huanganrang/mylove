@@ -99,10 +99,11 @@ public class LvAreaServiceImpl extends BaseServiceImpl<LvArea> implements LvArea
 
 
 	@Override
-	public List<LvArea> queryAllList() {
+	public List<LvArea> queryAllList(LvArea lvArea) {
 		List<LvArea> ol = new ArrayList<LvArea>();
-		
-		List<TlvArea> l = lvAreaDao.find("from TlvArea t order by t.code");
+		Map<String, Object> params = new HashMap<String, Object>();
+		String where = whereHql(lvArea, params);
+		List<TlvArea> l = lvAreaDao.find("from TlvArea t " + where + " order by t.code", params);
 		if (l != null && l.size() > 0) {
 			for (TlvArea t : l) {
 				LvArea o = new LvArea();

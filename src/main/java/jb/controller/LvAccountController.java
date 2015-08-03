@@ -8,17 +8,23 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jb.absx.F;
 import jb.pageModel.Colum;
 import jb.pageModel.LvAccount;
 import jb.pageModel.DataGrid;
 import jb.pageModel.Json;
 import jb.pageModel.PageHelper;
 import jb.service.LvAccountServiceI;
+import jb.util.Constants;
+import jb.util.DateUtil;
+import jb.util.easemob.HuanxinUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 
@@ -97,11 +103,23 @@ public class LvAccountController extends BaseController {
 	 */
 	@RequestMapping("/add")
 	@ResponseBody
-	public Json add(LvAccount lvAccount) {
+	public Json add(LvAccount lvAccount, String birthdayStr, @RequestParam MultipartFile headImgFile,HttpServletRequest request) {
 		Json j = new Json();		
+		lvAccount.setQqSecret(1);
+		lvAccount.setMobileSecret(1);
+		lvAccount.setBirthday(DateUtil.parse(birthdayStr, DateUtil.YMD_A));
+		lvAccount.setHeadImg(uploadFile(request, "headImg", headImgFile));
 		lvAccountService.add(lvAccount);
 		j.setSuccess(true);
-		j.setMsg("添加成功！");		
+		j.setMsg("添加成功！");
+		
+		// 注册环信
+		if(!F.empty(HuanxinUtil.createUser(lvAccount.getOpenId() + "", Constants.ACCOUNT_DEFAULT_PSW))) {
+			LvAccount a = new LvAccount();
+			a.setId(lvAccount.getId());
+			a.setHxStatus(1);
+			lvAccountService.edit(a);
+		}
 		return j;
 	}
 
@@ -137,8 +155,9 @@ public class LvAccountController extends BaseController {
 	 */
 	@RequestMapping("/edit")
 	@ResponseBody
-	public Json edit(LvAccount lvAccount) {
+	public Json edit(LvAccount lvAccount, @RequestParam MultipartFile headImgFile,HttpServletRequest request) {
 		Json j = new Json();		
+		lvAccount.setHeadImg(uploadFile(request, "headImg", headImgFile));
 		lvAccountService.edit(lvAccount);
 		j.setSuccess(true);
 		j.setMsg("编辑成功！");		

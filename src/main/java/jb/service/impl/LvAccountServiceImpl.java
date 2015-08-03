@@ -92,11 +92,14 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	}
 
 	@Override
-	public void add(LvAccount lvAccount) {
+	public void add(LvAccount account) {
+		account.setId(UUID.randomUUID().toString());
+		account.setPassword(MD5Util.md5(Constants.ACCOUNT_DEFAULT_PSW));
+		account.setHxPassword(Constants.ACCOUNT_DEFAULT_PSW);
+		account.setCreateTime(new Date());
+		account.setLastLoginTime(new Date());
 		TlvAccount t = new TlvAccount();
-		BeanUtils.copyProperties(lvAccount, t);
-		t.setId(UUID.randomUUID().toString());
-		//t.setCreatedatetime(new Date());
+		BeanUtils.copyProperties(account, t);
 		lvAccountDao.save(t);
 	}
 

@@ -160,5 +160,20 @@ public class LvAreaController extends BaseController {
 		j.setSuccess(true);
 		return j;
 	}
+	
+	/**
+	 * 根据父编码获取列表
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/getByParentCode")
+	@ResponseBody
+	public Json getByParentCode(LvArea lvArea) {
+		Json j = new Json();
+		j.setObj(lvAreaService.queryAllList(lvArea));
+		j.setSuccess(true);
+		return j;
+	}
 
 }

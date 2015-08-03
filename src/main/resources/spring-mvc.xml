@@ -60,6 +60,7 @@
 						<value>/userController/editCurrentUserPwd</value><!-- 用户修改自己的密码 -->
 						<value>/userController/currentUserRolePage</value><!-- 查看自己的角色页面 -->
 						<value>/userController/currentUserResourcePage</value><!-- 查看自己的权限页面 -->
+						<value>/lvAreaController/getByParentCode</value><!-- 查看自己的权限页面 -->
 					</list>
 				</property>
 			</bean>
