@@ -31,7 +31,7 @@ public class InitController {
 		if (session != null) {
 			session.invalidate();
 		}
-		initService.init();
+		//initService.init();
 		return "redirect:/";
 	}
 
