@@ -22,6 +22,8 @@
 			style="padding: 1px"></div>
 		<div title="一键打招呼列表" data-options="href:'api_home_sayHelloList.jsp'"
 			style="padding: 1px"></div>	
+		<div title="推动测试" data-options="href:'api_home_push_test.jsp'"
+			style="padding: 1px"></div>	
 	</div>
 </body>
 </html>
