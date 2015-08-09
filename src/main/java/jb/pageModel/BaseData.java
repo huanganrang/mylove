@@ -9,6 +9,7 @@ public class BaseData implements java.io.Serializable{
 	private String basetypeCode;
 	private String codeName;
 	private String description;
+	private String icon;
 	public String getId() {
 		return id;
 	}
@@ -51,5 +52,10 @@ public class BaseData implements java.io.Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}	
 }

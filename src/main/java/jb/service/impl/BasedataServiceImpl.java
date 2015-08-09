@@ -13,6 +13,7 @@ import jb.pageModel.BaseData;
 import jb.pageModel.DataGrid;
 import jb.pageModel.PageHelper;
 import jb.service.BasedataServiceI;
+import jb.util.MyBeanUtils;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class BasedataServiceImpl implements BasedataServiceI {
 	public void edit(BaseData baseData) {
 		Tbasedata bd = basedataDao.get(Tbasedata.class, baseData.getId());
 		if(bd!=null){
-			BeanUtils.copyProperties(baseData, bd, new String[] { "id"});
+			MyBeanUtils.copyProperties(baseData, bd, new String[] { "id"}, true);
 			bd.setBaseType(basetypeDao.getById(baseData.getBasetypeCode()));
 			refeshAppVariable(bd);
 		}

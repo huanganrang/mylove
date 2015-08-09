@@ -24,6 +24,7 @@ public class Tbasedata implements java.io.Serializable{
 	private Integer seq;
 	private Tbasetype baseType;
 	private String description;
+	private String icon;
 	@Id
 	@Column(name = "id", unique = true, nullable = false, length = 32)
 	public String getId() {
@@ -67,5 +68,11 @@ public class Tbasedata implements java.io.Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}	
-	
+	@Column(name = "icon", unique = false, nullable = true, insertable = true, updatable = true, length = 2147483647)
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}	
 }

@@ -150,7 +150,7 @@ public class ApiHomeController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/testPush")
-	public Json testPush(Integer openId) {
+	public Json testPush(Integer openId, String type) {
 		Json j = new Json();
 		try {
 			int page = 1; 
@@ -163,47 +163,72 @@ public class ApiHomeController extends BaseController {
 			int totalPage = gCount%pageSize == 0 ? gCount/pageSize : gCount/pageSize + 1;
 			Random random = new Random();
 			
-			List<BaseData> bd = basedataService.getBaseDatas("MQ");
-			if(bd == null || bd.size() == 0) {
-				bd = new ArrayList<BaseData>();
-				//createDefault(bd);
-				BaseData b = new BaseData();
-				b.setDescription("找个合适的人真不容易。聊聊？");
-				bd.add(b);
-			}
-			while(true) {
-				int mCount = 0;
-				params.put("sex", "SX01"); // 男
-				// 查找非VIP的屌丝男
-//				List<TlvAccount> mList = accountDao.find(hql + " where (t.vipEndTime <= sysdate() or t.vipLevel is null) t.sex = :sex", params, page, pageSize);
-				List<LvAccount> mList = null;
-				if(openId == null) {
-					mList = accountService.findListByHql(hql + " where (t.vipEndTime <= current_date() or t.vipLevel is null) and t.sex = :sex", params, page, pageSize);
+			List<BaseData> bd = new ArrayList<BaseData>();
+			List<BaseData> mqData = basedataService.getBaseDatas("MQ");
+			List<BaseData> vqData = basedataService.getBaseDatas("VQ");
+			
+			if("MQ".equals(type)) {
+				if(mqData == null || mqData.size() == 0) {
+					BaseData b = new BaseData();
+					b.setDescription("找个合适的人真不容易。聊聊？");
+					bd.add(b);
 				} else {
-					params.put("openId", openId); // 男
-					mList = accountService.findListByHql(hql + " where t.sex = :sex and t.openId = :openId", params, page, pageSize);
+					bd.addAll(mqData);
 				}
-				if(mList != null && mList.size() > 0) {
-					mCount = mList.size();
-					params = new HashMap<String, Object>();
-					params.put("sex", "SX02"); // 女
-					List<LvAccount> gList = accountService.findListByHql(hql + " where t.sex = :sex", params, random.nextInt(totalPage)+1, pageSize);
-					if(gList != null && gList.size() > 0) {
-						for(LvAccount tm : mList) {
-							LvAccount tg = gList.get(random.nextInt(gList.size()));
-							
-							String message = bd.get(random.nextInt(bd.size())).getDescription()
-									.replaceAll("\\{year\\}", DateUtil.format(tg.getBirthday(), "yyyy"))
-									.replaceAll("\\{age\\}", DateUtil.getAgeByBirthday(tg.getBirthday()) + "")
-									.replaceAll("\\{height\\}", (tg.getHeight() == null ? 165 : tg.getHeight()) + "");
-							NotificationMesageUtil.notifMessage(tm.getOpenId() + "", "{\"openId\":"+tg.getOpenId()+", \"message\":\""+message+"\", \"type\":\"MT01\"}");
-							log.info("####tm.openId:" + tm.getOpenId() + "----- message:" +  "{\"openId\":"+tg.getOpenId()+", \"message\":\""+message+"\", \"type\":\"MT01\"}");
+			} else if("VQ".equals(type)) {
+				bd.addAll(vqData);
+			} else {
+				bd.addAll(mqData);
+				bd.addAll(vqData);
+			}
+			
+			if(bd.size() > 0) {
+				while(true) {
+					int mCount = 0;
+					params.put("sex", "SX01"); // 男
+					// 查找非VIP的屌丝男
+	//				List<TlvAccount> mList = accountDao.find(hql + " where (t.vipEndTime <= sysdate() or t.vipLevel is null) t.sex = :sex", params, page, pageSize);
+					List<LvAccount> mList = null;
+					if(openId == null) {
+						mList = accountService.findListByHql(hql + " where (t.vipEndTime <= current_date() or t.vipLevel is null) and t.sex = :sex", params, page, pageSize);
+					} else {
+						params.put("openId", openId); // 男
+						mList = accountService.findListByHql(hql + " where t.sex = :sex and t.openId = :openId", params, page, pageSize);
+					}
+					if(mList != null && mList.size() > 0) {
+						mCount = mList.size();
+						params = new HashMap<String, Object>();
+						params.put("sex", "SX02"); // 女
+						List<LvAccount> gList = accountService.findListByHql(hql + " where t.sex = :sex", params, random.nextInt(totalPage)+1, pageSize);
+						if(gList != null && gList.size() > 0) {
+							for(LvAccount tm : mList) {
+								LvAccount tg = gList.get(random.nextInt(gList.size()));
+								
+								BaseData d = bd.get(random.nextInt(bd.size()));
+								String message = "";
+								String duration = "";
+								String mtype = "";
+								if("MQ".equals(d.getBasetypeCode())) {
+									message = d.getDescription()
+											.replaceAll("\\{year\\}", DateUtil.format(tg.getBirthday(), "yyyy"))
+											.replaceAll("\\{age\\}", DateUtil.getAgeByBirthday(tg.getBirthday()) + "")
+											.replaceAll("\\{height\\}", (tg.getHeight() == null ? 165 : tg.getHeight()) + "");
+									mtype = "MT01";
+								} else if("VQ".equals(d.getBasetypeCode())) {
+									message = d.getIcon();
+									duration = d.getName();
+									mtype = "MT02";
+								}
+								
+								NotificationMesageUtil.notifMessage(tm.getOpenId() + "", "{\"openId\":"+tg.getOpenId()+", \"message\":\""+message+"\", \"type\":\""+mtype+"\", \"duration\":\""+duration+"\"}");
+								log.info("####tm.openId:" + tm.getOpenId() + "----- message:" +  "{\"openId\":"+tg.getOpenId()+", \"message\":\""+message+"\", \"type\":\""+mtype+"\", \"duration\":\""+duration+"\"}");
+							}
 						}
 					}
+					
+					page ++;
+					if(mCount < pageSize) break;
 				}
-				
-				page ++;
-				if(mCount < pageSize) break;
 			}
 			j.setSuccess(true);
 			j.setMsg("推送成功！");

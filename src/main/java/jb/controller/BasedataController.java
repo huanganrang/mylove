@@ -17,7 +17,9 @@ import jb.service.BasetypeServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 基础数据管理控制器
@@ -124,9 +126,10 @@ public class BasedataController extends BaseController {
 	 */
 	@RequestMapping("/basedataAdd")
 	@ResponseBody
-	public Json basedataAdd(BaseData basedata) {
+	public Json basedataAdd(BaseData basedata, @RequestParam MultipartFile iconFile, HttpServletRequest request) {
 		Json j = new Json();
 		try {
+			basedata.setIcon(uploadFile(request, "basedata/" + basedata.getBasetypeCode(), iconFile, basedata.getId()));
 			basedataService.add(basedata);
 			j.setSuccess(true);
 			j.setMsg("添加成功！");
@@ -178,9 +181,10 @@ public class BasedataController extends BaseController {
 	 */
 	@RequestMapping("/basedataEdit")
 	@ResponseBody
-	public Json basedataEdit(BaseData basedata) {
+	public Json basedataEdit(BaseData basedata, @RequestParam MultipartFile iconFile, HttpServletRequest request) {
 		Json j = new Json();
 		try {
+			basedata.setIcon(uploadFile(request, "basedata/" + basedata.getBasetypeCode(), iconFile, basedata.getId()));
 			basedataService.edit(basedata);
 			j.setSuccess(true);
 			j.setMsg("编辑成功！");

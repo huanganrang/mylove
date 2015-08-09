@@ -40,6 +40,10 @@
 						<td align="right" style="width: 180px;"><label>openId(推送男用户的openId)：</label></td>
 						<td><input name="openId" type="text" class="span2" value=""/>（不传男屌丝全推送）</td>
 					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>type(消息类型)：</label></td>
+						<td><input name="type" type="text" class="span2" value=""/>（MQ：只推文本；VQ：只推语音；其他两者皆推）</td>
+					</tr>
 					
 					<tr>
 						<td colspan="2" align="center">
