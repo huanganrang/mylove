@@ -338,9 +338,16 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		params.put("sex", "SX01".equals(a.getSex()) ? "SX02" : "SX01"); // 男查女、女查男
 		params.put("openId", Integer.valueOf(search.getOpenId())); 
 		if("2".equals(search.getSearchType())) {
-			if(!F.empty(a.getAddress())) {
-				whereHql += " and t.address like :searchAreaCode ";
-				params.put("searchAreaCode", "%%" + a.getAddress().split("_")[0] + "%%");
+			if(!F.empty(a.getLastLoginArea())) {
+				String searchArea = "";
+				String[] areas = a.getLastLoginArea().split("_");
+				if(areas.length == 1) {
+					searchArea += areas[0];
+				} else {
+					searchArea += areas[0] + "_" + areas[1];
+				}
+				whereHql += " and t.lastLoginArea like :searchAreaCode ";
+				params.put("searchAreaCode", "%%" + searchArea + "%%");
 			}
 		} else if("3".equals(search.getSearchType())) {
 			whereHql += " and t.openId = :searchOpenId ";
