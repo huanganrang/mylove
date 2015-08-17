@@ -8,6 +8,8 @@ public class AccountSearch implements java.io.Serializable {
 	private java.lang.String openId;	// 当前用户openId
 	private java.lang.String searchType;	// 搜索类型(1、全国；2、同城；3、openId搜索)
 	private java.lang.String searchOpenId; // 搜索账户号openId值
+	private Double longitude;	
+	private Double latitude;
 	
 	public java.lang.String getOpenId() {
 		return openId;
@@ -26,6 +28,18 @@ public class AccountSearch implements java.io.Serializable {
 	}
 	public void setSearchOpenId(java.lang.String searchOpenId) {
 		this.searchOpenId = searchOpenId;
+	}
+	public Double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+	public Double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}	
 
 }

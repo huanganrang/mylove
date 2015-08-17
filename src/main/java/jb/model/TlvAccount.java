@@ -116,9 +116,9 @@ public class TlvAccount implements java.io.Serializable{
 	//@Length(max=100)
 	private java.lang.String headImg;
 	//
-	private Long longitude;
+	private Double longitude;
 	//
-	private Long latitude;
+	private Double latitude;
 	//@Length(max=20)
 	private java.lang.String vipLevel;
 	//
@@ -353,20 +353,20 @@ public class TlvAccount implements java.io.Serializable{
 	}
 	
 	@Column(name = "longitude", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public Long getLongitude() {
+	public Double getLongitude() {
 		return this.longitude;
 	}
 	
-	public void setLongitude(Long longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 	
 	@Column(name = "latitude", unique = false, nullable = true, insertable = true, updatable = true, length = 10)
-	public Long getLatitude() {
+	public Double getLatitude() {
 		return this.latitude;
 	}
 	
-	public void setLatitude(Long latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 	

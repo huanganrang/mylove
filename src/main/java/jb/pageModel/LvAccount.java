@@ -31,8 +31,8 @@ public class LvAccount implements java.io.Serializable {
 	private Date updateTime;			
 	private java.lang.String auditStatus;	
 	private java.lang.String headImg;	
-	private Long longitude;	
-	private Long latitude;	
+	private Double longitude;	
+	private Double latitude;	
 	private java.lang.String vipLevel;	
 	private Date vipOpenTime;			
 	private Date vipEndTime;			
@@ -218,18 +218,18 @@ public class LvAccount implements java.io.Serializable {
 	public java.lang.String getHeadImg() {
 		return this.headImg;
 	}
-	public void setLongitude(Long longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 	
-	public Long getLongitude() {
+	public Double getLongitude() {
 		return this.longitude;
 	}
-	public void setLatitude(Long latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 	
-	public Long getLatitude() {
+	public Double getLatitude() {
 		return this.latitude;
 	}
 	public void setVipLevel(java.lang.String vipLevel) {

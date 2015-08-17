@@ -189,6 +189,16 @@
 					</td>								
 				</tr>	
 				<tr>	
+					<th><%=TlvAccount.ALIAS_LONGITUDE%></th>	
+					<td>
+						<input class="span2" name="longitude" type="text" class="span2"/>
+					</td>
+					<th><%=TlvAccount.ALIAS_LATITUDE%></th>	
+					<td >
+						<input class="span2" name="latitude" type="text" class="span2"/>
+					</td>								
+				</tr>	
+				<tr>	
 					<th><%=TlvAccount.ALIAS_MOBILE%></th>	
 					<td>
 						<input class="span2" name="mobile" type="text" class="span2"/>

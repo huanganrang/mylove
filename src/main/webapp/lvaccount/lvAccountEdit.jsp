@@ -72,6 +72,22 @@
 						<jb:select dataType="AD" name="auditStatus" value="${lvAccount.auditStatus}"></jb:select>
 					</td>							
 			</tr>	
+			<tr>	
+					<th><%=TlvAccount.ALIAS_LONGITUDE%></th>	
+					<td>
+						<input class="span2" name="longitude" type="text" class="span2"  value="${lvAccount.longitude}"/>
+					</td>
+					<th><%=TlvAccount.ALIAS_LATITUDE%></th>	
+					<td >
+						<input class="span2" name="latitude" type="text" class="span2"  value="${lvAccount.latitude}"/>
+					</td>								
+				</tr>
+				<tr>	
+					<th><%=TlvAccount.ALIAS_LAST_LOGIN_AREA%></th>	
+					<td colspan="3">
+						<input class="span2" name="lastLoginArea" type="text" value="${lvAccount.lastLoginArea}"/>
+					</td>								
+				</tr>	
 				<tr>	
 					<th>头像上传</th>	
 					<td colspan="3">

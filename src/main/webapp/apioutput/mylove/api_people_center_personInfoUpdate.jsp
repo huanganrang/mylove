@@ -115,7 +115,7 @@
 					</tr>
 					
 					<tr>
-						<td colspan="2">以下两项则是每次启动手机app则调用此接口进行修改</td>
+						<td colspan="2">以下四项则是每次启动手机app则调用此接口进行修改</td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>lastLoginTime(最近上线时间)：</label></td>
@@ -124,6 +124,14 @@
 					<tr>
 						<td align="right" style="width: 180px;"><label>lastLoginArea(最近上线区域)：</label></td>
 						<td><input name="lastLoginArea" type="text" class="span2" value="上海"/>（如：上海等）</td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>longitude(经度)：</label></td>
+						<td><input name="longitude" type="text" class="span2" value=""/>（小数点不得超过6位有效数字）</td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>latitude(纬度)：</label></td>
+						<td><input name="latitude" type="text" class="span2" value=""/>（小数点不得超过6位有效数字）</td>
 					</tr>
 					
 					

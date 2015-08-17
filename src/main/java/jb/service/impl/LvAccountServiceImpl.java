@@ -330,11 +330,13 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		dg.setPage(Long.valueOf(ph.getPage()));
 		dg.setPageSize(Long.valueOf(ph.getRows()));
 		
-		String hql = "from TlvAccount t  ";
+		String sql = "select openId, headImg, birthday, sex, vipLevel, vipOpenTime, vipEndTime, nickName, "
+				+ "round(6378.138*2*asin(sqrt(pow(sin(("+search.getLatitude()+"*pi()/180-latitude*pi()/180)/2),2)+cos("+search.getLatitude()+"*pi()/180)*cos(latitude*pi()/180)*pow(sin(("+search.getLongitude()+"*pi()/180-longitude*pi()/180)/2),2)))*1000) as distance"
+				+ " from lv_account ";
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		LvAccount a = get(Integer.valueOf(search.getOpenId()));
-		String whereHql = " where t.sex = :sex and t.openId != :openId ";
+		String whereHql = " where sex = :sex and openId != :openId ";
 		params.put("sex", "SX01".equals(a.getSex()) ? "SX02" : "SX01"); // 男查女、女查男
 		params.put("openId", Integer.valueOf(search.getOpenId())); 
 		if("2".equals(search.getSearchType())) {
@@ -346,31 +348,31 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 				} else {
 					searchArea += areas[0] + "_" + areas[1];
 				}
-				whereHql += " and t.lastLoginArea like :searchAreaCode ";
+				whereHql += " and lastLoginArea like :searchAreaCode ";
 				params.put("searchAreaCode", "%%" + searchArea + "%%");
 			}
 		} else if("3".equals(search.getSearchType())) {
-			whereHql += " and t.openId = :searchOpenId ";
+			whereHql += " and openId = :searchOpenId ";
 			params.put("searchOpenId", Integer.valueOf(search.getSearchOpenId()));
 		}
 		
-		String orderString = " order by t.visitNum desc, t.followNum desc";
-		List<TlvAccount> l = lvAccountDao.find(hql + whereHql + orderString, params, ph.getPage(), ph.getRows());
-		dg.setTotal(lvAccountDao.count("select count(*) " + hql + whereHql, params));
+		String orderString = " order by visitNum desc, followNum desc";
+//		List<TlvAccount> l = lvAccountDao.find(sql + whereHql + orderString, params, ph.getPage(), ph.getRows());
+		List<Map> l = lvAccountDao.findBySql2Map(sql + whereHql + orderString, params, ph.getPage(), ph.getRows());
+		dg.setTotal(lvAccountDao.count("select count(*) from TlvAccount " + whereHql, params));
 		
-		List<Map<String, Object>> al = new ArrayList<Map<String, Object>>();
+//		List<Map<String, Object>> al = new ArrayList<Map<String, Object>>();
 		if (l != null && l.size() > 0) {
-			Map<String, Object> map = null;
-			for (TlvAccount t : l) {
-				map = new HashMap<String, Object>();
-				LvAccount o = new LvAccount();
-				MyBeanUtils.copyProperties(t, o, true);
-				o.setAge(DateUtil.getAgeByBirthday(o.getBirthday()));
-				map = BeanToMapUtil.convertBean(o, new String[]{"openId", "headImg", "age", "sex", "vipLevel", "vipOpenTime", "vipEndTime", "nickName"});
-				al.add(map);
+			for (Map m : l) {
+//				LvAccount o = new LvAccount();
+//				MyBeanUtils.copyProperties(t, o, true);
+//				o.setAge(DateUtil.getAgeByBirthday(o.getBirthday()));
+//				map = BeanToMapUtil.convertBean(o, new String[]{"openId", "headImg", "age", "sex", "vipLevel", "vipOpenTime", "vipEndTime", "nickName"});
+//				al.add(map);
+				m.put("age", DateUtil.getAgeByBirthday((Date)m.get("birthday")));
 			}
 		}
-		dg.setRows(al);
+		dg.setRows(l);
 		
 		return dg;
 	}

@@ -61,6 +61,14 @@
 						<td><input name="searchOpenId" type="text" class="span2" value=""/>（当searchType=3时需要传入值）</td>
 					</tr>
 					<tr>
+						<td align="right" style="width: 180px;"><label>longitude(当前app经度)：</label></td>
+						<td><input name="longitude" type="text" class="span2" value=""/>（小数点不得超过6位有效数字）</td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>latitude(当前app纬度)：</label></td>
+						<td><input name="latitude" type="text" class="span2" value=""/>（小数点不得超过6位有效数字）</td>
+					</tr>
+					<tr>
 						<td align="right" style="width: 180px;"><label>page(第几页)：</label></td>
 						<td><input name="page" type="text" class="span2" value="1"/></td>
 					</tr>
