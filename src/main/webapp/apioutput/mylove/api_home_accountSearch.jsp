@@ -102,6 +102,7 @@
 						vipLevel	会员等级（VP01：年会员；VP02：季会员；VP03：月会员）    <br/>
 						vipOpenTime	会员开通时间    <br/>
 						vipEndTime	会员到期时间   <br/>
+						distance	距离（单位米,-1表示未知）   <br/>
 					
 			</div>
 		</div>

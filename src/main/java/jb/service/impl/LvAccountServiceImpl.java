@@ -23,7 +23,6 @@ import jb.pageModel.LvVisit;
 import jb.pageModel.PageHelper;
 import jb.service.LvAccountServiceI;
 import jb.service.LvVisitServiceI;
-import jb.util.BeanToMapUtil;
 import jb.util.Constants;
 import jb.util.DateUtil;
 import jb.util.MD5Util;
@@ -324,6 +323,7 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	/**
 	 * 首页用户查询搜索
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DataGrid dataGridAccount_search(AccountSearch search, PageHelper ph) {
 		
 		DataGrid dg = new DataGrid();
@@ -370,6 +370,7 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 //				map = BeanToMapUtil.convertBean(o, new String[]{"openId", "headImg", "age", "sex", "vipLevel", "vipOpenTime", "vipEndTime", "nickName"});
 //				al.add(map);
 				m.put("age", DateUtil.getAgeByBirthday((Date)m.get("birthday")));
+				m.put("distance", m.get("distance") == null ? -1 : m.get("distance"));
 			}
 		}
 		dg.setRows(l);
