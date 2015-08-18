@@ -1,6 +1,7 @@
 package jb.task;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +30,16 @@ public class PushMessageTask {
 	private BasedataServiceI basedataService;
 
 	public void pushMessage() {
-		new Thread(new Runnable() {
-			public void run() {
-				taskHandle();
-			}
-		}).start();
+		Calendar cal = Calendar.getInstance();
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		// 
+		if((hour >= 11 && hour <= 15) || (hour >= 18 && hour <= 23)) {
+			new Thread(new Runnable() {
+				public void run() {
+					taskHandle();
+				}
+			}).start();
+		}
 	}
 	
 	private void taskHandle() {
