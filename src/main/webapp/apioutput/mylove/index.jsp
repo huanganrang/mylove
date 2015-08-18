@@ -11,7 +11,7 @@
 		<div id="index_tabs" class="easyui-tabs" data-options="fit:true">
 			<div title="首页" data-options="href:'api_home.jsp'"
 				style="padding: 1px"></div>
-			<div title="信箱" data-options="href:'../api_doing.jsp'"
+			<div title="信箱" data-options="href:'api_mylove_chat.jsp'"
 				style="padding: 1px"></div>
 			<div title="我的挖宝" data-options="href:'api_my_boost.jsp'"
 				style="padding: 1px"></div>	

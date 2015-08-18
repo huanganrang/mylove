@@ -11,7 +11,7 @@
 	$(function() {
 	 	parent.$.messager.progress('close');
 		$('#push_test_Form').form({
-			url : '${pageContext.request.contextPath}/api/apiHomeController/testPush',
+			url : '${pageContext.request.contextPath}/api/apiChatController/testPush',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
