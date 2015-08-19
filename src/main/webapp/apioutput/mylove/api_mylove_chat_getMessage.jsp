@@ -41,7 +41,7 @@
 						<td>${pageContext.request.contextPath}/api/apiChatController/getMessage</td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>openId(女神openId)：</label></td>
+						<td align="right" style="width: 180px;"><label>openId(女神openId，为空时则系统随机挑选一位女神返回)：</label></td>
 						<td><input name="openId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
@@ -62,7 +62,8 @@
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、type：消息类型（MT01：文本；MT02：语音）<br/>
+					3、openId：女神openId<br/>
+						type：消息类型（MT01：文本；MT02：语音）<br/>
 						duration：时长（单位秒）<br/>
 						message：文本消息内容/语音地址<br/>
 			</div>

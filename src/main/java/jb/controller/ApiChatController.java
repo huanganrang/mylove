@@ -38,7 +38,7 @@ public class ApiChatController extends BaseController {
 	private BasedataServiceI basedataService;
 	
 	/**
-	 * 一键打招呼列表
+	 * 获取消息
 	 * @return
 	 */
 	@ResponseBody
@@ -46,10 +46,20 @@ public class ApiChatController extends BaseController {
 	public Json getMessage(Integer openId, String type) {
 		Json j = new Json();
 		try {
-			
-			LvAccount ga = accountService.get(openId);
-			
 			Random random = new Random();
+			LvAccount ga = null;
+			if(openId != null) {
+				ga = accountService.get(openId);
+			} else {
+				int pageSize = 50;
+				String hql = " from TlvAccount t ";
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("sex", "SX02"); // 女
+				int gCount = accountService.getCount(params);
+				int totalPage = gCount%pageSize == 0 ? gCount/pageSize : gCount/pageSize + 1;
+				List<LvAccount> gList = accountService.findListByHql(hql + " where t.sex = :sex", params, random.nextInt(totalPage)+1, pageSize);
+				ga = gList.get(random.nextInt(gList.size()));
+			}
 			
 			List<BaseData> bd = new ArrayList<BaseData>();
 			List<BaseData> mqData = basedataService.getBaseDatas("MQ");
@@ -74,14 +84,10 @@ public class ApiChatController extends BaseController {
 			String duration = "";
 			String mtype = "";
 			if("MQ".equals(d.getBasetypeCode())) {
-				if(ga != null) {
-					message = d.getDescription()
-							.replaceAll("\\{year\\}", DateUtil.format(ga.getBirthday(), "yyyy"))
-							.replaceAll("\\{age\\}", DateUtil.getAgeByBirthday(ga.getBirthday()) + "")
-							.replaceAll("\\{height\\}", (ga.getHeight() == null ? 165 : ga.getHeight()) + "");
-				} else {
-					message = d.getDescription();
-				}
+				message = d.getDescription()
+						.replaceAll("\\{year\\}", DateUtil.format(ga.getBirthday(), "yyyy"))
+						.replaceAll("\\{age\\}", DateUtil.getAgeByBirthday(ga.getBirthday()) + "")
+						.replaceAll("\\{height\\}", (ga.getHeight() == null ? 165 : ga.getHeight()) + "");
 				mtype = "MT01";
 			} else if("VQ".equals(d.getBasetypeCode())) {
 				message = d.getIcon();
@@ -90,6 +96,7 @@ public class ApiChatController extends BaseController {
 			}
 			
 			Map<String, Object> m = new HashMap<String, Object>();
+			m.put("openId", ga.getOpenId());
 			m.put("message", message);
 			m.put("type", mtype);
 			m.put("duration", duration);
