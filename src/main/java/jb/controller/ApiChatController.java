@@ -51,7 +51,7 @@ public class ApiChatController extends BaseController {
 			if(openId != null) {
 				ga = accountService.get(openId);
 			} else {
-				int pageSize = 50;
+				int pageSize = 10;
 				String hql = " from TlvAccount t ";
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("sex", "SX02"); // 女
@@ -103,7 +103,7 @@ public class ApiChatController extends BaseController {
 			
 			j.setObj(m);
 			j.setSuccess(true);
-			j.setMsg("一键打招呼列表查询成功！");
+			j.setMsg("消息获取成功！");
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());
 		}
