@@ -95,6 +95,7 @@ public class ApiAccountController extends BaseController {
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("tokenId", tokenManage.buildToken(a.getId(), a.getNickName()));
 			result.put("openId", a.getOpenId());
+			result.put("loginName", a.getLoginName());
 			
 			j.setObj(result);
 		} else {
@@ -122,6 +123,7 @@ public class ApiAccountController extends BaseController {
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("tokenId", tokenManage.buildToken(lvAccount.getId(),lvAccount.getNickName()));
 			result.put("openId", lvAccount.getOpenId());
+			result.put("loginName", lvAccount.getLoginName());
 			j.setObj(result);
 			
 			LvPartnerCondition lvPartnerCondition = new LvPartnerCondition();
@@ -129,7 +131,7 @@ public class ApiAccountController extends BaseController {
 			partnerConditionService.add(lvPartnerCondition);
 			
 			// 注册环信
-			if(!F.empty(HuanxinUtil.createUser(lvAccount.getOpenId() + "", Constants.ACCOUNT_DEFAULT_PSW))) {
+			if(!F.empty(HuanxinUtil.createUser(lvAccount.getOpenId() + "", lvAccount.getHxPassword()))) {
 				LvAccount a = new LvAccount();
 				a.setId(lvAccount.getId());
 				a.setHxStatus(1);

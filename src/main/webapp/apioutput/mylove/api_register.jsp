@@ -42,15 +42,23 @@
 					</tr>
 					
 					<tr>
-						<td align="right" style="width: 180px;"><label>nikeName(昵称)：</label></td>
-						<td><input name="nickName" type="text" class="span2" value="John"/></td>
+						<td align="right" style="width: 180px;"><label>loginName(*账号)：</label></td>
+						<td><input name="loginName" type="text" class="span2" value="John"/>varchar(20)</td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>age(年龄)：</label></td>
+						<td align="right" style="width: 180px;"><label>password(*密码)：</label></td>
+						<td><input name="password" type="text" class="span2" value="123456"/></td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>nikeName(昵称)：</label></td>
+						<td><input name="nickName" type="text" class="span2" value=""/>（昵称不填则自动赋值loginName）</td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>age(*年龄)：</label></td>
 						<td><input name="age" type="text" class="span2" value="25"/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>sex(性别)：</label></td>
+						<td align="right" style="width: 180px;"><label>sex(*性别)：</label></td>
 						<td><input name="sex" type="text" class="span2" value="SX01"/>（男：SX01；女：SX02）</td>
 					</tr>
 					<tr>

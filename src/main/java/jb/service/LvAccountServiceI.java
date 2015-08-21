@@ -55,7 +55,7 @@ public interface LvAccountServiceI {
 	 */
 	public void delete(String id);
 
-	public LvAccount reg(LvAccount lvAccount);
+	public LvAccount reg(LvAccount lvAccount) throws Exception;
 
 	public LvAccount login(LvAccount lvAccount);
 

@@ -127,14 +127,28 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	}
 
 	/**
-	 * 注册
+	 * 登录
 	 */
 	public LvAccount login(LvAccount lvAccount) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("openId", lvAccount.getOpenId());
-		params.put("mobile", lvAccount.getOpenId().toString());
+		String loginName = lvAccount.getLoginName();
+		String where = " where t.password = :password";
 		params.put("password", MD5Util.md5(lvAccount.getPassword()));
-		TlvAccount a = lvAccountDao.get("from TlvAccount t where (t.openId = :openId or t.mobile = :mobile) and t.password = :password", params);
+		try {
+			if(loginName.length() <= 10) {
+				params.put("openId", Integer.valueOf(loginName));
+				params.put("loginName", loginName);
+				where += " and (t.openId = :openId or t.loginName = :loginName)";
+			} else {
+				where += " and t.loginName = :loginName";
+				params.put("loginName", loginName);
+			}
+		} catch(Exception e) {
+			//System.out.println(e.getMessage());
+			where += " and t.loginName = :loginName";
+			params.put("loginName", loginName);
+		}
+		TlvAccount a = lvAccountDao.get("from TlvAccount t " + where, params);
 		if (a != null) {
 			BeanUtils.copyProperties(a, lvAccount);
 			return lvAccount;
@@ -144,12 +158,19 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	
 	/**
 	 * 注册
+	 * @throws Exception 
 	 */
-	public LvAccount reg(LvAccount account) {
+	public LvAccount reg(LvAccount account) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("loginName", account.getLoginName());
+		if(lvAccountDao.count("select count(*) from TlvAccount t where t.loginName = :loginName", params) > 0) {
+			throw new Exception("账号已被注册！");
+		}
+		
 		TlvAccount a = new TlvAccount();
 		account.setId(UUID.randomUUID().toString());
-		account.setPassword(MD5Util.md5(Constants.ACCOUNT_DEFAULT_PSW));
-		account.setHxPassword(Constants.ACCOUNT_DEFAULT_PSW);
+		account.setHxPassword(account.getPassword());
+		account.setPassword(MD5Util.md5(account.getPassword()));
 		account.setBirthday(DateUtil.getBirthdayByAge(account.getAge()));
 		account.setCreateTime(new Date());
 		account.setLastLoginTime(new Date());
@@ -330,12 +351,12 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		dg.setPage(Long.valueOf(ph.getPage()));
 		dg.setPageSize(Long.valueOf(ph.getRows()));
 		
+		LvAccount a = get(Integer.valueOf(search.getOpenId()));
 		String sql = "select openId, headImg, birthday, sex, vipLevel, vipOpenTime, vipEndTime, nickName, "
-				+ "round(6378.138*2*asin(sqrt(pow(sin(("+search.getLatitude()+"*pi()/180-latitude*pi()/180)/2),2)+cos("+search.getLatitude()+"*pi()/180)*cos(latitude*pi()/180)*pow(sin(("+search.getLongitude()+"*pi()/180-longitude*pi()/180)/2),2)))*1000) as distance"
+				+ "round(6378.138*2*asin(sqrt(pow(sin(("+a.getLatitude()+"*pi()/180-latitude*pi()/180)/2),2)+cos("+a.getLatitude()+"*pi()/180)*cos(latitude*pi()/180)*pow(sin(("+a.getLongitude()+"*pi()/180-longitude*pi()/180)/2),2)))*1000) as distance"
 				+ " from lv_account ";
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		LvAccount a = get(Integer.valueOf(search.getOpenId()));
 		String whereHql = " where sex = :sex and openId != :openId ";
 		params.put("sex", "SX01".equals(a.getSex()) ? "SX02" : "SX01"); // 男查女、女查男
 		params.put("openId", Integer.valueOf(search.getOpenId())); 

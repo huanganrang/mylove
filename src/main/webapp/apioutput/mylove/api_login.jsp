@@ -42,8 +42,8 @@
 					</tr>
 					
 					<tr>
-						<td align="right" style="width: 180px;"><label>openId(账户号)：</label></td>
-						<td><input name="openId" type="text" class="span2" value="10000000"/></td>
+						<td align="right" style="width: 180px;"><label>loginName(账户)：</label></td>
+						<td><input name="loginName" type="text" class="span2" value="10000000"/>(账号或openId登录)</td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>password(密码)：</label></td>

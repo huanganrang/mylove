@@ -15,6 +15,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
+import jb.listener.Application;
 import jb.listener.TokenListener;
 
 import org.apache.log4j.Logger;
@@ -26,9 +27,13 @@ public class HuanxinUtil {
 	
 	private static final Logger log = Logger.getLogger(HuanxinUtil.class);
 	
-	public static final String APPKEY = "liantangwuyou#lovepeng";
-	public static final String CLIENT_ID = "YXA6WZ59wCiXEeWmHqmc9AagDA";
-	public static final String CLIENT_SECRET = "YXA6Z7bJfm1OyfuDY1guU_aejIXcqFQ";
+	public static final String APPKEY = "SV310";
+	public static final String CLIENT_ID = "SV311";
+	public static final String CLIENT_SECRET = "SV312";
+	
+//	public static final String APPKEY = "liantangwuyou#lovepeng";
+//	public static final String CLIENT_ID = "YXA6WZ59wCiXEeWmHqmc9AagDA";
+//	public static final String CLIENT_SECRET = "YXA6Z7bJfm1OyfuDY1guU_aejIXcqFQ";
 	
 //	public static final String APPKEY = "xuwenming-1987#mylove";
 //	public static final String CLIENT_ID = "YXA6EY3BkCn0EeW2L8HnJ8THWg";
@@ -166,11 +171,10 @@ public class HuanxinUtil {
 	 */
 	public static AccessToken getAccessToken() {
 		AccessToken accessToken = null;
-
-		String[] keys = APPKEY.split("#");
-		String requestUrl = "https://a1.easemob.com/"+keys[0]+"/"+keys[1]+"/token";
-		String params = "{\"grant_type\": \"client_credentials\",\"client_id\": \""+CLIENT_ID+"\",\"client_secret\": \""+CLIENT_SECRET+"\"}";
-		JSONObject jsonObject = JSONObject.parseObject(httpsRequest(requestUrl, "POST", params, false));
+		String client_id = Application.getString(CLIENT_ID);
+		String client_secret = Application.getString(CLIENT_SECRET);
+		String params = "{\"grant_type\": \"client_credentials\",\"client_id\": \""+client_id+"\",\"client_secret\": \""+client_secret+"\"}";
+		JSONObject jsonObject = JSONObject.parseObject(httpsRequest(getUrl("token"), "POST", params, false));
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
@@ -192,10 +196,8 @@ public class HuanxinUtil {
 	 */
 	public static String createUser(String username, String password) {
 		
-		String[] keys = APPKEY.split("#");
-		String requestUrl = "https://a1.easemob.com/"+keys[0]+"/"+keys[1]+"/users";
 		String params = "{\"username\": \""+username+"\",\"password\": \""+password+"\"}";
-		String response = httpsRequest(requestUrl, "POST", params, true);
+		String response = httpsRequest(getUrl("users"), "POST", params, true);
 		log.info(response);
 		return response;
 	}
@@ -206,11 +208,14 @@ public class HuanxinUtil {
 	 */
 	public static String resetPass(String username, String password) {
 		
-		String[] keys = APPKEY.split("#");
-		String requestUrl = "https://a1.easemob.com/"+keys[0]+"/"+keys[1]+"/"+username+"/password";
 		String params = "{\"newpassword\": \""+password+"\"}";
-		String response = httpsRequest(requestUrl, "PUT", params, true);
+		String response = httpsRequest(getUrl("users/"+username+"/password"), "PUT", params, true);
 		log.info(response);
 		return response;
+	}
+	
+	private static String getUrl(String action) {
+		String[] keys = Application.getString(APPKEY).split("#");
+		return "https://a1.easemob.com/"+keys[0]+"/"+keys[1]+"/"+action;
 	}
 }
