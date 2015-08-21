@@ -10,6 +10,8 @@
 	<div id="index_mylove_chat_tabs" class="easyui-tabs" data-options="fit:true">
 		<div title="获取消息" data-options="href:'api_mylove_chat_getMessage.jsp'"
 			style="padding: 1px"></div>
+		<div title="消息配置" data-options="href:'api_mylove_chat_messageConfig.jsp'"
+			style="padding: 1px"></div>
 		<div title="推动测试" data-options="href:'api_mylove_chat_push_test.jsp'"
 			style="padding: 1px"></div>	
 	</div>

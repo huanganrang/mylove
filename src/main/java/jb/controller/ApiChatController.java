@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import jb.absx.F;
+import jb.listener.Application;
 import jb.pageModel.BaseData;
 import jb.pageModel.Json;
 import jb.pageModel.LvAccount;
@@ -104,6 +106,30 @@ public class ApiChatController extends BaseController {
 			j.setObj(m);
 			j.setSuccess(true);
 			j.setMsg("消息获取成功！");
+		} catch (Exception e) {
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 消息配置
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/messageConfig")
+	public Json messageConfig() {
+		Json j = new Json();
+		try {
+			String freeTimes = Application.getString("SV301");
+			String voicePercent = Application.getString("SV302");
+			Map<String, Object> m = new HashMap<String, Object>();
+			m.put("freeTimes", F.empty(freeTimes) ? "4" : freeTimes);
+			m.put("voicePercent", F.empty(voicePercent) ? "10" : voicePercent);
+			
+			j.setObj(m);
+			j.setSuccess(true);
+			j.setMsg("消息配置获取成功！");
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());
 		}
