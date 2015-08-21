@@ -167,6 +167,9 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 			throw new Exception("账号已被注册！");
 		}
 		
+		if(F.empty(account.getNickName())) {
+			account.setNickName(account.getLoginName());
+		}
 		TlvAccount a = new TlvAccount();
 		account.setId(UUID.randomUUID().toString());
 		account.setHxPassword(account.getPassword());
