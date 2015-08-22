@@ -27,8 +27,11 @@ import jb.service.LvFeedbackServiceI;
 import jb.service.LvFollowServiceI;
 import jb.service.LvPartnerConditionServiceI;
 import jb.service.LvVisitServiceI;
+import jb.util.ConfigUtil;
 import jb.util.Constants;
+import jb.util.DESCoder;
 import jb.util.DateUtil;
+import jb.util.Hex;
 import jb.util.StringUtil;
 import jb.util.easemob.HuanxinUtil;
 
@@ -87,19 +90,25 @@ public class ApiAccountController extends BaseController {
 	@RequestMapping("/login")
 	public Json login(LvAccount lvAccount, HttpServletRequest request) {
 		Json j = new Json();
-		LvAccount a = accountService.login(lvAccount);
-		if (a != null) {
-			j.setSuccess(true);
-			j.setMsg("登陆成功！");
-			
-			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("tokenId", tokenManage.buildToken(a.getId(), a.getNickName()));
-			result.put("openId", a.getOpenId());
-			result.put("loginName", a.getLoginName());
-			
-			j.setObj(result);
-		} else {
-			j.setMsg("用户名或密码错误！");
+		try {
+			lvAccount.setPassword(new String(DESCoder.decrypt(Hex.decodeHex(lvAccount.getPassword().toCharArray()), ConfigUtil.get("des.key").getBytes())));
+			LvAccount a = accountService.login(lvAccount);
+			if (a != null) {
+				j.setSuccess(true);
+				j.setMsg("登陆成功！");
+				
+				Map<String, Object> result = new HashMap<String, Object>();
+				result.put("tokenId", tokenManage.buildToken(a.getId(), a.getNickName()));
+				result.put("openId", a.getOpenId());
+				result.put("loginName", a.getLoginName());
+				
+				j.setObj(result);
+			} else {
+				j.setMsg("用户名或密码错误！");
+			}
+		} catch (Exception e) {
+			// e.printStackTrace();
+			j.setMsg(e.getMessage());
 		}
 		return j;
 	}
@@ -115,6 +124,7 @@ public class ApiAccountController extends BaseController {
 	public Json register(LvAccount lvAccount, HttpServletRequest request) {
 		Json j = new Json();
 		try {
+			lvAccount.setPassword(new String(DESCoder.decrypt(Hex.decodeHex(lvAccount.getPassword().toCharArray()), ConfigUtil.get("des.key").getBytes())));
 			lvAccount = accountService.reg(lvAccount);	
 			lvAccount = accountService.get(lvAccount.getId());
 			j.setSuccess(true);
@@ -155,6 +165,8 @@ public class ApiAccountController extends BaseController {
 	public Json updatePass(LvAccount lvAccount, HttpServletRequest request) {
 		Json j = new Json();
 		try {
+			lvAccount.setOldPass(new String(DESCoder.decrypt(Hex.decodeHex(lvAccount.getOldPass().toCharArray()), ConfigUtil.get("des.key").getBytes())));
+			lvAccount.setPassword(new String(DESCoder.decrypt(Hex.decodeHex(lvAccount.getPassword().toCharArray()), ConfigUtil.get("des.key").getBytes())));
 			lvAccount.setHxPassword(lvAccount.getPassword());
 			if(!F.empty(HuanxinUtil.resetPass(lvAccount.getOpenId() + "", lvAccount.getHxPassword()))) {
 				accountService.updatePass(lvAccount);			
@@ -505,4 +517,38 @@ public class ApiAccountController extends BaseController {
 		
 	}
 	
+	/**
+	 * api加密测试
+	 * @param password
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/encrypt")
+	public Json encrypt(String password) {
+		Json j = new Json();
+		try {
+			j.setObj(Hex.encodeHexStr(DESCoder.encrypt(password.getBytes(), ConfigUtil.get("des.key").getBytes())));
+			j.success();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return j;
+	}
+	/**
+	 * api解密测试
+	 * @param password
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/decrypt")
+	public Json decrypt(String password) {
+		Json j = new Json();
+		try {
+			j.setObj(new String(DESCoder.decrypt(Hex.decodeHex(password.toCharArray()), ConfigUtil.get("des.key").getBytes())));
+			j.success();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return j;
+	}
 }

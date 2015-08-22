@@ -28,7 +28,12 @@
 				$("#login_result").text(result);
 			}
 		});
+		
+		$("#le").click($("#login_Form").find("[name=password]"), encrypt);
+		$("#ld").click($("#login_Form").find("[name=password]"), decrypt);
 	});
+	
+	
 </script>
 
 	<div class="easyui-layout" data-options="fit:true">
@@ -47,7 +52,7 @@
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>password(密码)：</label></td>
-						<td><input name="password" type="text" class="span2" value="123456"/></td>
+						<td><input name="password" type="text" class="span2" value="123456"/>(需要加密)<input type="button" value="加密" id="le">&nbsp;&nbsp;<input type="button" value="解密" id="ld"></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">

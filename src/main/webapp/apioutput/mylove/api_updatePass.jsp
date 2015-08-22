@@ -17,7 +17,7 @@
 					title : '提示',
 					text : '数据处理中，请稍后....'
 				});
-				$("input[name=password]").val($("input[name=password1]").val());
+				//$("input[name=password]").val($("input[name=password1]").val());
 				var isValid = $(this).form('validate');
 				if (!isValid) {
 					parent.$.messager.progress('close');
@@ -29,7 +29,14 @@
 				$("#updatePass_result").text(result);
 			}
 		});
+		
+		$("#ep1").click($("#updatePass_Form").find("[name=oldPass]"), encrypt);
+		$("#ed1").click($("#updatePass_Form").find("[name=oldPass]"), decrypt);
+		$("#ep2").click($("#updatePass_Form").find("[name=password]"), encrypt);
+		$("#ed2").click($("#updatePass_Form").find("[name=password]"), decrypt);
 	});
+	
+	
 </script>
 
 	<div class="easyui-layout" data-options="fit:true">
@@ -52,13 +59,13 @@
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>oldPass(旧密码)：</label></td>
-						<td><input name="oldPass" type="text" class="span2" value=""/></td>
+						<td><input name="oldPass" type="text" class="span2" value=""/>(需要加密)<input type="button" value="加密" id="ep1">&nbsp;&nbsp;<input type="button" value="解密" id="ed1"></td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>password(新密码)：</label></td>
 						<td>
-							<input name="password1" type="text" class="span2" value=""/>
-							<input type="hidden" name="password">
+							<input name="password" type="text" class="span2" value=""/>(需要加密)<input type="button" value="加密" id="ep2">&nbsp;&nbsp;<input type="button" value="解密"  id="ed2">
+							<!-- <input type="hidden" name="password"> -->
 						</td>
 					</tr>
 					<tr>

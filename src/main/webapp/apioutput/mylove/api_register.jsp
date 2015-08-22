@@ -28,7 +28,35 @@
 				$("#register_result").text(result);
 			}
 		});
+		
+		$("#re").click($("#register_Form").find("[name=password]"), encrypt);
+		$("#rd").click($("#register_Form").find("[name=password]"), decrypt);
 	});
+	
+	function encrypt(obj) {
+		var password = $(obj.data).val();
+		$.post('${pageContext.request.contextPath}/api/apiAccountController/encrypt', {
+			password : password
+		}, function(result) {
+			if (result.success) {
+				$(obj.data).val(result.obj);
+			} else {
+				alert("加密失败");
+			}
+		}, 'JSON');
+	}
+	function decrypt(obj) {
+		var password = $(obj.data).val();
+		$.post('${pageContext.request.contextPath}/api/apiAccountController/decrypt', {
+			password : password
+		}, function(result) {
+			if (result.success) {
+				$(obj.data).val(result.obj);
+			} else {
+				alert("解密失败");
+			}
+		}, 'JSON');
+	}
 </script>
 
 	<div class="easyui-layout" data-options="fit:true">
@@ -47,7 +75,7 @@
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>password(*密码)：</label></td>
-						<td><input name="password" type="text" class="span2" value="123456"/></td>
+						<td><input name="password" type="text" class="span2" value="123456"/>(需要加密)<input type="button" value="加密" id="re">&nbsp;&nbsp;<input type="button" value="解密" id="rd"></td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>nikeName(昵称)：</label></td>

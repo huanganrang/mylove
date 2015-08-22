@@ -70,24 +70,9 @@
 			<bean class="jb.interceptors.TokenInterceptor">
 				<property name="excludeUrls">
 					<list>
-						<value>/api/apiUserController/login</value><!-- 用户登录 -->
-						<value>/api/bshootController/dataGrid</value>
-						<value>/api/apiUserController/register</value><!-- 用户注册 -->
 						<value>/api/apiAccountController/login</value><!-- 用户登录 -->
 						<value>/api/apiAccountController/register</value><!-- 用户注册 -->
-						<value>/api/apiFinderController/hotBshoot</value><!-- 热门 -->
-						<value>/api/apiFinderController/nearbyBshoot</value><!-- 热门 -->
-						<value>/api/apiFinderController/bshootSquare</value><!-- 广场页 -->	
-						<value>/api/apiFinderController/bshootSquareTopic</value><!-- 广场话题页 -->	
-						<value>/api/apiFinderController/getBshootSquareDetail</value><!-- 广场详情 -->	
-						<value>/api/apiFinderController/getBshootByCode</value><!-- 广场视频列表 -->											
-						<value>/api/bshootController/bshoot_detail</value><!-- 详情 -->
-						<value>/api/bshootController/bshoot_comments</value><!-- 评论 -->	
-						<value>/api/apiUserController/user_index</value><!--个人首页接口 -->	
-						<value>/api/apiUserController/user_mybshoots</value><!--个人美拍 -->	
-						<value>/api/apiUserController/user_mytranspond</value><!--个人转发 -->			
-						<value>/api/apiUserController/user_myattruser</value><!--个人关注 -->			
-						<value>/api/apiUserController/user_myattreduser</value><!--个人粉丝 -->	
+						<value>/api/apiAccountController/encrypt</value><!-- 用户注册 -->
 														
 						<value>/api/apiPayController/pay</value><!--支付 -->									
 					</list>
