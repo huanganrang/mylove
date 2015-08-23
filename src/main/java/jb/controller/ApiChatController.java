@@ -199,7 +199,6 @@ public class ApiChatController extends BaseController {
 	public Json getVideoMessage(Integer openId, String groupId) {
 		Json j = new Json();
 		try {
-			List<Map<String, String>> ml = new ArrayList<Map<String,String>>();
 			if(!F.empty(groupId)) {
 				Random random = new Random();
 				LvAccount ga = null;
@@ -216,20 +215,20 @@ public class ApiChatController extends BaseController {
 					ga = gList.get(random.nextInt(gList.size()));
 				}
 				
+				Map<String, String> m = new HashMap<String, String>();
 				BaseData baseData = new BaseData();
 				baseData.setBasetypeCode("VQ");
 				baseData.setPid(groupId);
 				List<BaseData> l = basedataService.getBaseDatas(baseData);
 				if(l != null && l.size() > 0) {
-					for(BaseData d : l) {
-						Map<String, String> m = new HashMap<String, String>();
-						m.put("openId", ga.getOpenId().toString());
-						m.put("message", d.getIcon());
-						m.put("duration", d.getName());
-						ml.add(m);
-					}
+					BaseData d = l.get(random.nextInt(l.size()));
+					m.put("openId", ga.getOpenId().toString());
+					m.put("message", d.getIcon());
+					m.put("duration", d.getName());
 				}
+				j.setObj(m);
 			} else {
+				List<Map<String, String>> ml = new ArrayList<Map<String,String>>();
 				List<BaseData> groups = basedataService.getBaseDatas("VG");
 				if(groups != null && groups.size() > 0) {
 					for(BaseData group : groups) {
@@ -239,9 +238,9 @@ public class ApiChatController extends BaseController {
 						ml.add(m);
 					}
 				}
+				j.setObj(ml);
 			}
 			
-			j.setObj(ml);
 			j.setSuccess(true);
 			j.setMsg("获取成功！");
 		} catch (Exception e) {
