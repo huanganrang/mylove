@@ -66,5 +66,7 @@ public interface BasedataServiceI {
 	 * 获取系统环境变量
 	 */
 	public Map<String,BaseData> getAppVariable();
+
+	public List<BaseData> getBaseDatas(BaseData baseData);
 	
 }

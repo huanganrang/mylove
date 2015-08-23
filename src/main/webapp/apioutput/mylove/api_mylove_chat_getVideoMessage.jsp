@@ -10,8 +10,8 @@
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#mylove_chat_messageConfig_Form').form({
-			url : '${pageContext.request.contextPath}/api/apiChatController/messageConfig',
+		$('#mylove_chat_getVideoMessage_Form').form({
+			url : '${pageContext.request.contextPath}/api/apiChatController/getVideoMessage',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -25,7 +25,7 @@
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#mylove_chat_messageConfig_result").text(result);
+				$("#mylove_chat_getVideoMessage_result").text(result);
 			}
 		});
 	});
@@ -34,35 +34,41 @@
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="mylove_chat_messageConfig_Form" action="">
+			<form id="mylove_chat_getVideoMessage_Form" action="">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
-						<td>${pageContext.request.contextPath}/api/apiChatController/messageConfig</td>
+						<td>${pageContext.request.contextPath}/api/apiChatController/getVideoMessage</td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>openId(用户openId)：</label></td>
-						<td><input name="openId" type="text" class="span2" value=""/></td>
+						<td align="right" style="width: 180px;"><label>groupId(分组ID)：</label></td>
+						<td><input name="groupId" type="text" class="span2" value=""/>（不传则返回分组信息）</td>
 					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>openId(女神openId，为空时则系统随机挑选一位女神返回)：</label></td>
+						<td><input name="openId" type="text" class="span2" value=""/>（当查询分组信息时则openId无效）</td>
+					</tr>
+					
 					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#mylove_chat_messageConfig_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#mylove_chat_getVideoMessage_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="mylove_chat_messageConfig_result">
+				<div id="mylove_chat_getVideoMessage_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、voicePercent：语音消息所占百分比<br/>
-						FT01：剩余免费聊天信息次数<br/>
-						FT02：剩余免费搜索次数<br/>
-						FT03：剩余免费打招呼次数<br/>
-						FT04：剩余免费查看照片次数<br/>
-						FT05：剩余免费听语音次数<br/>
+					3、语音消息：<br/>
+						openId：女神openId<br/>
+						duration：时长（单位秒）<br/>
+						message：语音地址<br/>
+						分组信息：<br/>
+					groupId 分组ID <br/>
+					groupName 分组名称 <br/>
 			</div>
 		</div>
 	</div>

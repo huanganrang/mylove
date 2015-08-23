@@ -10,7 +10,11 @@
 	<div id="index_mylove_chat_tabs" class="easyui-tabs" data-options="fit:true">
 		<div title="获取消息" data-options="href:'api_mylove_chat_getMessage.jsp'"
 			style="padding: 1px"></div>
-		<div title="消息配置" data-options="href:'api_mylove_chat_messageConfig.jsp'"
+		<div title="消息配置获取" data-options="href:'api_mylove_chat_messageConfig.jsp'"
+			style="padding: 1px"></div>
+		<div title="免费次数消耗" data-options="href:'api_mylove_chat_freeNumUsed.jsp'"
+			style="padding: 1px"></div>
+		<div title="语音消息获取" data-options="href:'api_mylove_chat_getVideoMessage.jsp'"
 			style="padding: 1px"></div>
 		<div title="推动测试" data-options="href:'api_mylove_chat_push_test.jsp'"
 			style="padding: 1px"></div>	

@@ -11,8 +11,10 @@ import jb.listener.Application;
 import jb.pageModel.BaseData;
 import jb.pageModel.Json;
 import jb.pageModel.LvAccount;
+import jb.pageModel.LvFreeConfig;
 import jb.service.BasedataServiceI;
 import jb.service.LvAccountServiceI;
+import jb.service.LvFreeConfigServiceI;
 import jb.util.DateUtil;
 import jb.util.NotificationMesageUtil;
 
@@ -38,6 +40,9 @@ public class ApiChatController extends BaseController {
 	
 	@Autowired
 	private BasedataServiceI basedataService;
+	
+	@Autowired
+	private LvFreeConfigServiceI freeConfigService;
 	
 	/**
 	 * 获取消息
@@ -118,18 +123,127 @@ public class ApiChatController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/messageConfig")
-	public Json messageConfig() {
+	public Json messageConfig(Integer openId) {
 		Json j = new Json();
 		try {
-			String freeTimes = Application.getString("SV301");
+			if(openId == null) {
+				j.setMsg("获取失败，参数错误！");
+				return j;
+			}
+			//String freeTimes = Application.getString("SV301");
 			String voicePercent = Application.getString("SV302");
 			Map<String, Object> m = new HashMap<String, Object>();
-			m.put("freeTimes", F.empty(freeTimes) ? "4" : freeTimes);
+			//m.put("freeTimes", F.empty(freeTimes) ? "4" : freeTimes);
 			m.put("voicePercent", F.empty(voicePercent) ? "10" : voicePercent);
+			LvFreeConfig free = new LvFreeConfig();
+			free.setOpenId(openId);
+			List<LvFreeConfig> freeUseds = freeConfigService.findAllByParam(free);
+			List<BaseData> bd = basedataService.getBaseDatas("FT");
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			if(freeUseds.size() > 0) {
+				for(LvFreeConfig freeUsed : freeUseds) {
+					map.put(freeUsed.getFtype(), freeUsed.getUsedNum());
+				}
+			}
+			if(bd != null && bd.size() > 0) {
+				for(BaseData d : bd) {
+					int sNum = Integer.valueOf(d.getName().trim());
+					if(map.containsKey(d.getId())) {
+						sNum = sNum - map.get(d.getId());
+					}
+					m.put(d.getId(), sNum);
+				}
+			}
 			
 			j.setObj(m);
 			j.setSuccess(true);
 			j.setMsg("消息配置获取成功！");
+		} catch (Exception e) {
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 免费次数消耗
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/freeNumUsed")
+	public Json freeNumUsed(LvFreeConfig free) {
+		Json j = new Json();
+		try {
+			if(free.getOpenId() == null || F.empty(free.getFtype())) {
+				j.setMsg("操作失败，参数错误！");
+				return j;
+			}
+			
+			int usedNum = freeConfigService.freeNumUsed(free);
+			int count = Integer.valueOf(Application.getString(free.getFtype()).trim());
+			
+			j.setObj(count-usedNum);
+			j.setSuccess(true);
+			j.setMsg("操作成功！");
+		} catch (Exception e) {
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 获取消息
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getVideoMessage")
+	public Json getVideoMessage(Integer openId, String groupId) {
+		Json j = new Json();
+		try {
+			List<Map<String, String>> ml = new ArrayList<Map<String,String>>();
+			if(!F.empty(groupId)) {
+				Random random = new Random();
+				LvAccount ga = null;
+				if(openId != null) {
+					ga = accountService.get(openId);
+				} else {
+					int pageSize = 10;
+					String hql = " from TlvAccount t ";
+					Map<String, Object> params = new HashMap<String, Object>();
+					params.put("sex", "SX02"); // 女
+					int gCount = accountService.getCount(params);
+					int totalPage = gCount%pageSize == 0 ? gCount/pageSize : gCount/pageSize + 1;
+					List<LvAccount> gList = accountService.findListByHql(hql + " where t.sex = :sex", params, random.nextInt(totalPage)+1, pageSize);
+					ga = gList.get(random.nextInt(gList.size()));
+				}
+				
+				BaseData baseData = new BaseData();
+				baseData.setBasetypeCode("VQ");
+				baseData.setPid(groupId);
+				List<BaseData> l = basedataService.getBaseDatas(baseData);
+				if(l != null && l.size() > 0) {
+					for(BaseData d : l) {
+						Map<String, String> m = new HashMap<String, String>();
+						m.put("openId", ga.getOpenId().toString());
+						m.put("message", d.getIcon());
+						m.put("duration", d.getName());
+						ml.add(m);
+					}
+				}
+			} else {
+				List<BaseData> groups = basedataService.getBaseDatas("VG");
+				if(groups != null && groups.size() > 0) {
+					for(BaseData group : groups) {
+						Map<String, String> m = new HashMap<String, String>();
+						m.put("groupId", group.getId());
+						m.put("groupName", group.getName());
+						ml.add(m);
+					}
+				}
+			}
+			
+			j.setObj(ml);
+			j.setSuccess(true);
+			j.setMsg("获取成功！");
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());
 		}
