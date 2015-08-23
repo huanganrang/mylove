@@ -121,7 +121,7 @@ public class LvFreeConfigServiceImpl extends BaseServiceImpl<LvFreeConfig> imple
 		if(t != null) {
 			usedNum += t.getUsedNum();
 			free.setUsedNum(usedNum);
-			free.setId(t.getFtype());
+			free.setId(t.getId());
 			this.edit(free);
 		} else {
 			free.setUsedNum(usedNum);
