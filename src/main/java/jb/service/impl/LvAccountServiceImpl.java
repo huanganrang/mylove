@@ -131,7 +131,7 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	 */
 	public LvAccount login(LvAccount lvAccount) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		String loginName = lvAccount.getLoginName();
+		String loginName = lvAccount.getLoginName() == null ? lvAccount.getOpenId().toString() : lvAccount.getLoginName();
 		String where = " where t.password = :password";
 		params.put("password", MD5Util.md5(lvAccount.getPassword()));
 		try {
