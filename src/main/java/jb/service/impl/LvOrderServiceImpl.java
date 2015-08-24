@@ -60,6 +60,10 @@ public class LvOrderServiceImpl extends BaseServiceImpl<LvOrder> implements LvOr
 				whereHql += " and t.channel = :channel";
 				params.put("channel", lvOrder.getChannel());
 			}		
+			if (lvOrder.getOrderNo() != null) {
+				whereHql += " and t.orderNo = :orderNo";
+				params.put("orderNo", lvOrder.getOrderNo());
+			}		
 		}	
 		return whereHql;
 	}
@@ -94,6 +98,20 @@ public class LvOrderServiceImpl extends BaseServiceImpl<LvOrder> implements LvOr
 	@Override
 	public void delete(String id) {
 		lvOrderDao.delete(lvOrderDao.get(TlvOrder.class, id));
+	}
+
+
+	@Override
+	public TlvOrder updateStatus(LvOrder order) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String where = whereHql(order, params);
+		TlvOrder t = lvOrderDao.get("from TlvOrder t " + where, params);
+		if (t != null) {
+			order.setOrderStatus("OS01");
+			MyBeanUtils.copyProperties(order, t, new String[] {"id"},true);
+			return t;
+		}
+		return null;
 	}
 
 }

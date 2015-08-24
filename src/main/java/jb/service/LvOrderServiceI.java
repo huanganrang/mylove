@@ -1,7 +1,8 @@
 ﻿package jb.service;
 
-import jb.pageModel.LvOrder;
+import jb.model.TlvOrder;
 import jb.pageModel.DataGrid;
+import jb.pageModel.LvOrder;
 import jb.pageModel.PageHelper;
 
 /**
@@ -50,5 +51,7 @@ public interface LvOrderServiceI {
 	 * @param id
 	 */
 	public void delete(String id);
+
+	public TlvOrder updateStatus(LvOrder order);
 
 }

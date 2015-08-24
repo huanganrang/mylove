@@ -14,8 +14,8 @@
 			style="padding: 1px"></div>
 		<div title="修改密码" data-options="href:'api_updatePass.jsp'"
 			style="padding: 1px"></div>
-		<div title="立即开通" data-options="href:'api_people_center_registerVip.jsp'"
-			style="padding: 1px"></div>
+		<!-- <div title="立即开通" data-options="href:'api_people_center_registerVip.jsp'"
+			style="padding: 1px"></div> -->
 		<div title="最近来访" data-options="href:'api_people_center_recentlyAccount.jsp'"
 			style="padding: 1px"></div>
 		<div title="图像上传" data-options="href:'api_people_center_headImage.jsp'"
