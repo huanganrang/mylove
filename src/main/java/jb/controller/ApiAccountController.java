@@ -164,22 +164,33 @@ public class ApiAccountController extends BaseController {
 	@RequestMapping("/updatePass")
 	public Json updatePass(LvAccount lvAccount, HttpServletRequest request) {
 		Json j = new Json();
+		String oldPass = null;
+		boolean flag = false;
 		try {
-			lvAccount.setOldPass(new String(DESCoder.decrypt(Hex.decodeHex(lvAccount.getOldPass().toCharArray()), ConfigUtil.get("des.key").getBytes())));
+			oldPass = new String(DESCoder.decrypt(Hex.decodeHex(lvAccount.getOldPass().toCharArray()), ConfigUtil.get("des.key").getBytes()));
+			lvAccount.setOldPass(oldPass);
 			lvAccount.setPassword(new String(DESCoder.decrypt(Hex.decodeHex(lvAccount.getPassword().toCharArray()), ConfigUtil.get("des.key").getBytes())));
 			lvAccount.setHxPassword(lvAccount.getPassword());
-			if(!F.empty(HuanxinUtil.resetPass(lvAccount.getOpenId() + "", lvAccount.getHxPassword()))) {
-				accountService.updatePass(lvAccount);			
-				j.setSuccess(true);
-				j.setMsg("密码修改成功");
-			} else {
-				j.setMsg("密码修改失败");
+			if(oldPass != null) {
+				if(!F.empty(HuanxinUtil.resetPass(lvAccount.getOpenId() + "", lvAccount.getHxPassword()))) {
+					accountService.updatePass(lvAccount);			
+					j.setSuccess(true);
+					j.setMsg("密码修改成功");
+				} else {
+					j.setMsg("密码修改失败");
+					flag = true;
+				}
 			}
 			
 		} catch (Exception e) {
 			// e.printStackTrace();
 			j.setMsg(e.getMessage());
+			flag = true;
 		}
+		if(flag) {
+			HuanxinUtil.resetPass(lvAccount.getOpenId() + "", oldPass);
+		}
+		
 		return j;
 	}
 	

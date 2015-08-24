@@ -33,7 +33,7 @@ public class ApiPayController {
 	public Json pay(LvOrder order, HttpServletRequest request) {
 		Json j = new Json();
 		try {
-			String appId = order.getAppId();
+			//String appId = order.getAppId();
 			Date now = new Date();
 			order.setCreatetime(now);
 			order.setOrderStatus("OS02");
@@ -46,7 +46,7 @@ public class ApiPayController {
 		    chargeParams.put("order_no",  DateUtil.format(now, "yyyyMMdd") + order.getOrderNo());
 		    chargeParams.put("amount", (long)(order.getAmount()*100));
 		    Map<String, String> app = new HashMap<String, String>();
-		    app.put("id", appId); // app_9WHWH0rDC8q10qfn
+		    app.put("id", Application.getString("SV201")); // app_9WHWH0rDC8q10qfn
 		    chargeParams.put("app",app);
 		    chargeParams.put("channel", order.getChannel());
 		    chargeParams.put("currency", "cny");

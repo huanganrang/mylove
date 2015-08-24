@@ -49,10 +49,11 @@
 						<td align="right" style="width: 180px;"><label>vipLevel(会员等级)：</label></td>
 						<td><input name="vipLevel" type="text" class="span2" value="VP01"/>(年会员：VP01；季会员：VP02；月会员：VP03)</td>
 					</tr>
+					<!-- 
 					<tr>
 						<td align="right" style="width: 180px;"><label>appId(支付使用的 app对象的 id)：</label></td>
 						<td><input name="appId" type="text" class="span2" value="app_9WHWH0rDC8q10qfn"/></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td align="right" style="width: 180px;"><label>channel(第三方支付渠道)：</label></td>
 						<td><input name="channel" type="text" class="span2" value="alipay"/></td>

@@ -136,7 +136,8 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		params.put("password", MD5Util.md5(lvAccount.getPassword()));
 		try {
 			if(loginName.length() <= 10) {
-				params.put("openId", Integer.valueOf(loginName));
+				Integer openId = Integer.valueOf(loginName);
+				params.put("openId", openId);
 				params.put("loginName", loginName);
 				where += " and (t.openId = :openId or t.loginName = :loginName)";
 			} else {
@@ -162,8 +163,25 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	 */
 	public LvAccount reg(LvAccount account) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
+		String loginName = account.getLoginName();
+		String where = " where 1=1";
+		try {
+			if(loginName.length() <= 10) {
+				Integer openId = Integer.valueOf(loginName);
+				params.put("openId", openId);
+				params.put("loginName", loginName);
+				where += " and (t.openId = :openId or t.loginName = :loginName)";
+			} else {
+				where += " and t.loginName = :loginName";
+				params.put("loginName", loginName);
+			}
+		} catch(Exception e) {
+			//System.out.println(e.getMessage());
+			where += " and t.loginName = :loginName";
+			params.put("loginName", loginName);
+		}
 		params.put("loginName", account.getLoginName());
-		if(lvAccountDao.count("select count(*) from TlvAccount t where t.loginName = :loginName", params) > 0) {
+		if(lvAccountDao.count("select count(*) from TlvAccount t " + where, params) > 0) {
 			throw new Exception("账号已被注册！");
 		}
 		
