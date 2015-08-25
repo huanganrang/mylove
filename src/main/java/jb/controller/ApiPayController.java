@@ -112,9 +112,10 @@ public class ApiPayController {
         Event event = Webhooks.eventParse(buffer.toString());
         if ("charge.succeeded".equals(event.getType())) {
         	System.out.println("#########################" + event.getData().get("object"));
-        	String order_no = (String)((Map)event.getData().get("object")).get("order_no");
+        	Map m = (Map)(event.getData().get("object"));
+        	String order_no = (String)m.get("order_no");
         	LvOrder order = new LvOrder();
-        	order.setOrderNo(Long.valueOf(order_no));
+        	order.setOrderNo(Long.valueOf(order_no.substring(8))); // 截取掉前8位的日期
         	TlvOrder t = orderService.updateStatus(order);
         	if(t != null) {
         		LvAccount lvAccount = new LvAccount();
@@ -128,4 +129,5 @@ public class ApiPayController {
             response.setStatus(500);
         }
 	}
+	
 }
