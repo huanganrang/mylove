@@ -45,6 +45,10 @@
 						<td><input name="groupId" type="text" class="span2" value=""/>（不传则返回分组信息）</td>
 					</tr>
 					<tr>
+						<td align="right" style="width: 180px;"><label>index(语音下标值)：</label></td>
+						<td><input name="index" type="text" class="span2" value=""/>（从0开始，不传则随机一个语音）</td>
+					</tr>
+					<tr>
 						<td align="right" style="width: 180px;"><label>openId(女神openId，为空时则系统随机挑选一位女神返回)：</label></td>
 						<td><input name="openId" type="text" class="span2" value=""/>（当查询分组信息时则openId无效）</td>
 					</tr>
@@ -69,6 +73,7 @@
 						分组信息：<br/>
 					groupId 分组ID <br/>
 					groupName 分组名称 <br/>
+					vqNum 该组下的语音数量 <br/>
 			</div>
 		</div>
 	</div>

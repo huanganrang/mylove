@@ -196,7 +196,7 @@ public class ApiChatController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/getVideoMessage")
-	public Json getVideoMessage(Integer openId, String groupId) {
+	public Json getVideoMessage(Integer openId, String groupId, Integer index) {
 		Json j = new Json();
 		try {
 			if(!F.empty(groupId)) {
@@ -221,7 +221,9 @@ public class ApiChatController extends BaseController {
 				baseData.setPid(groupId);
 				List<BaseData> l = basedataService.getBaseDatas(baseData);
 				if(l != null && l.size() > 0) {
-					BaseData d = l.get(random.nextInt(l.size()));
+					if(index == null) index = random.nextInt(l.size());
+					if(index >= l.size()) index = index%l.size();
+					BaseData d = l.get(index);
 					m.put("openId", ga.getOpenId().toString());
 					m.put("message", d.getIcon());
 					m.put("duration", d.getName());
@@ -235,6 +237,10 @@ public class ApiChatController extends BaseController {
 						Map<String, String> m = new HashMap<String, String>();
 						m.put("groupId", group.getId());
 						m.put("groupName", group.getName());
+						BaseData baseData = new BaseData();
+						baseData.setBasetypeCode("VQ");
+						baseData.setPid(group.getId());
+						m.put("vqNum", basedataService.getBaseDatas(baseData).size() + "");
 						ml.add(m);
 					}
 				}
