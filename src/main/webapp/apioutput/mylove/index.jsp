@@ -17,6 +17,8 @@
 				style="padding: 1px"></div>	
 			<div title="个人中心" data-options="href:'api_people_center.jsp'"
 				style="padding: 1px"></div>	
+			<div title="APP错误日志上传" data-options="href:'api_app_errorlog.jsp'"
+				style="padding: 1px"></div>
 		</div>
 	</div>	
 </body>

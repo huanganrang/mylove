@@ -19,6 +19,7 @@
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
+				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
 				<!-- <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"> -->
 				<bean id="fastJsonHttpMessageConverter" class="jb.util.FastJsonHttpMessageConverter">
 					<property name="supportedMediaTypes">
@@ -61,6 +62,7 @@
 						<value>/userController/currentUserRolePage</value><!-- 查看自己的角色页面 -->
 						<value>/userController/currentUserResourcePage</value><!-- 查看自己的权限页面 -->
 						<value>/lvAreaController/getByParentCode</value><!-- 查看自己的权限页面 -->
+						<value>/fileController/download</value><!-- 下载 -->
 					</list>
 				</property>
 			</bean>
@@ -74,7 +76,8 @@
 						<value>/api/apiAccountController/register</value><!-- 用户注册 -->
 						<value>/api/apiAccountController/encrypt</value><!-- 用户注册 -->
 														
-						<value>/api/apiPayController/pay</value><!--支付 -->									
+						<value>/api/apiPayController/pay</value><!--支付 -->		
+						<value>/api/apiCommon/upload_errorlog</value><!-- token过期错误返回 -->							
 					</list>
 				</property>
 				<property name="tokenManage" ref="tokenManage"/>
