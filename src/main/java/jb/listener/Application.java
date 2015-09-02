@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 
 import jb.pageModel.BaseData;
 import jb.service.BasedataServiceI;
+import jb.task.SimulationTask;
 
 import org.androidpn.server.util.ConfigManager;
 import org.androidpn.server.xmpp.XmppServer;
@@ -20,7 +21,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  *
  */
 public class Application implements ServletContextListener {
-	private static ServletContext context;
+	public static ServletContext context;
 	private static String PREFIX = "SV.";
 	@Override
 	public void contextInitialized(ServletContextEvent event) {	
@@ -28,7 +29,7 @@ public class Application implements ServletContextListener {
 		 initAppVariable();
 		 XmppServer.getInstance();
 		 ConfigManager.getInstance().getConfig().setProperty("server.home.dir", Application.class.getResource("/").getPath());
-		
+		 SimulationTask.getInstance();
 	}
 
 	private static void initAppVariable(){
