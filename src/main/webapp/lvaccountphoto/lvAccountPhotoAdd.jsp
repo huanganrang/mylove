@@ -2,6 +2,7 @@
 <%@ page import="jb.model.TlvAccountPhoto" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="jb" uri="http://www.jb.cn/jbtag"%> 
 <script type="text/javascript">
 	$(function() {
 	 parent.$.messager.progress('close');
@@ -29,31 +30,43 @@
 				}
 			}
 		});
+		
+		function ProcessFile() {
+			var file = document.getElementById('photoImg').files[0];
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function ( event ) {
+					var txt = event.target.result;
+					$('.img-preview').attr('src',txt);
+				};
+			}
+		    reader.readAsDataURL(file);
+		}
+		$(document).delegate('#photoImg','change',function () {
+			ProcessFile();
+		});
 	});
 </script>
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: hidden;">	
-		<form id="form" method="post">		
+		<form id="form" method="post" enctype="multipart/form-data">		
 				<input type="hidden" name="id"/>
 			<table class="table table-hover table-condensed">
 				<tr>	
 					<th><%=TlvAccountPhoto.ALIAS_OPEN_ID%></th>	
 					<td>
-					<input class="span2" name="openId" type="text" class="easyui-validatebox span2" data-options="required:true"/>
-					</td>							
-					<th><%=TlvAccountPhoto.ALIAS_PHOTO_IMG%></th>	
-					<td>
-					<input class="span2" name="photoImg" type="text" class="easyui-validatebox span2" data-options="required:true"/>
-					</td>							
-				</tr>	
-				<tr>	
-					<th><%=TlvAccountPhoto.ALIAS_CREATE_TIME%></th>	
-					<td>
-					<input class="span2" name="createTime" type="text" onclick="WdatePicker({dateFmt:'<%=TlvAccountPhoto.FORMAT_CREATE_TIME%>'})"  maxlength="0" class="required " />
+						<input class="span2" name="openId" type="text" class="easyui-validatebox span2" data-options="required:true"/>
 					</td>							
 					<th><%=TlvAccountPhoto.ALIAS_AUDIT_STATUS%></th>	
 					<td>
-					<input class="span2" name="auditStatus" type="text" class="easyui-validatebox span2" data-options="required:true"/>
+						<jb:select dataType="AD" name="auditStatus" value="AD01"></jb:select>
+					</td>							
+				</tr>	
+				<tr>	
+					<th>相册上传</th>	
+					<td colspan="3">
+						<img class="img-preview" src="" width="50" height="50"/> 
+						<input type="file" id="photoImg" name="photoImgFile">
 					</td>							
 				</tr>	
 			</table>		

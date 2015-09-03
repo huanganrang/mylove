@@ -115,7 +115,7 @@
 					</tr>
 					
 					<tr>
-						<td colspan="2">以下四项则是每次启动手机app则调用此接口进行修改</td>
+						<td colspan="2">以下五项则是每次启动手机app则调用此接口进行修改</td>
 					</tr>
 					<tr>
 						<td align="right" style="width: 180px;"><label>lastLoginTime(最近上线时间)：</label></td>
@@ -132,6 +132,10 @@
 					<tr>
 						<td align="right" style="width: 180px;"><label>latitude(纬度)：</label></td>
 						<td><input name="latitude" type="text" class="span2" value=""/>（小数点不得超过6位有效数字）</td>
+					</tr>
+					<tr>
+						<td align="right" style="width: 180px;"><label>online(在线状态)：</label></td>
+						<td><input name="online" type="text" class="span2" value="OL01"/>（始终修改为在线OL01）</td>
 					</tr>
 					
 					

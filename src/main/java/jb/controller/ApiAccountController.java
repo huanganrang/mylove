@@ -223,11 +223,12 @@ public class ApiAccountController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/recentlyAccount")
-	public Json recentlyAccount(LvVisit lvVisit, HttpServletRequest request) {
+	public Json recentlyAccount(LvVisit lvVisit, PageHelper ph, HttpServletRequest request) {
 		Json j = new Json();
 		try {
+			DataGrid dg = lvVisitService.dataGridAccount(lvVisit, ph);
+			j.setObj(dg);
 			j.setSuccess(true);
-			j.setObj(lvVisitService.queryAllVisitAccount(lvVisit.getOpenId()));
 			j.setMsg("最近来访查询成功");
 		} catch (Exception e) {
 			// e.printStackTrace();

@@ -15,11 +15,13 @@ import jb.pageModel.DataGrid;
 import jb.pageModel.Json;
 import jb.pageModel.LvAccount;
 import jb.pageModel.LvFollow;
+import jb.pageModel.LvNotify;
 import jb.pageModel.PageHelper;
 import jb.service.BasedataServiceI;
 import jb.service.LvAccountPhotoServiceI;
 import jb.service.LvAccountServiceI;
 import jb.service.LvFollowServiceI;
+import jb.service.LvNotifyServiceI;
 import jb.util.DateUtil;
 import jb.util.NotificationMesageUtil;
 
@@ -48,6 +50,8 @@ public class ApiHomeController extends BaseController {
 	
 	@Autowired
 	private LvFollowServiceI followService;
+	@Autowired
+	private LvNotifyServiceI notifyService;
 	@Autowired
 	private BasedataServiceI basedataService;
 	
@@ -119,6 +123,31 @@ public class ApiHomeController extends BaseController {
 			} else {
 				j.setSuccess(true);
 				j.setMsg("取消关注成功！");
+			}
+		} catch (Exception e) {
+			j.setMsg(e.getMessage());
+		}
+		return j;
+	}
+	
+	/**
+	 * 打招呼
+	 * @param ua
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/sayHello")
+	public Json sayHello(LvNotify n, HttpServletRequest request) {
+		Json j = new Json();
+		try {
+			//n.setCreateTime(new Date());
+			int r = notifyService.add(n);
+			if(r == -1) {
+				j.setMsg("已经打过招呼！");
+			} else {
+				j.setSuccess(true);
+				j.setMsg("打招呼成功！");
 			}
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());

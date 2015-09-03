@@ -12,6 +12,7 @@ import jb.absx.F;
 import jb.dao.LvAccountDaoI;
 import jb.dao.LvAccountPhotoDaoI;
 import jb.dao.LvFollowDaoI;
+import jb.dao.LvNotifyDaoI;
 import jb.listener.Application;
 import jb.model.TlvAccount;
 import jb.model.TlvAccountPhoto;
@@ -46,6 +47,9 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 	
 	@Autowired
 	private LvVisitServiceI lvVisitService;
+	
+	@Autowired
+	private LvNotifyDaoI lvNotifyDao;
 
 	@Override
 	public DataGrid dataGrid(LvAccount lvAccount, PageHelper ph) {
@@ -333,6 +337,16 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 				isVisit = Constants.GLOBAL_BOOLEAN_TRUE; // 已关注
 			}
 			a.setIsVisit(Integer.valueOf(isVisit));
+			
+			// 当前打招呼状态
+			String isNotify = Constants.GLOBAL_BOOLEAN_FALSE; // 未打招呼
+			params = new HashMap<String, Object>();
+			params.put("openId", lvAccount.getOpenId()); 
+			params.put("notifyOpenId", lvAccount.getByOpenId()); 
+			if(lvNotifyDao.count("select count(*) from TlvNotify t where t.openId = :openId and t.notifyOpenId = :notifyOpenId", params) > 0) {
+				isNotify = Constants.GLOBAL_BOOLEAN_TRUE; // 已打招呼
+			}
+			a.setIsNotify(Integer.valueOf(isNotify));
 			
 			// 插入来访纪录
 			LvVisit lvVisit = new LvVisit();

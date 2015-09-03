@@ -1,7 +1,9 @@
 ﻿package jb.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,11 +16,16 @@ import jb.pageModel.DataGrid;
 import jb.pageModel.Json;
 import jb.pageModel.PageHelper;
 import jb.service.LvAccountPhotoServiceI;
+import jb.util.Constants;
+import jb.util.StringUtil;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 
@@ -97,8 +104,11 @@ public class LvAccountPhotoController extends BaseController {
 	 */
 	@RequestMapping("/add")
 	@ResponseBody
-	public Json add(LvAccountPhoto lvAccountPhoto) {
-		Json j = new Json();		
+	public Json add(LvAccountPhoto lvAccountPhoto, @RequestParam MultipartFile photoImgFile, HttpServletRequest request) {
+		Json j = new Json();
+		String photoImg = uploadFile(request, lvAccountPhoto.getOpenId(), photoImgFile);
+		lvAccountPhoto.setPhotoImg(photoImg);
+		lvAccountPhoto.setCreateTime(new Date());
 		lvAccountPhotoService.add(lvAccountPhoto);
 		j.setSuccess(true);
 		j.setMsg("添加成功！");		
@@ -159,6 +169,24 @@ public class LvAccountPhotoController extends BaseController {
 		j.setMsg("删除成功！");
 		j.setSuccess(true);
 		return j;
+	}
+	
+	private String uploadFile(HttpServletRequest request,Integer openId, MultipartFile imageFile){
+		if(imageFile==null||imageFile.isEmpty())
+			return null;
+		String realPath = request.getSession().getServletContext().getRealPath("/"+Constants.UPLOADFILE_IMAGE+"/"+openId);  
+		File file = new File(realPath);
+		if(!file.exists())
+			file.mkdir();
+		String suffix = imageFile.getOriginalFilename().substring(imageFile.getOriginalFilename().lastIndexOf("."));
+		String fileName = System.currentTimeMillis() + StringUtil.getRandomNumber(4) + suffix;		
+		 try {
+			FileUtils.copyInputStreamToFile(imageFile.getInputStream(), new File(realPath, fileName));
+			return Constants.UPLOADFILE_IMAGE+"/"+openId+"/"+fileName;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 
 }

@@ -59,7 +59,10 @@ public class LvFollowServiceImpl extends BaseServiceImpl<LvFollow> implements Lv
 
 	@Override
 	public int add(LvFollow lvFollow) {
-		if(get(lvFollow.getFromOpenId(), lvFollow.getToOpenId()) != null) {
+		LvFollow f = get(lvFollow.getFromOpenId(), lvFollow.getToOpenId());
+		if(f != null) {
+			lvFollow.setId(f.getId());
+			this.edit(lvFollow);
 			return -1;
 		}
 		TlvFollow t = new TlvFollow();

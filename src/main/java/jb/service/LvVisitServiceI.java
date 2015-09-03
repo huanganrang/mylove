@@ -58,4 +58,6 @@ public interface LvVisitServiceI {
 
 	public List<LvAccount> queryAllVisitAccount(Integer openId);
 
+	public DataGrid dataGridAccount(LvVisit lvVisit, PageHelper ph);
+
 }

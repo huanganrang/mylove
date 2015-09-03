@@ -54,6 +54,10 @@ public class LvBoostRecordServiceImpl extends BaseServiceImpl<LvBoostRecord> imp
 				whereHql += " and t.activtyId = :activtyId";
 				params.put("activtyId", lvBoostRecord.getActivtyId());
 			}		
+			if (lvBoostRecord.getOpenId() != null) {
+				whereHql += " and t.openId = :openId";
+				params.put("openId", lvBoostRecord.getOpenId());
+			}		
 		}	
 		return whereHql;
 	}
@@ -75,6 +79,19 @@ public class LvBoostRecordServiceImpl extends BaseServiceImpl<LvBoostRecord> imp
 		LvBoostRecord o = new LvBoostRecord();
 		BeanUtils.copyProperties(t, o);
 		return o;
+	}
+	
+	@Override
+	public LvBoostRecord get(LvBoostRecord record) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String where = whereHql(record, params);
+		TlvBoostRecord t = lvBoostRecordDao.get("from TlvBoostRecord t  " + where, params);
+		if(t != null) {
+			LvBoostRecord o = new LvBoostRecord();
+			BeanUtils.copyProperties(t, o);
+			return o;
+		}
+		return null;
 	}
 
 	@Override
@@ -183,4 +200,6 @@ public class LvBoostRecordServiceImpl extends BaseServiceImpl<LvBoostRecord> imp
 		
 		return dg;
 	}
+
+
 }

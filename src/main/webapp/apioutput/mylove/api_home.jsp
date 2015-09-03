@@ -20,6 +20,8 @@
 			style="padding: 1px"></div>
 		<div title="取消关注" data-options="href:'api_home_cancelAttention.jsp'"
 			style="padding: 1px"></div>
+		<div title="打招呼" data-options="href:'api_home_sayHello.jsp'"
+			style="padding: 1px"></div>
 		<div title="一键打招呼列表" data-options="href:'api_home_sayHelloList.jsp'"
 			style="padding: 1px"></div>	
 	</div>

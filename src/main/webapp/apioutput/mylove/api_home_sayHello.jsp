@@ -10,8 +10,8 @@
 <script type="text/javascript">
 	$(function() {
 	 	parent.$.messager.progress('close');
-		$('#recentlyAccount_Form').form({
-			url : '${pageContext.request.contextPath}/api/apiAccountController/recentlyAccount',
+		$('#sayHello_Form').form({
+			url : '${pageContext.request.contextPath}/api/apiHomeController/sayHello',
 			onSubmit : function() {
 				parent.$.messager.progress({
 					title : '提示',
@@ -25,7 +25,7 @@
 			},
 			success : function(result) {
 				parent.$.messager.progress('close');
-				$("#recentlyAccount_result").text(result);
+				$("#sayHello_result").text(result);
 			}
 		});
 	});
@@ -34,11 +34,11 @@
 	<div class="easyui-layout" data-options="fit:true">
 		
 		<div data-options="region:'center'">
-			<form id="recentlyAccount_Form" action="">
+			<form id="sayHello_Form">
 				<table align="center" width="90%" class="tablex">
 					<tr>
 						<td align="right" style="width: 80px;"><label>url：</label></td>
-						<td>${pageContext.request.contextPath}/api/apiAccountController/recentlyAccount</td>
+						<td>${pageContext.request.contextPath}/api/apiHomeController/sayHello</td>
 					</tr>
 					
 					<tr>
@@ -46,35 +46,27 @@
 						<td><input name="tokenId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>openId(账户号)：</label></td>
-						<td><input name="openId" type="text" class="span2" value="10000000"/></td>
+						<td align="right" style="width: 180px;"><label>openId(当前人openId)：</label></td>
+						<td><input name="openId" type="text" class="span2" value=""/></td>
 					</tr>
 					<tr>
-						<td align="right" style="width: 180px;"><label>page(第几页)：</label></td>
-						<td><input name="page" type="text" class="span2" value="1"/></td>
+						<td align="right" style="width: 180px;"><label>notifyOpenId(被打招呼用户openId)：</label></td>
+						<td><input name="notifyOpenId" type="text" class="span2" value=""/></td>
 					</tr>
 					
 					<tr>
-						<td align="right" style="width: 180px;"><label>rows(每页数)：</label></td>
-						<td><input name="rows" type="text" class="span2" value="10"/></td>
-					</tr>
-					<tr>
 						<td colspan="2" align="center">
 						<input type="button"
-							value="提交" onclick="javascript:$('#recentlyAccount_Form').submit();" /></td>
+							value="提交" onclick="javascript:$('#sayHello_Form').submit();" /></td>
 					</tr>
 				</table>
 			</form>
 			<label>结果：</label>
-				<div id="recentlyAccount_result">
+				<div id="sayHello_result">
 				</div>
 			<div>
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
-					3、openId：用户openId值<br/>
-						headImg：头像图片路径<br/>
-						vipLevel：VIP等级<br/>
-						vipOpenTime：VIP开通时间<br/>
 					
 			</div>
 		</div>

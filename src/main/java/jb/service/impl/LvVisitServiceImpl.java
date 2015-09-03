@@ -128,4 +128,30 @@ public class LvVisitServiceImpl extends BaseServiceImpl<LvVisit> implements LvVi
 		return result;
 	}
 
+
+	@Override
+	public DataGrid dataGridAccount(LvVisit lvVisit, PageHelper ph) {
+		List<LvAccount> al = new ArrayList<LvAccount>();
+		ph.setSort("createTime");
+		ph.setOrder("desc");
+		DataGrid dg = new DataGrid();
+		dg.setPage(Long.valueOf(ph.getPage()));
+		dg.setPageSize(Long.valueOf(ph.getRows()));
+		
+		String hql = "select a from TlvVisit t, TlvAccount a where t.visitOpenId = a.openId and t.openId = :openId ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("openId", lvVisit.getOpenId());
+		List<TlvAccount> l = lvAccountDao.find(hql + orderHql(ph), params, ph.getPage(), ph.getRows());
+		dg.setTotal(lvAccountDao.count("select count(*) " + hql.substring(8) , params));
+		if (l != null && l.size() > 0) {
+			for (TlvAccount t : l) {
+				LvAccount a = new LvAccount();
+				MyBeanUtils.copyProperties(t, a, true);
+				al.add(a);
+			}
+		}
+		dg.setRows(al);
+		return dg;
+	}
+
 }

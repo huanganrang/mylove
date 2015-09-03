@@ -59,4 +59,6 @@ public interface LvBoostRecordServiceI {
 
 	public DataGrid dataGridAssistList(Integer openId, PageHelper ph);
 
+	public LvBoostRecord get(LvBoostRecord record);
+
 }

@@ -117,22 +117,24 @@ public class LvBoostActivtyServiceImpl extends BaseServiceImpl<LvBoostActivty> i
 				LvBoostActivty b = new LvBoostActivty();
 				MyBeanUtils.copyProperties(t, b, true);
 				
-				params = new HashMap<String, Object>();
-				cal = Calendar.getInstance();
-				cal.set(Calendar.MINUTE, 0);
-				cal.set(Calendar.SECOND, 0);
-				params.put("startTime", cal.getTime());
-				cal.add(Calendar.HOUR_OF_DAY, 1);
-				params.put("endTime", cal.getTime());
-				b.setRecordNum(lvBoostRecordDao.count("select count(*) from TlvBoostRecord t where t.boostTime between :startTime and :endTime", params).intValue());
-				if(cal.get(Calendar.HOUR_OF_DAY) - 1 == hourOfDay) {
-					params.put("openId", openId);
-					params.put("activtyId", t.getId());
-					TlvBoostRecord br = lvBoostRecordDao.get("from TlvBoostRecord t left join fetch t.tlvBoostActivty b where t.boostTime between :startTime and :endTime and t.openId = :openId and t.activtyId = :activtyId", params);
-					if(br == null) {
-						b.setAssistedNum(-1);
-					} else {
-						b.setAssistedNum(br.getAssistNum());
+				if(openId != null) {
+					params = new HashMap<String, Object>();
+					cal = Calendar.getInstance();
+					cal.set(Calendar.MINUTE, 0);
+					cal.set(Calendar.SECOND, 0);
+					params.put("startTime", cal.getTime());
+					cal.add(Calendar.HOUR_OF_DAY, 1);
+					params.put("endTime", cal.getTime());
+					b.setRecordNum(lvBoostRecordDao.count("select count(*) from TlvBoostRecord t where t.boostTime between :startTime and :endTime", params).intValue());
+					if(cal.get(Calendar.HOUR_OF_DAY) - 1 == hourOfDay) {
+						params.put("openId", openId);
+						params.put("activtyId", t.getId());
+						TlvBoostRecord br = lvBoostRecordDao.get("from TlvBoostRecord t left join fetch t.tlvBoostActivty b where t.boostTime between :startTime and :endTime and t.openId = :openId and t.activtyId = :activtyId", params);
+						if(br == null) {
+							b.setAssistedNum(-1);
+						} else {
+							b.setAssistedNum(br.getAssistNum());
+						}
 					}
 				}
 				lb.add(b);
