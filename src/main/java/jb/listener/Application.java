@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 
 import jb.pageModel.BaseData;
 import jb.service.BasedataServiceI;
+import jb.service.LvAccountServiceI;
 import jb.task.SimulationTask;
 
 import org.androidpn.server.util.ConfigManager;
@@ -82,4 +83,9 @@ public class Application implements ServletContextListener {
 
 	}
 
+	public static LvAccountServiceI getBirdEquipService() {
+		ApplicationContext app = WebApplicationContextUtils.getWebApplicationContext(context); 
+		LvAccountServiceI service = app.getBean(LvAccountServiceI.class);
+		return service;
+	}
 }
