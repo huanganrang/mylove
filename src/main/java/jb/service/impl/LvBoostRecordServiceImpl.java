@@ -85,6 +85,13 @@ public class LvBoostRecordServiceImpl extends BaseServiceImpl<LvBoostRecord> imp
 	public LvBoostRecord get(LvBoostRecord record) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		String where = whereHql(record, params);
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		params.put("startTime", cal.getTime());
+		cal.add(Calendar.HOUR_OF_DAY, 1);
+		params.put("endTime", cal.getTime());
+		where += " and t.boostTime between :startTime and :endTime";
 		TlvBoostRecord t = lvBoostRecordDao.get("from TlvBoostRecord t  " + where, params);
 		if(t != null) {
 			LvBoostRecord o = new LvBoostRecord();

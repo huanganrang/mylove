@@ -16,6 +16,7 @@
 	<task:scheduled-tasks>
 		<!-- <task:scheduled ref="pushMessageTask" method="pushMessage" cron="0 0 */1 * * ?"/> -->
 		<task:scheduled ref="pushMessageTask" method="pushMessage" cron="0 */3 * * * ?"/>
+		<task:scheduled ref="boostTask" method="addBoost" cron="0 0 */1 * * ?"/>
 	</task:scheduled-tasks>
 
 	<context:component-scan base-package="jb.task" />
