@@ -61,17 +61,12 @@ public class BoostTask {
 			for(int i=0; i<num; i++) {
 				LvAccount tg = gList.get(random.nextInt(gList.size()));
 				LvBoostActivty ba = boosts.get(random.nextInt(boosts.size()));
-				while(true) {
-					LvBoostRecord record = new LvBoostRecord();
-					record.setActivtyId(ba.getId());
-					record.setOpenId(tg.getOpenId());
-					LvBoostRecord temp = boostRecordService.get(record);
-					if(temp != null) {
-						tg = gList.get(random.nextInt(gList.size()));
-					} else {
-						boostRecordService.add(record);
-						break;
-					}
+				LvBoostRecord record = new LvBoostRecord();
+				record.setActivtyId(ba.getId());
+				record.setOpenId(tg.getOpenId());
+				LvBoostRecord temp = boostRecordService.get(record);
+				if(temp == null) {
+					boostRecordService.add(record);
 				}
 			}
 		}
