@@ -33,7 +33,7 @@ public class BoostTask {
 	public void addBoost() {
 		Calendar cal = Calendar.getInstance();
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		if(hour > 7 && hour < 1) {
+		if(hour > 7 || hour < 1) {
 			new Thread(new Runnable() {
 				public void run() {
 					taskHandle();
