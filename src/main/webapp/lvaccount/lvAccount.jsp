@@ -235,6 +235,28 @@
 		$('#searchForm input').val('');
 		dataGrid.datagrid('load', {});
 	}
+	
+	function syncFun() {
+		parent.$.messager.confirm('询问', '您是否要一键同步环信账号？', function(b) {
+			if (b) {
+				parent.$.messager.progress({
+					title : '提示',
+					text : '数据处理中，请稍后....'
+				});
+				
+				$.getJSON('${pageContext.request.contextPath}/lvAccountController/syncHxAccount', {
+				}, function(result) {
+					parent.$.messager.progress('close');
+					if (result.success) {
+						parent.$.messager.alert('提示', result.msg, 'info');
+					} else {
+						parent.$.messager.alert('错误', result.msg, 'error');
+					}
+					
+				});
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -280,6 +302,9 @@
 			<form id="downloadTable" target="downloadIframe" method="post" style="display: none;">
 			</form>
 			<iframe id="downloadIframe" name="downloadIframe" style="display: none;"></iframe>
+		</c:if>
+		<c:if test="${fn:contains(sessionInfo.resourceList, '/lvAccountController/syncHxAccount')}">
+			<a onclick="syncFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'database_refresh'">同步环信</a>
 		</c:if>
 	</div>	
 </body>

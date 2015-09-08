@@ -82,4 +82,6 @@ public interface LvAccountServiceI {
 	public int getCount(Map<String, Object> params);
 
 	public List<LvAccount> findListByHql(String hql, Map<String, Object> params, int page, int rows);
+
+	public void syncHxAccount();
 }

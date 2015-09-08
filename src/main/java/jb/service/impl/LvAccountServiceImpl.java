@@ -28,6 +28,7 @@ import jb.util.Constants;
 import jb.util.DateUtil;
 import jb.util.MD5Util;
 import jb.util.MyBeanUtils;
+import jb.util.easemob.HuanxinUtil;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -480,6 +481,23 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 			}
 		}
 		return ol;
+	}
+
+
+	@Override
+	public void syncHxAccount() {
+		List<TlvAccount> l = lvAccountDao.find("from TlvAccount t where t.hxStatus=2");
+		if(l != null && l.size() > 0) {
+			for(TlvAccount t : l) {
+				// 注册环信
+				if(!F.empty(HuanxinUtil.createUser(t.getOpenId() + "", Constants.ACCOUNT_DEFAULT_PSW))) {
+					LvAccount a = new LvAccount();
+					a.setId(t.getId());
+					a.setHxStatus(1);
+					edit(a);
+				}
+			}
+		}
 	}
 
 }

@@ -179,5 +179,21 @@ public class LvAccountController extends BaseController {
 		j.setSuccess(true);
 		return j;
 	}
+	
+	/**
+	 * 同步环信账号
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/syncHxAccount")
+	@ResponseBody
+	public Json syncHxAccount() {
+		Json j = new Json();
+		lvAccountService.syncHxAccount();
+		j.setMsg("同步成功！");
+		j.setSuccess(true);
+		return j;
+	}
 
 }
