@@ -58,6 +58,7 @@
 				结果说明：1、json格式<br/>
 					2、success:true 成功<br/>
 					3、voicePercent：语音消息所占百分比<br/>
+						replyPro：消息回复概率值<br/>
 						FT01：剩余免费聊天信息次数<br/>
 						FT02：剩余免费搜索次数<br/>
 						FT03：剩余免费打招呼次数<br/>

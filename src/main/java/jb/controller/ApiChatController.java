@@ -130,11 +130,11 @@ public class ApiChatController extends BaseController {
 				j.setMsg("获取失败，参数错误！");
 				return j;
 			}
-			//String freeTimes = Application.getString("SV301");
-			String voicePercent = Application.getString("SV302");
 			Map<String, Object> m = new HashMap<String, Object>();
-			//m.put("freeTimes", F.empty(freeTimes) ? "4" : freeTimes);
+			String voicePercent = Application.getString("SV302");
 			m.put("voicePercent", F.empty(voicePercent) ? "10" : voicePercent);
+			String replyPro = Application.getString("SV301");
+			m.put("replyPro", F.empty(voicePercent) ? "30" : replyPro);
 			LvFreeConfig free = new LvFreeConfig();
 			free.setOpenId(openId);
 			List<LvFreeConfig> freeUseds = freeConfigService.findAllByParam(free);
