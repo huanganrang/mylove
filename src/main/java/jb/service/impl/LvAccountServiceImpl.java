@@ -396,24 +396,25 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		String whereHql = " where sex = :sex and openId != :openId ";
 		params.put("sex", "SX01".equals(a.getSex()) ? "SX02" : "SX01"); // 男查女、女查男
 		params.put("openId", Integer.valueOf(search.getOpenId())); 
+		String orderString = " order by visitNum desc, followNum desc";
 		if("2".equals(search.getSearchType())) {
-			if(!F.empty(a.getLastLoginArea())) {
-				String searchArea = "";
-				String[] areas = a.getLastLoginArea().split("_");
-				if(areas.length == 1) {
-					searchArea += areas[0];
-				} else {
-					searchArea += areas[0] + "_" + areas[1];
-				}
-				whereHql += " and lastLoginArea like :searchAreaCode ";
-				params.put("searchAreaCode", "%%" + searchArea + "%%");
-			}
+//			if(!F.empty(a.getLastLoginArea())) {
+//				String searchArea = "";
+//				String[] areas = a.getLastLoginArea().split("_");
+//				if(areas.length == 1) {
+//					searchArea += areas[0];
+//				} else {
+//					searchArea += areas[0] + "_" + areas[1];
+//				}
+//				whereHql += " and lastLoginArea like :searchAreaCode ";
+//				params.put("searchAreaCode", "%%" + searchArea + "%%");
+//			}
+			orderString = " order by visitNum asc, followNum asc";
 		} else if("3".equals(search.getSearchType())) {
 			whereHql += " and openId = :searchOpenId ";
 			params.put("searchOpenId", Integer.valueOf(search.getSearchOpenId()));
 		}
 		
-		String orderString = " order by visitNum desc, followNum desc";
 //		List<TlvAccount> l = lvAccountDao.find(sql + whereHql + orderString, params, ph.getPage(), ph.getRows());
 		List<Map> l = lvAccountDao.findBySql2Map(sql + whereHql + orderString, params, ph.getPage(), ph.getRows());
 		dg.setTotal(lvAccountDao.count("select count(*) from TlvAccount " + whereHql, params));

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import jb.dao.LvAccountDaoI;
+import jb.dao.LvAccountPhotoDaoI;
 import jb.dao.LvVisitDaoI;
 import jb.model.TlvAccount;
 import jb.model.TlvVisit;
@@ -30,6 +31,8 @@ public class LvVisitServiceImpl extends BaseServiceImpl<LvVisit> implements LvVi
 	
 	@Autowired
 	private LvAccountDaoI lvAccountDao;
+	@Autowired
+	private LvAccountPhotoDaoI lvAccountPhotoDao;
 
 	@Override
 	public DataGrid dataGrid(LvVisit lvVisit, PageHelper ph) {
@@ -144,10 +147,19 @@ public class LvVisitServiceImpl extends BaseServiceImpl<LvVisit> implements LvVi
 		List<TlvAccount> l = lvAccountDao.find(hql + orderHql(ph), params, ph.getPage(), ph.getRows());
 		dg.setTotal(lvAccountDao.count("select count(*) " + hql.substring(8) , params));
 		if (l != null && l.size() > 0) {
+			String[] openIds = new String[l.size()];
+			int i = 0;
 			for (TlvAccount t : l) {
 				LvAccount a = new LvAccount();
 				MyBeanUtils.copyProperties(t, a, true);
 				al.add(a);
+				openIds[i++] = t.getOpenId().toString();
+			}
+			HashMap<Integer,Integer> photoNums = lvAccountPhotoDao.getCountPhotoNum(openIds);
+			for(LvAccount a : al) {
+				Integer num = photoNums.get(a.getOpenId());
+				if(num != null)
+				a.setPhotoNum(num);
 			}
 		}
 		dg.setRows(al);

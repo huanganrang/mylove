@@ -52,6 +52,7 @@ public class LvAccount implements java.io.Serializable {
 	private java.lang.Integer isVisit;	
 	private java.lang.Integer isNotify;	
 	private List<LvAccountPhoto> photoList;
+	private int photoNum;
 	
 	public String getSexZh() {
 		return Application.getString(this.sex);
@@ -368,5 +369,11 @@ public class LvAccount implements java.io.Serializable {
 	}
 	public void setIsNotify(java.lang.Integer isNotify) {
 		this.isNotify = isNotify;
+	}
+	public int getPhotoNum() {
+		return photoNum;
+	}
+	public void setPhotoNum(int photoNum) {
+		this.photoNum = photoNum;
 	}
 }

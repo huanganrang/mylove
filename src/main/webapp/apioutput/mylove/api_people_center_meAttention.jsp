@@ -75,7 +75,7 @@
 						headImg：头像图片路径<br/>
 						vipLevel：VIP等级<br/>
 						vipOpenTime：VIP开通时间<br/>
-					
+					photoNum:相册数量
 			</div>
 		</div>
 	</div>

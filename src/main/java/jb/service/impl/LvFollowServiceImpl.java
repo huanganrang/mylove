@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import jb.dao.BaseDaoI;
+import jb.dao.LvAccountPhotoDaoI;
 import jb.dao.LvFollowDaoI;
 import jb.model.TlvAccount;
 import jb.model.TlvFollow;
@@ -30,6 +31,9 @@ public class LvFollowServiceImpl extends BaseServiceImpl<LvFollow> implements Lv
 	
 	@Autowired
 	private LvAccountServiceI accountService;
+	
+	@Autowired
+	private LvAccountPhotoDaoI lvAccountPhotoDao;
 
 	@Override
 	public DataGrid dataGrid(LvFollow lvFollow, PageHelper ph) {
@@ -124,10 +128,19 @@ public class LvFollowServiceImpl extends BaseServiceImpl<LvFollow> implements Lv
 		DataGrid dg = dataGridByType(ph, lvFollow, lvFollowDao);
 		List<TlvAccount> l = dg.getRows();
 		if (l != null && l.size() > 0) {
+			String[] openIds = new String[l.size()];
+			int i = 0;
 			for (TlvAccount t : l) {
 				LvAccount a = new LvAccount();
 				MyBeanUtils.copyProperties(t, a, true);
 				al.add(a);
+				openIds[i++] = t.getOpenId().toString();
+			}
+			HashMap<Integer,Integer> photoNums = lvAccountPhotoDao.getCountPhotoNum(openIds);
+			for(LvAccount a : al) {
+				Integer num = photoNums.get(a.getOpenId());
+				if(num != null)
+				a.setPhotoNum(num);
 			}
 		}
 		dg.setRows(al);
