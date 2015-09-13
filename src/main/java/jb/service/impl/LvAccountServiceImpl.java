@@ -388,7 +388,7 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 		dg.setPageSize(Long.valueOf(ph.getRows()));
 		
 		LvAccount a = get(Integer.valueOf(search.getOpenId()));
-		String sql = "select openId, headImg, birthday, sex, vipLevel, vipOpenTime, vipEndTime, nickName, "
+		String sql = "select openId, headImg, birthday, sex, vipLevel, vipOpenTime, vipEndTime, nickName, address, "
 				+ "round(6378.138*2*asin(sqrt(pow(sin(("+a.getLatitude()+"*pi()/180-latitude*pi()/180)/2),2)+cos("+a.getLatitude()+"*pi()/180)*cos(latitude*pi()/180)*pow(sin(("+a.getLongitude()+"*pi()/180-longitude*pi()/180)/2),2)))*1000) as distance"
 				+ " from lv_account ";
 		
