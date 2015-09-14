@@ -203,6 +203,17 @@ public class HuanxinUtil {
 	}
 	
 	/**
+	 * 环信批量注册用户
+	 * usesJsonString：格式：[{"username":"u1", "password":"p1"},{"username":"u2", "password":"p2"}]
+	 * @return
+	 */
+	public static String createUsers(String usesJsonString) {
+		String response = httpsRequest(getUrl("users"), "POST", usesJsonString, true);
+		log.info(response);
+		return response;
+	}
+	
+	/**
 	 * 环信重置用户密码
 	 * @return
 	 */

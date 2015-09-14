@@ -34,6 +34,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
+
 @Service
 public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements LvAccountServiceI {
 
@@ -487,18 +489,43 @@ public class LvAccountServiceImpl extends BaseServiceImpl<LvAccount> implements 
 
 	@Override
 	public void syncHxAccount() {
-		List<TlvAccount> l = lvAccountDao.find("from TlvAccount t where t.hxStatus=2");
-		if(l != null && l.size() > 0) {
-			for(TlvAccount t : l) {
-				// 注册环信
-				if(!F.empty(HuanxinUtil.createUser(t.getOpenId() + "", Constants.ACCOUNT_DEFAULT_PSW))) {
-					LvAccount a = new LvAccount();
-					a.setId(t.getId());
-					a.setHxStatus(1);
-					edit(a);
+		int page = 1; 
+		int pageSize = 50;
+		while(true) {
+			int count = 0;
+			List<TlvAccount> l = lvAccountDao.find("from TlvAccount t where t.hxStatus=2", page, pageSize);
+			if(l != null && l.size() > 0) {
+				count = l.size();
+				List<Map<String, String>> r = new ArrayList<Map<String,String>>();
+				String openIds = "";
+				Map<String, String> m = null;
+				for(TlvAccount t : l) {
+					openIds += "," + t.getOpenId();
+					m = new HashMap<String, String>();
+					m.put("username", t.getOpenId().toString());
+					m.put("password", Constants.ACCOUNT_DEFAULT_PSW);
+					r.add(m);
+				}
+				if(!F.empty(HuanxinUtil.createUsers(JSON.toJSONString(r)))) {
+					lvAccountDao.executeSql("update lv_account set hxStatus = 1 where openId in (" + openIds.substring(1) + ")");
 				}
 			}
+			
+			page ++;
+			if(count < pageSize) break;
 		}
+		
+//		if(l != null && l.size() > 0) {
+//			for(TlvAccount t : l) {
+//				// 注册环信
+//				if(!F.empty(HuanxinUtil.createUser(t.getOpenId() + "", Constants.ACCOUNT_DEFAULT_PSW))) {
+//					LvAccount a = new LvAccount();
+//					a.setId(t.getId());
+//					a.setHxStatus(1);
+//					edit(a);
+//				}
+//			}
+//		}
 	}
 
 }
