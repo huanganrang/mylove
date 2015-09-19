@@ -13,6 +13,7 @@ import jb.pageModel.DataGrid;
 import jb.pageModel.LvOrder;
 import jb.pageModel.PageHelper;
 import jb.service.LvOrderServiceI;
+import jb.util.DateUtil;
 import jb.util.MyBeanUtils;
 
 import org.springframework.beans.BeanUtils;
@@ -36,6 +37,7 @@ public class LvOrderServiceImpl extends BaseServiceImpl<LvOrder> implements LvOr
 			for (TlvOrder t : l) {
 				LvOrder o = new LvOrder();
 				BeanUtils.copyProperties(t, o);
+				o.setOrderNo(Long.valueOf(DateUtil.format(o.getCreatetime(), "yyyyMMdd") + o.getOrderNo()));
 				ol.add(o);
 			}
 		}
@@ -61,9 +63,21 @@ public class LvOrderServiceImpl extends BaseServiceImpl<LvOrder> implements LvOr
 				params.put("channel", lvOrder.getChannel());
 			}		
 			if (lvOrder.getOrderNo() != null) {
-				whereHql += " and t.orderNo = :orderNo";
-				params.put("orderNo", lvOrder.getOrderNo());
+				whereHql += " and concat(date_format(t.createtime, '%Y%m%d'), t.orderNo) like :orderNo";
+				params.put("orderNo", "%%" + lvOrder.getOrderNo() + "%%");
 			}		
+			if (lvOrder.getOpenId() != null) {
+				whereHql += " and t.openId = :openId";
+				params.put("openId", lvOrder.getOpenId());
+			}		
+			if (lvOrder.getPaytimeBegin() != null) {
+				whereHql += " and t.paytime >= :paytimeBegin";
+				params.put("paytimeBegin", lvOrder.getPaytimeBegin());
+			}
+			if (lvOrder.getPaytimeEnd() != null) {
+				whereHql += " and t.paytime <= :paytimeEnd";
+				params.put("paytimeEnd", lvOrder.getPaytimeEnd());
+			}
 		}	
 		return whereHql;
 	}

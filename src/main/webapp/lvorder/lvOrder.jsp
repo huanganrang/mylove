@@ -2,6 +2,7 @@
 <%@ page import="jb.model.TlvOrder" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="jb" uri="http://www.jb.cn/jbtag"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +35,7 @@
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50 ],
-			sortName : 'id',
+			sortName : 'createtime',
 			sortOrder : 'desc',
 			checkOnSelect : false,
 			selectOnCheck : false,
@@ -50,36 +51,43 @@
 				}, {
 				field : 'orderNo',
 				title : '<%=TlvOrder.ALIAS_ORDER_NO%>',
-				width : 50		
+				width : 50,
+				sortable : true
 				}, {
 				field : 'openId',
 				title : '<%=TlvOrder.ALIAS_OPEN_ID%>',
-				width : 50		
+				width : 50,
+				sortable : true
 				}, {
-				field : 'vipLevel',
+				field : 'vipLevelZh',
 				title : '<%=TlvOrder.ALIAS_VIP_LEVEL%>',
-				width : 50		
+				width : 50,
+				sortable : true
 				}, {
-				field : 'orderStatus',
+				field : 'orderStatusZh',
 				title : '<%=TlvOrder.ALIAS_ORDER_STATUS%>',
 				width : 50		
 				}, {
 				field : 'channel',
 				title : '<%=TlvOrder.ALIAS_CHANNEL%>',
-				width : 50		
+				width : 50,
+				sortable : true
 				}, {
 				field : 'amount',
-				title : '<%=TlvOrder.ALIAS_AMOUNT%>',
+				title : '订单金额（元）',
 				width : 50		
 				}, {
 				field : 'paytime',
 				title : '<%=TlvOrder.ALIAS_PAYTIME%>',
-				width : 50		
+				width : 50,
+				sortable : true
 				}, {
 				field : 'createtime',
-				title : '<%=TlvOrder.ALIAS_CREATETIME%>',
-				width : 50		
-			}, {
+				title : '下单时间',
+				width : 50,
+				sortable : true
+			}
+				/**, {
 				field : 'action',
 				title : '操作',
 				width : 100,
@@ -98,7 +106,9 @@
 					}
 					return str;
 				}
-			} ] ],
+			} **/
+			
+			] ],
 			toolbar : '#toolbar',
 			onLoadSuccess : function() {
 				$('#searchForm table').show();
@@ -211,45 +221,37 @@
 </head>
 <body>
 	<div class="easyui-layout" data-options="fit : true,border : false">
-		<div data-options="region:'north',title:'查询条件',border:false" style="height: 160px; overflow: hidden;">
+		<div data-options="region:'north',title:'查询条件',border:false" style="height: 120px; overflow: hidden;">
 			<form id="searchForm">
 				<table class="table table-hover table-condensed" style="display: none;">
 						<tr>	
 							<th><%=TlvOrder.ALIAS_ORDER_NO%></th>	
 							<td>
-									<input type="text" name="orderNo" maxlength="19" class="span2"/>
+								<input type="text" name="orderNo" maxlength="19" class="span2"/>
 							</td>
 							<th><%=TlvOrder.ALIAS_OPEN_ID%></th>	
 							<td>
-									<input type="text" name="openId" maxlength="10" class="span2"/>
+								<input type="text" name="openId" maxlength="10" class="span2"/>
 							</td>
 							<th><%=TlvOrder.ALIAS_VIP_LEVEL%></th>	
 							<td>
-									<input type="text" name="vipLevel" maxlength="4" class="span2"/>
+								<jb:select dataType="VP" name="vipLevel"></jb:select>
 							</td>
-							<th><%=TlvOrder.ALIAS_ORDER_STATUS%></th>	
-							<td>
-									<input type="text" name="orderStatus" maxlength="4" class="span2"/>
-							</td>
+							
 						</tr>	
 						<tr>	
+							<th><%=TlvOrder.ALIAS_ORDER_STATUS%></th>	
+							<td>
+								<jb:select dataType="OS" name="orderStatus"></jb:select>
+							</td>
 							<th><%=TlvOrder.ALIAS_CHANNEL%></th>	
 							<td>
-									<input type="text" name="channel" maxlength="20" class="span2"/>
-							</td>
-							<th><%=TlvOrder.ALIAS_AMOUNT%></th>	
-							<td>
-									<input type="text" name="amount" maxlength="12" class="span2"/>
+								<input type="text" name="channel" maxlength="20" class="span2"/>
 							</td>
 							<th><%=TlvOrder.ALIAS_PAYTIME%></th>	
 							<td>
 								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvOrder.FORMAT_PAYTIME%>'})" id="paytimeBegin" name="paytimeBegin"/>
 								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvOrder.FORMAT_PAYTIME%>'})" id="paytimeEnd" name="paytimeEnd"/>
-							</td>
-							<th><%=TlvOrder.ALIAS_CREATETIME%></th>	
-							<td>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvOrder.FORMAT_CREATETIME%>'})" id="createtimeBegin" name="createtimeBegin"/>
-								<input type="text" class="span2" onclick="WdatePicker({dateFmt:'<%=TlvOrder.FORMAT_CREATETIME%>'})" id="createtimeEnd" name="createtimeEnd"/>
 							</td>
 						</tr>	
 				</table>
@@ -260,9 +262,10 @@
 		</div>
 	</div>
 	<div id="toolbar" style="display: none;">
+		<!-- 
 		<c:if test="${fn:contains(sessionInfo.resourceList, '/lvOrderController/addPage')}">
 			<a onclick="addFun();" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'bug_add'">添加</a>
-		</c:if>
+		</c:if> -->
 		<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_add',plain:true" onclick="searchFun();">过滤条件</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'brick_delete',plain:true" onclick="cleanFun();">清空条件</a>
 		<c:if test="${fn:contains(sessionInfo.resourceList, '/lvOrderController/download')}">
 			<a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'server_go',plain:true" onclick="downloadTable();">导出</a>		

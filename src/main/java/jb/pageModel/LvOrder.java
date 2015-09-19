@@ -2,6 +2,8 @@ package jb.pageModel;
 
 import java.util.Date;
 
+import jb.listener.Application;
+
 public class LvOrder implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5454155825314635342L;
@@ -16,6 +18,17 @@ public class LvOrder implements java.io.Serializable {
 	private Date paytime;			
 	private Date createtime;			
 	private String appId;
+	
+	private Date paytimeBegin;
+	private Date paytimeEnd;
+	
+	public String getVipLevelZh() {
+		return Application.getString(this.vipLevel);
+	}
+	
+	public String getOrderStatusZh() {
+		return Application.getString(this.orderStatus);
+	}
 	
 	public String getAppId() {
 		return appId;
@@ -91,4 +104,19 @@ public class LvOrder implements java.io.Serializable {
 		return this.createtime;
 	}
 
+	public Date getPaytimeBegin() {
+		return paytimeBegin;
+	}
+
+	public void setPaytimeBegin(Date paytimeBegin) {
+		this.paytimeBegin = paytimeBegin;
+	}
+
+	public Date getPaytimeEnd() {
+		return paytimeEnd;
+	}
+
+	public void setPaytimeEnd(Date paytimeEnd) {
+		this.paytimeEnd = paytimeEnd;
+	}
 }
