@@ -35,7 +35,7 @@
 			idField : 'id',
 			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50 ],
-			sortName : 'id',
+			sortName : 'createTime',
 			sortOrder : 'desc',
 			checkOnSelect : false,
 			selectOnCheck : false,
@@ -51,7 +51,8 @@
 				}, {
 					field : 'openId',
 					title : 'openId',
-					width : 50		
+					width : 50,
+					sortable : true
 				}, {
 					field : 'nickName',
 					title : '<%=TlvAccount.ALIAS_NICK_NAME%>',
@@ -80,7 +81,8 @@
 				}, {
 				field : 'createTime',
 				title : '<%=TlvAccount.ALIAS_CREATE_TIME%>',
-				width : 50		
+				width : 50,
+				sortable : true
 				}, {
 				field : 'auditStatusZh',
 				title : '<%=TlvAccount.ALIAS_AUDIT_STATUS%>',
