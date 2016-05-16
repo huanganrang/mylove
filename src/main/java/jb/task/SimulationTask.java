@@ -139,6 +139,7 @@ public class SimulationTask {
 		params.put("sex", "SX02"); // 女
 		int gCount = lvAccountService.getCount(params);
 		int totalPage = gCount%pageSize == 0 ? gCount/pageSize : gCount/pageSize + 1;
+		if(totalPage == 0) return;
 		Random random = new Random();
 		
 		while(true) {
@@ -195,6 +196,7 @@ public class SimulationTask {
 		params.put("sex", "SX02"); // 女
 		int gCount = lvAccountService.getCount(params);
 		int totalPage = gCount%pageSize == 0 ? gCount/pageSize : gCount/pageSize + 1;
+		if(totalPage == 0) return;
 		Random random = new Random();
 		List<LvAccount> gList = lvAccountService.findListByHql(hql + " where t.sex = :sex", params, random.nextInt(totalPage)+1, pageSize);
 		if(gList != null && gList.size() > 0

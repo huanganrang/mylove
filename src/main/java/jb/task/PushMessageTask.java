@@ -52,6 +52,7 @@ public class PushMessageTask {
 //		int gCount = accountDao.count("select count(*) "+hql+" where t.sex = :sex", params).intValue();
 		int gCount = lvAccountService.getCount(params);
 		int totalPage = gCount%pageSize == 0 ? gCount/pageSize : gCount/pageSize + 1;
+		if(totalPage == 0) return;
 		Random random = new Random();
 		
 		
