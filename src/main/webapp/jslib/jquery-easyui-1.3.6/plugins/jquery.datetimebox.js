@@ -1,4 +1,4 @@
-﻿/**
+/**
  * jQuery EasyUI 1.3.6
  * 
  * Copyright (c) 2009-2014 www.jeasyui.com. All rights reserved.

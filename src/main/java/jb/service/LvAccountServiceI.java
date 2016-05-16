@@ -1,4 +1,4 @@
-﻿package jb.service;
+package jb.service;
 
 import java.util.List;
 import java.util.Map;

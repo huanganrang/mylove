@@ -1,4 +1,4 @@
-﻿package jb.service;
+package jb.service;
 
 import jb.pageModel.LvAddress;
 import jb.pageModel.DataGrid;
