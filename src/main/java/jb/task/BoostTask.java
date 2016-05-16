@@ -1,11 +1,5 @@
 package jb.task;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import jb.absx.F;
 import jb.listener.Application;
 import jb.pageModel.LvAccount;
@@ -14,10 +8,11 @@ import jb.pageModel.LvBoostRecord;
 import jb.service.LvAccountServiceI;
 import jb.service.LvBoostActivtyServiceI;
 import jb.service.LvBoostRecordServiceI;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 public class BoostTask {
@@ -67,6 +62,11 @@ public class BoostTask {
 				record.setOpenId(tg.getOpenId());
 				LvBoostRecord temp = boostRecordService.get(record);
 				if(temp == null) {
+					try {
+						Thread.sleep((random.nextInt(10) + 1) * 1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 					boostRecordService.add(record);
 				}
 			}
