@@ -1,30 +1,17 @@
 package jb.task;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import jb.absx.F;
 import jb.listener.Application;
-import jb.pageModel.LvAccount;
-import jb.pageModel.LvBoostActivty;
-import jb.pageModel.LvBoostRecord;
-import jb.pageModel.LvFollow;
-import jb.pageModel.LvVisit;
-import jb.service.LvAccountServiceI;
-import jb.service.LvBoostActivtyServiceI;
-import jb.service.LvBoostRecordServiceI;
-import jb.service.LvFollowServiceI;
-import jb.service.LvVisitServiceI;
+import jb.pageModel.*;
+import jb.service.*;
 import jb.util.NotificationMesageUtil;
-
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SimulationTask {
 	
@@ -146,7 +133,8 @@ public class SimulationTask {
 			int mCount = 0;
 			params.put("sex", "SX01"); // 男
 			// 查找在线的非VIP的屌丝男
-			List<LvAccount> mList = lvAccountService.findListByHql(hql + " where t.online = 'OL01' and (t.vipEndTime <= current_date() or t.vipLevel is null) and t.sex = :sex", params, page, pageSize);
+//			List<LvAccount> mList = lvAccountService.findListByHql(hql + " where t.online = 'OL01' and (t.vipEndTime <= current_date() or t.vipLevel is null) and t.sex = :sex", params, page, pageSize);
+			List<LvAccount> mList = lvAccountService.findListByHql(hql + " where (t.vipEndTime <= current_date() or t.vipLevel is null) and t.sex = :sex", params, page, pageSize);
 			if(mList != null && mList.size() > 0) {
 				mCount = mList.size();
 				params.put("sex", "SX02"); // 女

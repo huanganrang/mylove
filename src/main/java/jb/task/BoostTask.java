@@ -63,7 +63,7 @@ public class BoostTask {
 				LvBoostRecord temp = boostRecordService.get(record);
 				if(temp == null) {
 					try {
-						Thread.sleep((random.nextInt(10) + 1) * 1000);
+						Thread.sleep((random.nextInt(5) + 1) * 1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

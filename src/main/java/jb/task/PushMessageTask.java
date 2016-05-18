@@ -1,12 +1,5 @@
 package jb.task;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import jb.listener.Application;
 import jb.pageModel.BaseData;
 import jb.pageModel.LvAccount;
@@ -14,10 +7,11 @@ import jb.service.BasedataServiceI;
 import jb.service.LvAccountServiceI;
 import jb.util.DateUtil;
 import jb.util.NotificationMesageUtil;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 public class PushMessageTask {
@@ -80,7 +74,8 @@ public class PushMessageTask {
 				params.put("sex", "SX01"); // 男
 				// 查找非VIP的屌丝男
 	//			List<TlvAccount> mList = accountDao.find(hql + " where (t.vipEndTime <= sysdate() or t.vipLevel is null) t.sex = :sex", params, page, pageSize);
-				List<LvAccount> mList = lvAccountService.findListByHql(hql + " where t.online = 'OL01' and (t.vipEndTime <= current_date() or t.vipLevel is null) and t.sex = :sex", params, page, pageSize);
+//				List<LvAccount> mList = lvAccountService.findListByHql(hql + " where t.online = 'OL01' and (t.vipEndTime <= current_date() or t.vipLevel is null) and t.sex = :sex", params, page, pageSize);
+				List<LvAccount> mList = lvAccountService.findListByHql(hql + " where (t.vipEndTime <= current_date() or t.vipLevel is null) and t.sex = :sex", params, page, pageSize);
 				if(mList != null && mList.size() > 0) {
 					mCount = mList.size();
 					params.put("sex", "SX02"); // 女
